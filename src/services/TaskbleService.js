@@ -17,6 +17,19 @@ http.interceptors.response.use(
   }
 )
 
+//users
+const register = (userData) => http.post('/users/new', userData)
+const userProfile = () => http.get('/users/me')
+const updateUser = (userData) => http.patch('/users/me', userData)
+const requestNewPassword = () => http.get('/users/me/requestNewPassword')
+const deleteUser = () => http.delete('/users/me')
+
+//tasks
+const createTask = (taskData) => http.post('/tasks/new', taskData)
+const taskDetail = (taskId) => http.get(`/tasks/${taskId}`)
+const updateTask = (taskId, taskData) => http.patch(`/tasks/${taskId}`, taskData)
+const deleteTask = (taskId) => http.delete(`/tasks/${taskId}`)
+
 //sessions
 const login = ({ email, password }) => http.post('/login', { email, password })
 const logout = () => http.post('/logout')
