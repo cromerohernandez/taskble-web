@@ -10,9 +10,8 @@ http.interceptors.response.use(
   error => {
     if (error.response && error.response.status === 401) {
       localStorage.clear()
-      window.location.assign('/login')
+      window.location.assign('/')
     }
-
     return Promise.reject(error)
   }
 )
