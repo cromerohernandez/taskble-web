@@ -1,4 +1,5 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
 import TaskbleService from '../../services/TaskbleService'
 import { WithAuthConsumer } from '../../contexts/AuthContext'
 
@@ -34,6 +35,10 @@ class Login extends React.Component {
 
   render() {
     const { data } = this.state
+
+    if (this.props.currentUser) {
+      return <Redirect to="/"/>
+    }
 
     return(
       <div>
