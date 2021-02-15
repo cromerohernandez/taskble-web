@@ -35,8 +35,6 @@ class LogoSprite extends React.Component {
     )
   }
 
-
-
   render() {
     const { logo } = this.state
 
