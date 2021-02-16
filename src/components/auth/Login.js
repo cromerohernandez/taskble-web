@@ -3,6 +3,8 @@ import { Redirect } from 'react-router-dom'
 import TaskbleService from '../../services/TaskbleService'
 import { WithAuthConsumer } from '../../contexts/AuthContext'
 
+import LogoSprite from '../misc/LogoSprite'
+
 class Login extends React.Component {
     state = {
       data: {
@@ -43,6 +45,8 @@ class Login extends React.Component {
     return(
       <div>
         <div>
+          <LogoSprite/>
+
           <form onSubmit={this.handleSubmit}>
             <input
               type="text"
