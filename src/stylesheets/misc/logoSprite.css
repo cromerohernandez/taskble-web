@@ -1,0 +1,9 @@
+#sprite {
+    background-color: red;
+    display: block;
+    height: 236px;
+    width: 256px;
+    overflow: hidden;
+    position: relative;
+    left: 400px
+}

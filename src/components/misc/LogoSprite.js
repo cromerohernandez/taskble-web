@@ -2,7 +2,27 @@ import React from 'react'
 
 import logoSprite from '../../assets/images/taskbleLogoSprite.png'
 
+import '../../stylesheets/misc/logoSprite.css'
+
 class LogoSprite extends React.Component {
+  state = {
+    logoSprite: logoSprite,
+    frames: 16,
+    leftFrame: 5000
+  }
+
+  render() {
+    const { logoSprite, leftFrame } = this.state
+
+    return (
+      <img src={logoSprite} alt="taskbleLogoSprite" left={leftFrame} id="sprite"/>
+    )
+  }
+}
+
+export default LogoSprite
+
+/*class LogoSprite extends React.Component {
   state = {
     logo: new Image(),
     src: logoSprite,
@@ -31,14 +51,17 @@ class LogoSprite extends React.Component {
 
   drawLogo = () => {
     this.state.ctx.drawImage(
-      this.state
+      this.state.logo
     )
+  }
+
+  componentDidMount() {
+    //this.setCanvas(),
+    this.setLogo()
   }
 
   render() {
     const { logo } = this.state
-
-    //<img alt='logoSprite' src={logo} height='100'/>
 
     return(
       <canvas height='236' width='1138'/>
@@ -46,4 +69,4 @@ class LogoSprite extends React.Component {
   }
 }
 
-export default LogoSprite
+export default LogoSprite*/

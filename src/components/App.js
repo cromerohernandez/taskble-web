@@ -1,10 +1,11 @@
-import '../App.css'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { WithAuthConsumer } from '../contexts/AuthContext'
 
 import AuthenticatedRoute from './auth/AuthenticatedRoute'
 import Login from './auth/Login'
 import Home from './users/Home'
+
+import '../stylesheets/App.css'
 
 function App() {
   return (
