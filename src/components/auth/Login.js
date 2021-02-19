@@ -5,6 +5,8 @@ import { WithAuthConsumer } from '../../contexts/AuthContext'
 
 import LogoSprite from '../misc/LogoSprite'
 
+import '../../stylesheets/auth/login.css'
+
 class Login extends React.Component {
     state = {
       data: {
@@ -43,32 +45,30 @@ class Login extends React.Component {
     }
 
     return(
-      <div>
-        <div>
-          <LogoSprite/>
+      <div id="login">
+        <LogoSprite/>
 
-          <form onSubmit={this.handleSubmit}>
-            <input
-              type="text"
-              name="email"
-              placeholder="Email"
-              value={data.email}
-              onChange={this.handleChange}
-            />
+        <form onSubmit={this.handleSubmit}>
+          <input
+            type="text"
+            name="email"
+            placeholder="Email"
+            value={data.email}
+            onChange={this.handleChange}
+          />
 
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={data.password}
-              onChange={this.handleChange}
-            />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={data.password}
+            onChange={this.handleChange}
+          />
 
-            <button type="submit">Log in</button>
+          <button type="submit">Log in</button>
 
-          </form>
-  
-        </div>
+        </form>
+
       </div>
     )
   }
