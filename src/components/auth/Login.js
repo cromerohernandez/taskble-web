@@ -48,7 +48,7 @@ class Login extends React.Component {
       <div id="login">
         <LogoSprite/>
 
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} id="loginForm">
           <input
             type="text"
             name="email"
