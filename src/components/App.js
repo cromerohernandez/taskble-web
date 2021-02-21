@@ -1,4 +1,5 @@
 import { Switch, Route, Redirect } from 'react-router-dom'
+
 import { WithAuthConsumer } from '../contexts/AuthContext'
 
 import AuthenticatedRoute from './auth/AuthenticatedRoute'

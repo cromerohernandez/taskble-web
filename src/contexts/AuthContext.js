@@ -1,4 +1,5 @@
 import React from 'react'
+
 import TaskbleService from '../services/TaskbleService'
 
 const AuthContext = React.createContext()
@@ -16,7 +17,7 @@ export class AuthContextProvider extends React.Component {
   logout = () => {
     TaskbleService.logout()
       .then(() => {
-        this.setUser({})
+        this.setUser()
       })
   }
 

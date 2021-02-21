@@ -1,10 +1,18 @@
-//import React from 'react'
+import React from 'react'
+import { Redirect } from 'react-router-dom'
+
 import { WithAuthConsumer } from '../../contexts/AuthContext'
 
 const Home = () => {
-  return (
+  const handleLogout = () => {
+    this.props.logout()
+    return <Redirect to="/"/>
+  }
+
+  return(
     <div>
-      <p>Taskble</p>
+      <p>Taskble Home</p>
+      <button onClick={handleLogout()}>←</button>
     </div>
   )
 }
