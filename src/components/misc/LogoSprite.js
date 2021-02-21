@@ -6,35 +6,39 @@ import '../../stylesheets/misc/logoSprite.css'
 
 class LogoSprite extends React.Component {
   state = {
-    logoSprite: logoSprite,
-    frames: 16,
-    leftFrame: 5000
-  }
-
-  render() {
-    const { logoSprite, leftFrame } = this.state
-
-    return (
-      <img src={logoSprite} alt="taskbleLogoSprite" left={leftFrame} id="sprite"/>
-    )
-  }
-}
-
-export default LogoSprite
-
-/*class LogoSprite extends React.Component {
-  state = {
-    logo: new Image(),
-    src: logoSprite,
+    img: null,
     frames: 16,
     frameIndex: 0,
     ctx: null
   }
 
+  componentDidMount() {
+    this.setCanvas()
+    this.setImage()
+  }
+
+  componentDidUpdate() {
+    if (this.state.frameIndex < this.state.frames) {
+      const { frameIndex } = this.state
+      const newFrameIndex = frameIndex + 1
+
+      this.clearLogo()
+      this.drawLogo()
+      setTimeout(
+        () => {
+          this.setState({
+            frameIndex: newFrameIndex
+          })
+        },
+        40
+      )
+    }
+  }
+
   setCanvas = () => {
-    const canvas = document.getElementById("my-canvas")
-    canvas.height = window.innerHeight
-    canvas.width = window.innerHeight
+    const canvas = document.getElementById("logoCanvas")
+    canvas.width = window.innerWidth/4.2
+    canvas.height = canvas.width/4.82
     const ctx = canvas.getContext("2d")
 
     this.setState({
@@ -42,31 +46,42 @@ export default LogoSprite
     })
   }
 
-  setLogo = () => {
-    const { logo, src } = this.state
+  setImage = () => {
+    var img = new Image()
+    img.src = logoSprite
 
-    logo.src = src
-    logo.onload = () => this.draw()
+    this.setState({
+      img: img
+    })
   }
 
-  drawLogo = () => {
-    this.state.ctx.drawImage(
-      this.state.logo
+  drawLogo() {
+    const { img, frames, frameIndex, ctx } = this.state
+
+    ctx.drawImage(
+      img,
+      frameIndex * img.width / frames,
+      0,
+      img.width / frames,
+      img.height,
+      0,
+      0,
+      ctx.canvas.width,
+      ctx.canvas.height
     )
   }
 
-  componentDidMount() {
-    //this.setCanvas(),
-    this.setLogo()
+  clearLogo() {
+    const { ctx } = this.state
+
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
   }
 
   render() {
-    const { logo } = this.state
-
-    return(
-      <canvas height='236' width='1138'/>
+    return (
+      <canvas id='logoCanvas'/>
     )
   }
 }
 
-export default LogoSprite*/
+export default LogoSprite

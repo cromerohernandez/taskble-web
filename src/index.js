@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { AuthContextProvider } from './contexts/AuthContext'
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
+import './index.css'
 
 ReactDOM.render(
   <React.StrictMode>
