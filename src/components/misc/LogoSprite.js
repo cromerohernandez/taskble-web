@@ -1,64 +1,33 @@
-import React from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
 import logoSprite from '../../assets/images/taskbleLogoSprite.png'
 
 import '../../stylesheets/misc/logoSprite.css'
 
-class LogoSprite extends React.Component {
-  state = {
-    img: null,
-    frames: 16,
-    frameIndex: 0,
-    ctx: null
-  }
+const LogoSprite = () => {
+  const [img, setImg] = useState(null)
+  const [frames] = useState(16)
+  const [frameIndex, setFrameIndex] = useState(null)
+  const [ctx, setCtx] = useState(null)
 
-  componentDidMount() {
-    this.setCanvas()
-    this.setImage()
-  }
-
-  componentDidUpdate() {
-    if (this.state.frameIndex < this.state.frames) {
-      const { frameIndex } = this.state
-      const newFrameIndex = frameIndex + 1
-
-      this.clearLogo()
-      this.drawLogo()
-      setTimeout(
-        () => {
-          this.setState({
-            frameIndex: newFrameIndex
-          })
-        },
-        40
-      )
-    }
-  }
-
-  setCanvas = () => {
+  const setCanvas = () => {
     const canvas = document.getElementById("logoCanvas")
     canvas.width = window.innerWidth/4.2
     canvas.height = canvas.width/4.82
     const ctx = canvas.getContext("2d")
 
-    this.setState({
-      ctx: ctx
-    })
+    setCtx(ctx)
   }
 
-  setImage = () => {
+  const setImage = () => {
     var img = new Image()
     img.src = logoSprite
 
-    this.setState({
-      img: img
-    })
+    setImg(img)
   }
 
-  drawLogo() {
-    const { img, frames, frameIndex, ctx } = this.state
-
-    ctx.drawImage(
+  const drawLogo = useCallback(() => {
+     ctx.drawImage(
       img,
       frameIndex * img.width / frames,
       0,
@@ -69,19 +38,28 @@ class LogoSprite extends React.Component {
       ctx.canvas.width,
       ctx.canvas.height
     )
-  }
+  }, [img, frames, frameIndex, ctx])
 
-  clearLogo() {
-    const { ctx } = this.state
-
+  const clearLogo = useCallback(() => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-  }
+  }, [ctx])
 
-  render() {
-    return (
-      <canvas id='logoCanvas'/>
-    )
-  }
+  useEffect(() => {
+    setCanvas()
+    setImage()
+  }, []) 
+
+  useEffect(() => {
+    if (frameIndex === null) {
+      setFrameIndex(0)
+    } else if (frameIndex < frames) {
+      clearLogo()
+      drawLogo()
+      setTimeout(() => {setFrameIndex(frameIndex + 1)}, 40)
+    }
+  }, [frames, frameIndex, clearLogo, drawLogo])
+
+  return <canvas id='logoCanvas'/>
 }
 
 export default LogoSprite
