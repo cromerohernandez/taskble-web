@@ -3,16 +3,16 @@ import { Redirect } from 'react-router-dom'
 
 import { WithAuthConsumer } from '../../contexts/AuthContext'
 
-const Home = () => {
+const Home = (props) => {
   const handleLogout = () => {
-    this.props.logout()
+    props.logout()
     return <Redirect to="/"/>
   }
 
   return(
     <div>
       <p>Taskble Home</p>
-      <button onClick={handleLogout()}>←</button>
+      <button onClick={handleLogout}>←</button>
     </div>
   )
 }
