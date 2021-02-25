@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState } from 'react'
 import { Redirect } from 'react-router-dom'
 
 import TaskbleService from '../../services/TaskbleService'
@@ -8,71 +8,62 @@ import LogoSprite from '../misc/LogoSprite'
 
 import '../../stylesheets/auth/login.css'
 
-class Login extends React.Component {
-    state = {
-      data: {
-        email: '',
-        password: ''
-      }
-    }
+const Login = (props) => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  handleChange = (event) => {
+  const handleChange = (event) => {
     const { name, value } = event.target
 
-    this.setState({
-      data: {
-        ...this.state.data,
-        [name]: value
-      }
-    })
+    if (name === 'email') {
+      setEmail(value)
+    } else if (name === 'password') {
+      setPassword(value)
+    }
   }
 
-  handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault()
 
-    TaskbleService.login({ ...this.state.data })
+    TaskbleService.login({ email, password })
       .then(
         user => {
-          this.props.setUser(user)
+          props.setUser(user)
         }
       )
   }
 
-  render() {
-    const { data } = this.state
-
-    if (this.props.currentUser) {
-      return <Redirect to="/"/>
-    }
-
-    return(
-      <div id="login">
-        <LogoSprite/>
-
-        <form onSubmit={this.handleSubmit} id="loginForm">
-          <input
-            type="text"
-            name="email"
-            placeholder="Email"
-            value={data.email}
-            onChange={this.handleChange}
-          />
-
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={data.password}
-            onChange={this.handleChange}
-          />
-
-          <button type="submit">Log in</button>
-
-        </form>
-
-      </div>
-    )
+  if (props.currentUser) {
+    return <Redirect to="/"/>
   }
+
+  return(
+    <div id="login">
+      <LogoSprite/>
+
+      <form onSubmit={handleSubmit} id="loginForm">
+        <input
+          type="text"
+          name="email"
+          placeholder="Email"
+          value={email}
+          onChange={handleChange}
+        />
+
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={password}
+          onChange={handleChange}
+        />
+
+        <button type="submit">Log in</button>
+
+      </form>
+
+    </div>
+  )
 }
 
 export default WithAuthConsumer(Login)
