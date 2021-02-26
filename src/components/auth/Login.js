@@ -1,16 +1,18 @@
-import React, {useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Redirect } from 'react-router-dom'
 
 import TaskbleService from '../../services/TaskbleService'
-import { WithAuthConsumer } from '../../contexts/AuthContext'
+import AuthContext from '../../contexts/AuthContext'
 
 import LogoSprite from '../misc/LogoSprite'
 
 import '../../stylesheets/auth/login.css'
 
-const Login = (props) => {
+const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const auth = useContext(AuthContext)
 
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -28,12 +30,12 @@ const Login = (props) => {
     TaskbleService.login({ email, password })
       .then(
         user => {
-          props.setUser(user)
+          auth.setUser(user)
         }
       )
   }
 
-  if (props.currentUser) {
+  if (auth.currentUser) {
     return <Redirect to="/"/>
   }
 
@@ -66,4 +68,4 @@ const Login = (props) => {
   )
 }
 
-export default WithAuthConsumer(Login)
+export default Login
