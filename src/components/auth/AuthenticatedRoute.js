@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Redirect, Route } from 'react-router-dom'
-import { WithAuthConsumer } from '../../contexts/AuthContext'
+import AuthContext from '../../contexts/AuthContext'
 
 const AuthenticatedRoute = (props) => {
-  if (!props.currentUser) {
+  const auth = useContext(AuthContext)
+
+  if (!auth.currentUser) {
     return <Redirect to="/login"/>
   } else {
     return <Route {...props} />
   }
 }
 
-export default WithAuthConsumer(AuthenticatedRoute)
+export default AuthenticatedRoute

@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Redirect } from 'react-router-dom'
 
-import { WithAuthConsumer } from '../../contexts/AuthContext'
+import AuthContext from '../../contexts/AuthContext'
 
-const Home = (props) => {
+const Home = () => {
+  const auth = useContext(AuthContext)
+
   const handleLogout = () => {
-    props.logout()
+    auth.logout()
     return <Redirect to="/"/>
   }
 
@@ -17,4 +19,4 @@ const Home = (props) => {
   )
 }
 
-export default WithAuthConsumer(Home)
+export default Home
