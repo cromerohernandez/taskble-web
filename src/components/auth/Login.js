@@ -1,18 +1,18 @@
-import React, { useState, useContext } from 'react'
-import { Redirect } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { Link, Redirect } from 'react-router-dom'
 
-import TaskbleService from '../../services/TaskbleService'
 import AuthContext from '../../contexts/AuthContext'
+import TaskbleService from '../../services/TaskbleService'
 
 import LogoSprite from '../misc/LogoSprite'
 
 import '../../stylesheets/auth/login.css'
 
 const Login = () => {
+  const auth = useContext(AuthContext)
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
-  const auth = useContext(AuthContext)
 
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -63,6 +63,12 @@ const Login = () => {
         <button type="submit">Log in</button>
 
       </form>
+
+      <div>
+        <h5>Don´t have an account?
+          <Link to={{pathname:'/signup'}}> Sign up for Taskble</Link>
+        </h5>
+      </div>
 
     </div>
   )

@@ -4,6 +4,7 @@ import { WithAuthConsumer } from '../contexts/AuthContext'
 
 import AuthenticatedRoute from './auth/AuthenticatedRoute'
 import Login from './auth/Login'
+import SignUp from './/auth/SignUp'
 import Home from './users/Home'
 
 import '../stylesheets/App.css'
@@ -18,6 +19,10 @@ function App() {
 
         <Route exact path="/login">
           <Login/>
+        </Route>
+
+        <Route exact path="/signup">
+          <SignUp/>
         </Route>
 
         <Redirect to="/"/>
