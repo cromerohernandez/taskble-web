@@ -1,3 +1,3 @@
-# Taskble-api
+# Taskble (client side)
 
-Client side of task management SPA application, that allows you to sort them by date and priority assigned, which are automatically updated over time and according to the execution deadline.
+SPA application devoted to task management. It allows to sort tasks by date (automatically updated over the time) and priority (automatically updated according to the execution deadline).
