@@ -8,6 +8,8 @@ import { checkPasswordFormat } from '../../helpers/authHelper'
 
 import Validation from '../auth/Validation'
 
+import Input from '../misc/Input'
+
 // eslint-disable-next-line
 const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 
@@ -125,57 +127,36 @@ const SignUp = () => {
 
   return(
     <div id="signup">
+
       <h3>SignUp</h3>
 
       <form onSubmit={handleSubmit} /*id="form-container"*/>
-          <input
-            type="text"
-            name="username"
-            placeholder="username"
-            value={data.username}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            //id="form-input"
-          />
-          {touch.username && errors.username.active && (
-            <div /*id="form-error"*/>
-              { errors.username.message }
-            </div>
-          )}
 
-          <input
-            type="text"
-            name="email"
-            placeholder="email"
-            value={data.email}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            //id="form-input"
-          />
-          {touch.email && errors.email.active && (
-            <div /*id="form-error"*/>
-              { errors.email.message }
-            </div>
-          )}
+        <Input type='text' name='username' value={data.username} onBlur={handleBlur} onChange={handleChange} />
+        {touch.username && errors.username.active && (
+          <div /*id="form-error"*/>
+            { errors.username.message }
+          </div>
+        )}
 
-          <input
-            type="password"
-            name="password"
-            placeholder="password"
-            value={data.password}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            //id="form-input"
-          />
-          {touch.password && errors.password.active && (
-            <div /*id="form-error"*/>
-              { errors.password.message }
-            </div>
-          )}
+        <Input type='text' name='email' value={data.email} onBlur={handleBlur} onChange={handleChange} />
+        {touch.email && errors.email.active && (
+          <div /*id="form-error"*/>
+            { errors.email.message }
+          </div>
+        )}
 
-          <button disabled={anyError()} type="submit" /*id="form-submitButton"*/>
-            Sign up
-          </button>
+
+        <Input type='password' name='password' value={data.password} onBlur={handleBlur} onChange={handleChange} />
+        {touch.password && errors.password.active && (
+          <div /*id="form-error"*/>
+            { errors.password.message }
+          </div>
+        )}
+
+        <button disabled={anyError()} type="submit" /*id="form-submitButton"*/>
+          Sign up
+        </button>
 
       </form>    
 
