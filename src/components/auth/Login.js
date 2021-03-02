@@ -5,6 +5,7 @@ import AuthContext from '../../contexts/AuthContext'
 import TaskbleService from '../../services/TaskbleService'
 
 import LogoSprite from '../misc/LogoSprite'
+import Input from '../misc/Input'
 
 import '../../stylesheets/auth/login.css'
 
@@ -41,24 +42,13 @@ const Login = () => {
 
   return(
     <div id="login">
+      
       <LogoSprite/>
 
       <form onSubmit={handleSubmit} id="loginForm">
-        <input
-          type="text"
-          name="email"
-          placeholder="Email"
-          value={email}
-          onChange={handleChange}
-        />
+        <Input type='text' name='email' value={email} onChange={handleChange} />
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={password}
-          onChange={handleChange}
-        />
+        <Input type='password' name='password' value={password} onChange={handleChange} />
 
         <button type="submit">Log in</button>
 
