@@ -4,11 +4,13 @@ import { Link, Redirect } from 'react-router-dom'
 import AuthContext from '../../contexts/AuthContext'
 import TaskbleService from '../../services/TaskbleService'
 
+import useInput from '../../hooks/useInput'
+
 import { checkPasswordFormat } from '../../helpers/authHelper'
 
 import Validation from '../auth/Validation'
 
-import Input from '../misc/Input'
+import Input from '../UI/Input'
 
 // eslint-disable-next-line
 const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -28,11 +30,12 @@ const errorMessages = {
 const SignUp = () => {
   const auth = useContext(AuthContext)
 
-  const [data, setData] = useState({
-      username: '',
-      email: '',
-      password: ''
-  })
+
+  const { value: username, handleInput: usernameHandleInput } = useInput('', validators.username)
+  const { value: email, handleInput: emailHandleInput } = useInput('',  validators.email)
+  const { value: password, handleInput: passwordHandleInput } = useInput('', validators.password)
+
+
   const [errors, setErrors] = useState({
       username: {
         active: true,
@@ -47,19 +50,13 @@ const SignUp = () => {
         message: null
       }
   })
-  const [touch, setTouch] = useState({})
   const [success, setSuccess] = useState(false)
 
-  const handleChange = (event) => {
-    const { name, value } = event.target
 
-    setData({
-      ...data,
-      [name]: value
-    })
-  }
+  const [touch, setTouch] = useState(false)
 
-  const handleBlur = (event) => {
+
+  /*const handleBlur = (event) => {
     const { name, value } = event.target
     const valid = validators[name](value)
 
@@ -76,9 +73,9 @@ const SignUp = () => {
       }
     })
 
-  }
+  }*/
 
-  const handleSubmit = (event) => {
+  /*const handleSubmit = (event) => {
     event.preventDefault()
 
     TaskbleService.signup(data)
@@ -113,7 +110,7 @@ const SignUp = () => {
           }
         })
       })
-  }
+  }*/
 
   const anyError = () => Object.values(errors).some(x => x.active)
 
@@ -130,16 +127,16 @@ const SignUp = () => {
 
       <h3>SignUp</h3>
 
-      <form onSubmit={handleSubmit} /*id="form-container"*/>
+      <form /*onSubmit={handleSubmit}*/ /*id="form-container"*/>
 
-        <Input type='text' name='username' value={data.username} onBlur={handleBlur} onChange={handleChange} />
+        <Input type='text' name='username' {...usernameHandleInput} />
         {touch.username && errors.username.active && (
           <div /*id="form-error"*/>
             { errors.username.message }
           </div>
         )}
 
-        <Input type='text' name='email' value={data.email} onBlur={handleBlur} onChange={handleChange} />
+        <Input type='text' name='email' {...emailHandleInput} />
         {touch.email && errors.email.active && (
           <div /*id="form-error"*/>
             { errors.email.message }
@@ -147,7 +144,7 @@ const SignUp = () => {
         )}
 
 
-        <Input type='password' name='password' value={data.password} onBlur={handleBlur} onChange={handleChange} />
+        <Input type='password' name='password' {...passwordHandleInput} />
         {touch.password && errors.password.active && (
           <div /*id="form-error"*/>
             { errors.password.message }
