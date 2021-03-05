@@ -1,38 +1,33 @@
 import React, { useContext, useState } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 
-import AuthContext from '../../contexts/AuthContext'
 import TaskbleService from '../../services/TaskbleService'
 
 import { checkPasswordFormat } from '../../helpers/authHelper'
 
-import Input from '../misc/Input'
+import Input from '../UI/Input'
 
-/*const validators = {
+const validators = {
   password: val => val.length >= 8 && checkPasswordFormat(val) 
-}*/
+}
 
 const errorMessages = {
   password: 'password needs at least 8 chars and must contains uppercase, lowercase, numbers and symbols'
 }
 
 const UpdatePassword = () => {
-  const auth = useContext(AuthContext)
-
-  const [password, setPassword] = useState('')
+  const [currentPassword, setcurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
-
+  const [confirmNewPassword, setConfirmNewPassword] = useState('')
   const [touch, setTouch] = useState({})
   const [success, setSuccess] = useState(false)
 
-  /*const handleChange = (event) => {
+  const handleChange = (event) => {
     const { name, value } = event.target
+    const setState = 'set' + name
 
-    setData({
-      ...data,
-      [name]: value
-    })
-  }*/
+    setState(value)
+  }
 
   /*const handleBlur = (event) => {
     const { name, value } = event.target
@@ -103,15 +98,15 @@ const UpdatePassword = () => {
   return(
     <div id="signup">
 
-      <h3>SignUp</h3>
+      <h3>Change Password</h3>
 
       <form /*onSubmit={handleSubmit}*/ /*id="form-container"*/>
 
-        <Input type='text' name='password' value={password} /*onBlur={handleBlur} onChange={handleChange}*/ />
+        <Input type='text' name='currentPassword' placeholder='current password' value={currentPassword} /*onBlur={handleBlur} onChange={handleChange}*/ />
 
-        <Input type='text' name='newPassword' value={newPassword} /*onBlur={handleBlur} onChange={handleChange}*/ />
+        <Input type='text' name='newPassword' placeholder='new password' value={newPassword} /*onBlur={handleBlur} onChange={handleChange}*/ />
 
-        <Input type='password' name='newPassword' value={newPassword} /*onBlur={handleBlur} onChange={handleChange}*/ />
+        <Input type='password' name='confirmNewPassword' placeholder='confirm new password' value={confirmNewPassword} /*onBlur={handleBlur} onChange={handleChange}*/ />
 
         <button /*disabled={anyError()}*/ type="submit" /*id="form-submitButton"*/>
           Change Password

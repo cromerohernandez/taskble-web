@@ -4,8 +4,8 @@ import { Link, Redirect } from 'react-router-dom'
 import AuthContext from '../../contexts/AuthContext'
 import TaskbleService from '../../services/TaskbleService'
 
-import LogoSprite from '../misc/LogoSprite'
-import Input from '../misc/Input'
+import LogoSprite from '../UI/LogoSprite'
+import Input from '../UI/Input'
 
 import '../../stylesheets/auth/login.css'
 
