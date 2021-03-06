@@ -30,71 +30,46 @@ const errorMessages = {
 const SignUp = () => {
   const auth = useContext(AuthContext)
 
-
-  const { value: username, handleInput: usernameHandleInput } = useInput('', validators.username)
-  const { value: email, handleInput: emailHandleInput } = useInput('',  validators.email)
-  const { value: password, handleInput: passwordHandleInput } = useInput('', validators.password)
-
-
-  const [errors, setErrors] = useState({
-      username: {
-        active: true,
-        message: null
-      },
-      email: {
-        active: true,
-        message: null
-      },
-      password: {
-        active: true,
-        message: null
-      }
-  })
   const [success, setSuccess] = useState(false)
 
+  const {
+    value: username,
+    touch: usernameTouch,
+    error: usernameError,
+    resetError: usernameResetError,
+    handleInput: usernameHandleInput 
+  } = useInput('', validators.username, errorMessages.username)
 
-  const [touch, setTouch] = useState(false)
+  const {
+    value: email,
+    touch: emailTouch,
+    error: emailError,
+    resetError: emailResetError,
+    handleInput: emailHandleInput
+  } = useInput('',  validators.email, errorMessages.email)
 
+  const {
+    value: password,
+    touch: passwordTouch,
+    error: passwordError,
+    resetError: passwordResetError,
+    handleInput: passwordHandleInput
+  } = useInput('', validators.password, errorMessages.password)
 
-  /*const handleBlur = (event) => {
-    const { name, value } = event.target
-    const valid = validators[name](value)
+  const anyError = () => {
+    const errors = [usernameError.active, emailError.active, passwordError.active]
+    return errors.some(x => x === true)
+  }
 
-    setTouch({
-      ...touch,
-      [name]: true
-    })
-
-    setErrors({
-      ...errors,
-      [name]: {
-        active: !valid,
-        message: errorMessages[name]
-      }
-    })
-
-  }*/
-
-  /*const handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault()
+    const data = {username, email, password}
+
+    console.log(data)
 
     TaskbleService.signup(data)
       .then(
         () => {
-          setErrors({
-            username: {
-              active: true,
-              message: null
-            },
-            email: {
-              active: true,
-              message: null
-            },
-            password: {
-              active: true,
-              message: null
-            }
-          })
           setSuccess(true)
         }
       )
@@ -102,17 +77,9 @@ const SignUp = () => {
         const responseErrors = error.response.data.errors
         const key = Object.keys(responseErrors)[0]
 
-        setErrors({
-          ...errors,
-          [key]: {
-            active: true,
-            message: responseErrors[key]
-          }
-        })
+        console.log(responseErrors[key])
       })
-  }*/
-
-  const anyError = () => Object.values(errors).some(x => x.active)
+  }
 
   if (auth.currentUser) {
     return <Redirect to="/"/>
@@ -127,27 +94,27 @@ const SignUp = () => {
 
       <h3>SignUp</h3>
 
-      <form /*onSubmit={handleSubmit}*/ /*id="form-container"*/>
+      <form onSubmit={handleSubmit} /*id="form-container"*/>
 
         <Input type='text' name='username' {...usernameHandleInput} />
-        {touch.username && errors.username.active && (
+        {usernameTouch && usernameError.active && (
           <div /*id="form-error"*/>
-            { errors.username.message }
+            { usernameError.message }
           </div>
         )}
 
         <Input type='text' name='email' {...emailHandleInput} />
-        {touch.email && errors.email.active && (
+        {emailTouch && emailError.active && (
           <div /*id="form-error"*/>
-            { errors.email.message }
+            { emailError.message }
           </div>
         )}
 
 
         <Input type='password' name='password' {...passwordHandleInput} />
-        {touch.password && errors.password.active && (
+        {passwordTouch && passwordError.active && (
           <div /*id="form-error"*/>
-            { errors.password.message }
+            { passwordError.message }
           </div>
         )}
 
