@@ -66,11 +66,9 @@ const SignUp = () => {
     const data = {username, email, password}
 
     TaskbleService.signup(data)
-      .then(
-        () => {
-          setSuccess(true)
-        }
-      )
+      .then(() => {
+        setSuccess(true)
+      })
       .catch(error => {
         const responseErrors = error.response.data.errors
         const key = Object.keys(responseErrors)[0]
