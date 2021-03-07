@@ -4,6 +4,8 @@ import { Link, Redirect } from 'react-router-dom'
 import AuthContext from '../../contexts/AuthContext'
 import TaskbleService from '../../services/TaskbleService'
 
+import useInput from '../../hooks/useInput'
+
 import LogoSprite from '../UI/LogoSprite'
 import Input from '../UI/Input'
 
@@ -12,28 +14,29 @@ import '../../stylesheets/auth/login.css'
 const Login = () => {
   const auth = useContext(AuthContext)
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [loginError, setLoginError] = useState({active: false, message: ''})
 
-  const handleChange = (event) => {
-    const { name, value } = event.target
+  const {
+    value: email,
+    handleInput: emailHandleInput 
+  } = useInput('')
 
-    if (name === 'email') {
-      setEmail(value)
-    } else if (name === 'password') {
-      setPassword(value)
-    }
-  }
+  const {
+    value: password,
+    handleInput: passwordHandleInput
+  } = useInput('')
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    const data = {email, password}
 
-    TaskbleService.login({ email, password })
-      .then(
-        user => {
-          auth.setUser(user)
-        }
-      )
+    TaskbleService.login(data)
+      .then(user => {
+        auth.setUser(user)
+      })
+      .catch(error => {
+        setLoginError({active: true, message: error.response.data.message})
+      })
   }
 
   if (auth.currentUser) {
@@ -46,9 +49,15 @@ const Login = () => {
       <LogoSprite/>
 
       <form onSubmit={handleSubmit} id="loginForm">
-        <Input type='text' name='email' value={email} onChange={handleChange} />
+        <Input type='text' name='email' {...emailHandleInput} />
 
-        <Input type='password' name='password' value={password} onChange={handleChange} />
+        <Input type='password' name='password' {...passwordHandleInput} />
+
+        {loginError.active && (
+          <div>
+            { loginError.message }
+          </div>
+        )}
 
         <button type="submit">Log in</button>
 

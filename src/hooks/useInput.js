@@ -21,15 +21,25 @@ const useInput = (initialValue, validator, initialErrorMessage) => {
     })
   }
 
-  return {
-    value,
-    touch,
-    error,
-    resetError,
-    handleInput: {
+  if (validator) {
+    return {
       value,
-      onChange,
-      onBlur
+      touch,
+      error,
+      resetError,
+      handleInput: {
+        value,
+        onChange,
+        onBlur
+      }
+    }
+  } else {
+    return {
+      value,
+      handleInput: {
+        value,
+        onChange
+      }
     }
   }
 }
