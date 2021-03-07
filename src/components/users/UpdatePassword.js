@@ -3,50 +3,45 @@ import { Link, Redirect } from 'react-router-dom'
 
 import TaskbleService from '../../services/TaskbleService'
 
+import useInput from '../../hooks/useInput'
+
 import { checkPasswordFormat } from '../../helpers/authHelper'
 
 import Input from '../UI/Input'
 
 const validators = {
-  password: val => val.length >= 8 && checkPasswordFormat(val) 
+  newPassword: val => val.length >= 8 && checkPasswordFormat(val),
 }
 
 const errorMessages = {
-  password: 'password needs at least 8 chars and must contains uppercase, lowercase, numbers and symbols'
+  newPassword: 'password needs at least 8 chars and must contains uppercase, lowercase, numbers and symbols',
 }
 
 const UpdatePassword = () => {
-  const [currentPassword, setcurrentPassword] = useState('')
-  const [newPassword, setNewPassword] = useState('')
-  const [confirmNewPassword, setConfirmNewPassword] = useState('')
-  const [touch, setTouch] = useState({})
   const [success, setSuccess] = useState(false)
 
-  const handleChange = (event) => {
-    const { name, value } = event.target
-    const setState = 'set' + name
+  const {
+    value: currentPassword,
+    handleInput: currentPasswordHandleInput 
+  } = useInput('')
 
-    setState(value)
+  const {
+    value: newPassword,
+    touch: newPasswordTouch,
+    error: newPasswordError,
+    handleInput: newPasswordHandleInput 
+  } = useInput('', validators.newPassword, errorMessages.newPassword)
+
+  const {
+    value: confirmNewPassword,
+    touch: confirmNewPasswordTouch,
+    handleInput: confirmNewPasswordHandleInput 
+  } = useInput('')
+
+  const anyError = () => {
+    const errors = [newPasswordError.active]
+    return errors.some(x => x === true)
   }
-
-  /*const handleBlur = (event) => {
-    const { name, value } = event.target
-    const valid = validators[name](value)
-
-    setTouch({
-      ...touch,
-      [name]: true
-    })
-
-    setErrors({
-      ...errors,
-      [name]: {
-        active: !valid,
-        message: errorMessages[name]
-      }
-    })
-
-  }*/
 
   /*const handleSubmit = (event) => {
     event.preventDefault()
@@ -85,15 +80,9 @@ const UpdatePassword = () => {
       })
   }*/
 
-  /*const anyError = () => Object.values(errors).some(x => x.active)*/
-
-  /*if (auth.currentUser) {
+  if (success) {
     return <Redirect to="/"/>
-  }*/
-  
-  /*if (success) {
-    return <Validation/>
-  }*/
+  }
 
   return(
     <div id="signup">
@@ -102,13 +91,23 @@ const UpdatePassword = () => {
 
       <form /*onSubmit={handleSubmit}*/ /*id="form-container"*/>
 
-        <Input type='text' name='currentPassword' placeholder='current password' value={currentPassword} /*onBlur={handleBlur} onChange={handleChange}*/ />
+        <Input type='password' name='currentPassword' placeholder='current password' {...currentPasswordHandleInput} />
 
-        <Input type='text' name='newPassword' placeholder='new password' value={newPassword} /*onBlur={handleBlur} onChange={handleChange}*/ />
+        <Input type='password' name='newPassword' placeholder='new password' {...newPasswordHandleInput} />
+        {newPasswordTouch && newPasswordError.active && (
+          <div>
+            { newPasswordError.message }
+          </div>
+        )}
 
-        <Input type='password' name='confirmNewPassword' placeholder='confirm new password' value={confirmNewPassword} /*onBlur={handleBlur} onChange={handleChange}*/ />
+        <Input type='password' name='confirmNewPassword' placeholder='confirm new password' {...confirmNewPasswordHandleInput} />
+        {confirmNewPasswordTouch && (newPassword !== confirmNewPassword) && (
+          <div>
+            new password and confirm new password must be match
+          </div>
+        )}
 
-        <button /*disabled={anyError()}*/ type="submit" /*id="form-submitButton"*/>
+        <button disabled={anyError()} type="submit" /*id="form-submitButton"*/>
           Change Password
         </button>
 
