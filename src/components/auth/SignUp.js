@@ -65,8 +65,6 @@ const SignUp = () => {
     event.preventDefault()
     const data = {username, email, password}
 
-    console.log(data)
-
     TaskbleService.signup(data)
       .then(
         () => {
@@ -76,8 +74,17 @@ const SignUp = () => {
       .catch(error => {
         const responseErrors = error.response.data.errors
         const key = Object.keys(responseErrors)[0]
+        const resetErrors = [
+          {keyError: 'username', resetError: usernameResetError},
+          {keyError: 'email', resetError: emailResetError},
+          {keyError: 'password', resetError: passwordResetError},
+        ]
 
-        console.log(responseErrors[key])
+        resetErrors.forEach(resetError => {
+          if (resetError.keyError === key) {
+            resetError.resetError(responseErrors[key])
+          }
+        })
       })
   }
 
@@ -109,7 +116,6 @@ const SignUp = () => {
             { emailError.message }
           </div>
         )}
-
 
         <Input type='password' name='password' {...passwordHandleInput} />
         {passwordTouch && passwordError.active && (
