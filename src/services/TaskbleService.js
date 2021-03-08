@@ -20,7 +20,7 @@ http.interceptors.response.use(
 const signup = (userData) => http.post('/users/new', userData)
 //const userProfile = () => http.get('/users/me')
 //const updateUser = (userData) => http.patch('/users/me', userData)
-//const requestNewPassword = () => http.get('/users/me/requestNewPassword')
+const requestNewPassword = () => http.get('/users/me/requestNewPassword')
 const updatePassword = (token, passwordData) => http.patch(`/users/${token}/updatepassword`, passwordData)
 //const deleteUser = () => http.delete('/users/me')
 
@@ -36,6 +36,7 @@ const logout = () => http.post('/logout')
 
 const TaskbleService = {
   signup,
+  requestNewPassword,
   updatePassword,
   login,
   logout

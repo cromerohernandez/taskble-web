@@ -26,7 +26,7 @@ function App() {
           <SignUp/>
         </Route>
 
-        <Route exact path="/:token/updatepassword">
+        <Route exact path="/:token/newpassword">
           <UpdatePassword/>
         </Route>
 
