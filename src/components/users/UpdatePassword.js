@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import React, { useState } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 
 import TaskbleService from '../../services/TaskbleService'
 
@@ -10,20 +10,29 @@ import { checkPasswordFormat } from '../../helpers/authHelper'
 import Input from '../UI/Input'
 
 const validators = {
+  currentPassword: val => val,
   newPassword: val => val.length >= 8 && checkPasswordFormat(val),
+  confirmNewPassword: (newPasswordToMatch) => val => val === newPasswordToMatch
 }
 
 const errorMessages = {
+  currentPassword: 'current password is required',
   newPassword: 'password needs at least 8 chars and must contains uppercase, lowercase, numbers and symbols',
+  confirmNewPassword: 'new password and confirm new password must be match'
 }
 
 const UpdatePassword = () => {
+  const history = useHistory()
+  const { token } = useParams()
+
   const [success, setSuccess] = useState(false)
 
   const {
     value: currentPassword,
-    handleInput: currentPasswordHandleInput 
-  } = useInput('')
+    touch: currentPasswordTouch,
+    error: currentPasswordError,
+    handleInput: currentPasswordHandleInput
+  } = useInput('', validators.currentPassword, errorMessages.currentPassword)
 
   const {
     value: newPassword,
@@ -35,38 +44,25 @@ const UpdatePassword = () => {
   const {
     value: confirmNewPassword,
     touch: confirmNewPasswordTouch,
+    error: confirmNewPasswordError,
     handleInput: confirmNewPasswordHandleInput 
-  } = useInput('')
+  } = useInput('', validators.confirmNewPassword(newPassword), errorMessages.confirmNewPassword)
 
   const anyError = () => {
-    const errors = [newPasswordError.active]
+    const errors = [currentPasswordError.active, newPasswordError.active, confirmNewPasswordError.active]
     return errors.some(x => x === true)
   }
 
-  /*const handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault()
+    const passwordData = {currentPassword, newPassword}
 
-    TaskbleService.signup(data)
-      .then(
-        () => {
-          setErrors({
-            username: {
-              active: true,
-              message: null
-            },
-            email: {
-              active: true,
-              message: null
-            },
-            password: {
-              active: true,
-              message: null
-            }
-          })
+    TaskbleService.updatePassword(token, passwordData)
+      .then(() => {
           setSuccess(true)
-        }
-      )
-      .catch(error => {
+          setTimeout(() => history.push('/'), 3000)
+      })
+      /*.catch(error => {
         const responseErrors = error.response.data.errors
         const key = Object.keys(responseErrors)[0]
 
@@ -77,11 +73,7 @@ const UpdatePassword = () => {
             message: responseErrors[key]
           }
         })
-      })
-  }*/
-
-  if (success) {
-    return <Redirect to="/"/>
+      })*/
   }
 
   return(
@@ -89,9 +81,14 @@ const UpdatePassword = () => {
 
       <h3>Change Password</h3>
 
-      <form /*onSubmit={handleSubmit}*/ /*id="form-container"*/>
+      <form onSubmit={handleSubmit} /*id="form-container"*/>
 
         <Input type='password' name='currentPassword' placeholder='current password' {...currentPasswordHandleInput} />
+        {currentPasswordTouch && currentPasswordError.active && (
+          <div>
+            { currentPasswordError.message }
+          </div>
+        )}
 
         <Input type='password' name='newPassword' placeholder='new password' {...newPasswordHandleInput} />
         {newPasswordTouch && newPasswordError.active && (
@@ -101,9 +98,9 @@ const UpdatePassword = () => {
         )}
 
         <Input type='password' name='confirmNewPassword' placeholder='confirm new password' {...confirmNewPasswordHandleInput} />
-        {confirmNewPasswordTouch && (newPassword !== confirmNewPassword) && (
+        {confirmNewPasswordTouch && confirmNewPasswordError.active && newPassword !== confirmNewPassword && (
           <div>
-            new password and confirm new password must be match
+            { confirmNewPasswordError.message }
           </div>
         )}
 
@@ -111,7 +108,11 @@ const UpdatePassword = () => {
           Change Password
         </button>
 
-      </form>    
+      </form>
+
+      {success && (
+        <h4>your password has been updated successfully</h4> 
+      )}
 
     </div>
   )
