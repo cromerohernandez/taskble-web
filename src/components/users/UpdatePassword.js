@@ -1,118 +1,111 @@
-import React, { useContext, useState } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import React, { useState } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 
 import TaskbleService from '../../services/TaskbleService'
+
+import useInput from '../../hooks/useInput'
 
 import { checkPasswordFormat } from '../../helpers/authHelper'
 
 import Input from '../UI/Input'
 
 const validators = {
-  password: val => val.length >= 8 && checkPasswordFormat(val) 
+  currentPassword: val => val,
+  newPassword: val => val.length >= 8 && checkPasswordFormat(val),
+  confirmNewPassword: (newPasswordToMatch) => val => val === newPasswordToMatch
 }
 
 const errorMessages = {
-  password: 'password needs at least 8 chars and must contains uppercase, lowercase, numbers and symbols'
+  currentPassword: 'current password is required',
+  newPassword: 'password needs at least 8 chars and must contains uppercase, lowercase, numbers and symbols',
+  confirmNewPassword: 'new password and confirm new password must be match'
 }
 
 const UpdatePassword = () => {
-  const [currentPassword, setcurrentPassword] = useState('')
-  const [newPassword, setNewPassword] = useState('')
-  const [confirmNewPassword, setConfirmNewPassword] = useState('')
-  const [touch, setTouch] = useState({})
+  const history = useHistory()
+  const { token } = useParams()
+
   const [success, setSuccess] = useState(false)
 
-  const handleChange = (event) => {
-    const { name, value } = event.target
-    const setState = 'set' + name
+  const {
+    value: currentPassword,
+    touch: currentPasswordTouch,
+    error: currentPasswordError,
+    resetError: currentPasswordResetError,
+    handleInput: currentPasswordHandleInput
+  } = useInput('', validators.currentPassword, errorMessages.currentPassword)
 
-    setState(value)
+  const {
+    value: newPassword,
+    touch: newPasswordTouch,
+    error: newPasswordError,
+    handleInput: newPasswordHandleInput 
+  } = useInput('', validators.newPassword, errorMessages.newPassword)
+
+  const {
+    value: confirmNewPassword,
+    touch: confirmNewPasswordTouch,
+    error: confirmNewPasswordError,
+    handleInput: confirmNewPasswordHandleInput 
+  } = useInput('', validators.confirmNewPassword(newPassword), errorMessages.confirmNewPassword)
+
+  const anyError = () => {
+    const errors = [currentPasswordError.active, newPasswordError.active, confirmNewPasswordError.active]
+    return errors.some(x => x === true)
   }
 
-  /*const handleBlur = (event) => {
-    const { name, value } = event.target
-    const valid = validators[name](value)
-
-    setTouch({
-      ...touch,
-      [name]: true
-    })
-
-    setErrors({
-      ...errors,
-      [name]: {
-        active: !valid,
-        message: errorMessages[name]
-      }
-    })
-
-  }*/
-
-  /*const handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault()
+    const passwordData = {currentPassword, newPassword}
 
-    TaskbleService.signup(data)
-      .then(
-        () => {
-          setErrors({
-            username: {
-              active: true,
-              message: null
-            },
-            email: {
-              active: true,
-              message: null
-            },
-            password: {
-              active: true,
-              message: null
-            }
-          })
+    TaskbleService.updatePassword(token, passwordData)
+      .then(() => {
           setSuccess(true)
-        }
-      )
-      .catch(error => {
-        const responseErrors = error.response.data.errors
-        const key = Object.keys(responseErrors)[0]
-
-        setErrors({
-          ...errors,
-          [key]: {
-            active: true,
-            message: responseErrors[key]
-          }
-        })
+          setTimeout(() => history.push('/'), 3000)
       })
-  }*/
-
-  /*const anyError = () => Object.values(errors).some(x => x.active)*/
-
-  /*if (auth.currentUser) {
-    return <Redirect to="/"/>
-  }*/
-  
-  /*if (success) {
-    return <Validation/>
-  }*/
+      .catch(error => {
+        const errorMessage = error.response.data.message
+        currentPasswordResetError(errorMessage)
+      })
+  }
 
   return(
     <div id="signup">
 
       <h3>Change Password</h3>
 
-      <form /*onSubmit={handleSubmit}*/ /*id="form-container"*/>
+      <form onSubmit={handleSubmit} /*id="form-container"*/>
 
-        <Input type='text' name='currentPassword' placeholder='current password' value={currentPassword} /*onBlur={handleBlur} onChange={handleChange}*/ />
+        <Input type='password' name='currentPassword' placeholder='current password' {...currentPasswordHandleInput} />
+        {currentPasswordTouch && currentPasswordError.active && (
+          <div>
+            { currentPasswordError.message }
+          </div>
+        )}
 
-        <Input type='text' name='newPassword' placeholder='new password' value={newPassword} /*onBlur={handleBlur} onChange={handleChange}*/ />
+        <Input type='password' name='newPassword' placeholder='new password' {...newPasswordHandleInput} />
+        {newPasswordTouch && newPasswordError.active && (
+          <div>
+            { newPasswordError.message }
+          </div>
+        )}
 
-        <Input type='password' name='confirmNewPassword' placeholder='confirm new password' value={confirmNewPassword} /*onBlur={handleBlur} onChange={handleChange}*/ />
+        <Input type='password' name='confirmNewPassword' placeholder='confirm new password' {...confirmNewPasswordHandleInput} />
+        {confirmNewPasswordTouch && confirmNewPasswordError.active && newPassword !== confirmNewPassword && (
+          <div>
+            { confirmNewPasswordError.message }
+          </div>
+        )}
 
-        <button /*disabled={anyError()}*/ type="submit" /*id="form-submitButton"*/>
+        <button disabled={anyError()} type="submit" /*id="form-submitButton"*/>
           Change Password
         </button>
 
-      </form>    
+      </form>
+
+      {success && (
+        <h4>your password has been updated successfully</h4> 
+      )}
 
     </div>
   )
