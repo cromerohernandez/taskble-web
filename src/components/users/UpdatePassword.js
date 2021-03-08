@@ -31,6 +31,7 @@ const UpdatePassword = () => {
     value: currentPassword,
     touch: currentPasswordTouch,
     error: currentPasswordError,
+    resetError: currentPasswordResetError,
     handleInput: currentPasswordHandleInput
   } = useInput('', validators.currentPassword, errorMessages.currentPassword)
 
@@ -62,18 +63,10 @@ const UpdatePassword = () => {
           setSuccess(true)
           setTimeout(() => history.push('/'), 3000)
       })
-      /*.catch(error => {
-        const responseErrors = error.response.data.errors
-        const key = Object.keys(responseErrors)[0]
-
-        setErrors({
-          ...errors,
-          [key]: {
-            active: true,
-            message: responseErrors[key]
-          }
-        })
-      })*/
+      .catch(error => {
+        const errorMessage = error.response.data.message
+        currentPasswordResetError(errorMessage)
+      })
   }
 
   return(
