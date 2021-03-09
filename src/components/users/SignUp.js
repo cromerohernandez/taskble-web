@@ -8,7 +8,7 @@ import useInput from '../../hooks/useInput'
 
 import { checkPasswordFormat } from '../../helpers/authHelper'
 
-import Validation from '../auth/Validation'
+import Validation from './Validation'
 
 import Input from '../UI/Input'
 
