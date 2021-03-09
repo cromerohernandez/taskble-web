@@ -70,7 +70,7 @@ const UpdatePassword = () => {
   }
 
   return(
-    <div id="signup">
+    <div /*id="signup"*/>
 
       <h3>Change Password</h3>
 

@@ -7,6 +7,7 @@ import Home from './users/Home'
 import Login from './auth/Login'
 import SignUp from './users/SignUp'
 import UpdatePassword from './users/UpdatePassword'
+import CreateTask from './tasks/CreateTask'
 
 import '../stylesheets/App.css'
 
@@ -29,6 +30,10 @@ function App() {
         <Route exact path="/:token/newpassword">
           <UpdatePassword/>
         </Route>
+
+        <AuthenticatedRoute exact path="/newtask">
+          <CreateTask/>
+        </AuthenticatedRoute>
 
         <Redirect to="/"/>
       </Switch>

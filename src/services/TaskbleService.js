@@ -25,7 +25,7 @@ const updatePassword = (token, passwordData) => http.patch(`/users/${token}/upda
 //const deleteUser = () => http.delete('/users/me')
 
 //tasks
-//const createTask = (taskData) => http.post('/tasks/new', taskData)
+const createTask = (taskData) => http.post('/tasks/new', taskData)
 //const taskDetail = (taskId) => http.get(`/tasks/${taskId}`)
 //const updateTask = (taskId, taskData) => http.patch(`/tasks/${taskId}`, taskData)
 //const deleteTask = (taskId) => http.delete(`/tasks/${taskId}`)
@@ -38,6 +38,7 @@ const TaskbleService = {
   signup,
   requestNewPassword,
   updatePassword,
+  createTask,
   login,
   logout
 }
