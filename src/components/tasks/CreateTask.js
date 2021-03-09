@@ -73,8 +73,9 @@ const CreateTask = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    //const user = auth.currentUser.id
-    const taskData = { keyword, title, description, userPriority, toDoDate, limitDate}
+
+    const date = {toDo: toDoDate, limit: limitDate}
+    const taskData = { keyword, title, description, userPriority, date}
 
     TaskbleService.createTask(taskData)
       /*.then(() => {
