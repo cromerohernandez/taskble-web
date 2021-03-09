@@ -8,7 +8,7 @@ import useInput from '../../hooks/useInput'
 
 import { checkPasswordFormat } from '../../helpers/authHelper'
 
-import Validation from '../auth/Validation'
+import Validation from './Validation'
 
 import Input from '../UI/Input'
 
@@ -16,7 +16,7 @@ import Input from '../UI/Input'
 const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 
 const validators = {
-  username:  val => val.length >= 3,
+  username: val => val.length >= 3,
   email: val => val.match(EMAIL_PATTERN),
   password: val => val.length >= 8 && checkPasswordFormat(val) 
 }
