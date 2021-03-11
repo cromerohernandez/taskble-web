@@ -1,6 +1,6 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import { useHistory } from 'react-router-dom'
 
-import AuthContext from '../../contexts/AuthContext'
 import TaskbleService from '../../services/TaskbleService'
 
 import useInput from '../../hooks/useInput'
@@ -8,15 +8,15 @@ import useInput from '../../hooks/useInput'
 import Input from '../UI/Input'
 
 const validators = {
-  keyword: val => val.length <= 10,
-  title: val => val,
+  keyword: val => val && val.length <= 10,
+  title: val => true,
   userPriority: val => val,
   toDoDate: val => val,
   limitDate: val => val
 }
 
 const errorMessages = {
-  keyword: 'keyword can contains 10 chars maximun',
+  keyword: 'keyword is required and it can contains 10 chars maximun',
   title: 'title is required',
   userPriority: 'userPriority is required',
   toDoDate: 'toDoDate is required',
@@ -24,7 +24,7 @@ const errorMessages = {
 }
 
 const CreateTask = () => {
-  const auth = useContext(AuthContext)
+  const history = useHistory()
 
   const {
     value: keyword,
@@ -78,20 +78,20 @@ const CreateTask = () => {
     const taskData = { keyword, title, description, userPriority, date}
 
     TaskbleService.createTask(taskData)
-      /*.then(() => {
-
+      .then(() => {
+        history.push('/')
       })
-      .catch(error => {
-
+      /*.catch(error => {
+        console.log(error.response.data.errors)
       })*/
   }
 
   return(
-    <div /*id="createTask"*/>
+    <div /*id='createTask'*/>
 
       <h3>New Task</h3>
 
-      <form onSubmit={handleSubmit} /*id="form-container"*/>
+      <form onSubmit={handleSubmit} /*id='form-container'*/>
 
         <Input type='text' name='keyword' {...keywordHandleInput} />
         {keywordTouch && keywordError.active && (
@@ -109,28 +109,37 @@ const CreateTask = () => {
 
         <Input type='text' name='description' {...descriptionHandleInput} />
 
-        <Input type='range' min='1' max='5' name='userPriority' placeholder='priority' {...userPriorityHandleInput} />
-        {userPriorityTouch && userPriorityError.active && (
-          <div>
-            { userPriorityError.message }
-          </div>
-        )}
+        <div>
+          <label>priority:</label>
+          <Input type='range' min='1' max='5' name='userPriority' {...userPriorityHandleInput} />
+          {userPriorityTouch && userPriorityError.active && (
+            <div>
+              { userPriorityError.message }
+            </div>
+          )}
+        </div>
 
-        <Input type='date' name='toDoDate' placeholder='to do' {...toDoDateHandleInput} />
-        {toDoDateTouch && toDoDateError.active && (
-          <div>
-            { toDoDateError.message }
-          </div>
-        )}
+        <div>
+          <label>date to do:</label>
+          <Input type='date' name='toDoDate' {...toDoDateHandleInput} />
+          {toDoDateTouch && toDoDateError.active && (
+            <div>
+              { toDoDateError.message }
+            </div>
+          )}
+        </div>
 
-        <Input type='date' name='limitDate' placeholder='limit' {...limitDateHandleInput} />
-        {limitDateTouch && limitDateError.active && (
-          <div>
-            { limitDateError.message }
-          </div>
-        )}
+        <div>
+          <label>limit date:</label>
+          <Input type='date' name='limitDate' {...limitDateHandleInput} />
+          {limitDateTouch && limitDateError.active && (
+            <div>
+              { limitDateError.message }
+            </div>
+          )}
+        </div>
 
-        <button disabled={anyError()} type="submit" /*id="form-submitButton"*/>
+        <button disabled={anyError()} type="submit" /*id='form-submitButton'*/>
           Create Task
         </button>
 

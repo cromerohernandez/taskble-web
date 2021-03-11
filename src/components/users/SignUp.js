@@ -1,7 +1,6 @@
-import React, { useContext, useState } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
-import AuthContext from '../../contexts/AuthContext'
 import TaskbleService from '../../services/TaskbleService'
 
 import useInput from '../../hooks/useInput'
@@ -28,8 +27,6 @@ const errorMessages = {
 }
 
 const SignUp = () => {
-  const auth = useContext(AuthContext)
-
   const [success, setSuccess] = useState(false)
 
   const {
@@ -86,43 +83,39 @@ const SignUp = () => {
       })
   }
 
-  if (auth.currentUser) {
-    return <Redirect to="/"/>
-  }
-  
   if (success) {
     return <Validation/>
   }
 
   return(
-    <div id="signup">
+    <div id='signup'>
 
       <h3>SignUp</h3>
 
-      <form onSubmit={handleSubmit} /*id="form-container"*/>
+      <form onSubmit={handleSubmit} /*id='form-container'*/>
 
         <Input type='text' name='username' {...usernameHandleInput} />
         {usernameTouch && usernameError.active && (
-          <div /*id="form-error"*/>
+          <div /*id='form-error'*/>
             { usernameError.message }
           </div>
         )}
 
         <Input type='text' name='email' {...emailHandleInput} />
         {emailTouch && emailError.active && (
-          <div /*id="form-error"*/>
+          <div /*id='form-error'*/>
             { emailError.message }
           </div>
         )}
 
         <Input type='password' name='password' {...passwordHandleInput} />
         {passwordTouch && passwordError.active && (
-          <div /*id="form-error"*/>
+          <div /*id='form-error'*/>
             { passwordError.message }
           </div>
         )}
 
-        <button disabled={anyError()} type="submit" /*id="form-submitButton"*/>
+        <button disabled={anyError()} type="submit" /*id='form-submitButton'*/>
           Sign up
         </button>
 

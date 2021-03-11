@@ -60,8 +60,8 @@ const UpdatePassword = () => {
 
     TaskbleService.updatePassword(token, passwordData)
       .then(() => {
-          setSuccess(true)
-          setTimeout(() => history.push('/'), 3000)
+        setSuccess(true)
+        setTimeout(() => history.push('/'), 3000)
       })
       .catch(error => {
         const errorMessage = error.response.data.message
@@ -70,11 +70,11 @@ const UpdatePassword = () => {
   }
 
   return(
-    <div /*id="signup"*/>
+    <div /*id='signup'*/>
 
       <h3>Change Password</h3>
 
-      <form onSubmit={handleSubmit} /*id="form-container"*/>
+      <form onSubmit={handleSubmit} /*id='form-container'*/>
 
         <Input type='password' name='currentPassword' placeholder='current password' {...currentPasswordHandleInput} />
         {currentPasswordTouch && currentPasswordError.active && (
@@ -97,7 +97,7 @@ const UpdatePassword = () => {
           </div>
         )}
 
-        <button disabled={anyError()} type="submit" /*id="form-submitButton"*/>
+        <button disabled={anyError()} type="submit" /*id='form-submitButton'*/>
           Change Password
         </button>
 

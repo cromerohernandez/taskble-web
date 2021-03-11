@@ -3,14 +3,14 @@ import { Redirect, Route } from 'react-router-dom'
 
 import AuthContext from '../../contexts/AuthContext'
 
-const AuthenticatedRoute = (props) => {
+const NotAuthenticatedRoute = (props) => {
   const auth = useContext(AuthContext)
 
-  if (!auth.currentUser) {
-    return <Redirect to='/login'/>
+  if (auth.currentUser) {
+    return <Redirect to='/'/>
   } else {
     return <Route {...props} />
   }
 }
 
-export default AuthenticatedRoute
+export default NotAuthenticatedRoute

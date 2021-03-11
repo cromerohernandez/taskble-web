@@ -5,7 +5,7 @@ const Input = (props) => {
 
   return(
     <input
-     /*id="form-error"*/
+     /*id='form-error'*/
     type={type}
     name={name}
     placeholder={placeholder ? placeholder : name}

@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import { WithAuthConsumer } from '../contexts/AuthContext'
 
 import AuthenticatedRoute from './auth/AuthenticatedRoute'
+import NotAuthenticatedRoute from './auth/NotAuthenticatedRoute'
 import Home from './users/Home'
 import Login from './auth/Login'
 import SignUp from './users/SignUp'
@@ -13,29 +14,29 @@ import '../stylesheets/App.css'
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <Switch>
-        <AuthenticatedRoute exact path="/">
+        <AuthenticatedRoute exact path='/'>
           <Home/>
         </AuthenticatedRoute>
 
-        <Route exact path="/login">
+        <NotAuthenticatedRoute exact path='/login'>
           <Login/>
-        </Route>
+        </NotAuthenticatedRoute>
 
-        <Route exact path="/signup">
+        <NotAuthenticatedRoute exact path='/signup'>
           <SignUp/>
-        </Route>
+        </NotAuthenticatedRoute>
 
-        <Route exact path="/:token/newpassword">
+        <Route exact path='/:token/newpassword'>
           <UpdatePassword/>
         </Route>
 
-        <AuthenticatedRoute exact path="/newtask">
+        <AuthenticatedRoute exact path='/newtask'>
           <CreateTask/>
         </AuthenticatedRoute>
 
-        <Redirect to="/"/>
+        <Redirect to='/'/>
       </Switch>
     </div>
   )
