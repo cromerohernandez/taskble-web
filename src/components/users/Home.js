@@ -9,7 +9,7 @@ const Home = () => {
 
   const handleLogout = () => {
     auth.logout()
-    return <Redirect to="/"/>
+    return <Redirect to='/'/>
   }
 
   const handleRequestNewPassword = () => {

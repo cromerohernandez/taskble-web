@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import AuthContext from '../../contexts/AuthContext'
 import TaskbleService from '../../services/TaskbleService'
@@ -39,16 +39,12 @@ const Login = () => {
       })
   }
 
-  if (auth.currentUser) {
-    return <Redirect to="/"/>
-  }
-
   return(
-    <div id="login">
+    <div id='login'>
       
       <LogoSprite/>
 
-      <form onSubmit={handleSubmit} id="loginForm">
+      <form onSubmit={handleSubmit} id='loginForm'>
         <Input type='text' name='email' {...emailHandleInput} />
 
         <Input type='password' name='password' {...passwordHandleInput} />

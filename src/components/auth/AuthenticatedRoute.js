@@ -7,7 +7,7 @@ const AuthenticatedRoute = (props) => {
   const auth = useContext(AuthContext)
 
   if (!auth.currentUser) {
-    return <Redirect to="/login"/>
+    return <Redirect to='/login'/>
   } else {
     return <Route {...props} />
   }

@@ -88,34 +88,34 @@ const SignUp = () => {
   }
 
   return(
-    <div id="signup">
+    <div id='signup'>
 
       <h3>SignUp</h3>
 
-      <form onSubmit={handleSubmit} /*id="form-container"*/>
+      <form onSubmit={handleSubmit} /*id='form-container'*/>
 
         <Input type='text' name='username' {...usernameHandleInput} />
         {usernameTouch && usernameError.active && (
-          <div /*id="form-error"*/>
+          <div /*id='form-error'*/>
             { usernameError.message }
           </div>
         )}
 
         <Input type='text' name='email' {...emailHandleInput} />
         {emailTouch && emailError.active && (
-          <div /*id="form-error"*/>
+          <div /*id='form-error'*/>
             { emailError.message }
           </div>
         )}
 
         <Input type='password' name='password' {...passwordHandleInput} />
         {passwordTouch && passwordError.active && (
-          <div /*id="form-error"*/>
+          <div /*id='form-error'*/>
             { passwordError.message }
           </div>
         )}
 
-        <button disabled={anyError()} type="submit" /*id="form-submitButton"*/>
+        <button disabled={anyError()} type="submit" /*id='form-submitButton'*/>
           Sign up
         </button>
 

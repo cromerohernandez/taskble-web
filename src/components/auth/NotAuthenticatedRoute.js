@@ -7,7 +7,7 @@ const NotAuthenticatedRoute = (props) => {
   const auth = useContext(AuthContext)
 
   if (auth.currentUser) {
-    return <Redirect to="/"/>
+    return <Redirect to='/'/>
   } else {
     return <Route {...props} />
   }
