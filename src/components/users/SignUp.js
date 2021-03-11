@@ -1,7 +1,6 @@
-import React, { useContext, useState } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
-import AuthContext from '../../contexts/AuthContext'
 import TaskbleService from '../../services/TaskbleService'
 
 import useInput from '../../hooks/useInput'
@@ -28,8 +27,6 @@ const errorMessages = {
 }
 
 const SignUp = () => {
-  const auth = useContext(AuthContext)
-
   const [success, setSuccess] = useState(false)
 
   const {
@@ -86,10 +83,6 @@ const SignUp = () => {
       })
   }
 
-  if (auth.currentUser) {
-    return <Redirect to="/"/>
-  }
-  
   if (success) {
     return <Validation/>
   }

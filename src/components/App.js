@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import { WithAuthConsumer } from '../contexts/AuthContext'
 
 import AuthenticatedRoute from './auth/AuthenticatedRoute'
+import NotAuthenticatedRoute from './auth/NotAuthenticatedRoute'
 import Home from './users/Home'
 import Login from './auth/Login'
 import SignUp from './users/SignUp'
@@ -23,9 +24,9 @@ function App() {
           <Login/>
         </Route>
 
-        <Route exact path="/signup">
+        <NotAuthenticatedRoute exact path="/signup">
           <SignUp/>
-        </Route>
+        </NotAuthenticatedRoute>
 
         <Route exact path="/:token/newpassword">
           <UpdatePassword/>
