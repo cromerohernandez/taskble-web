@@ -9,7 +9,7 @@ import Input from '../UI/Input'
 
 const validators = {
   keyword: val => val && val.length <= 10,
-  title: val => true,
+  title: val => val,
   userPriority: val => val,
   toDoDate: val => val,
   limitDate: val => val
