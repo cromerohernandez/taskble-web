@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { Redirect } from 'react-router-dom'
+import React, { useContext, useEffect } from 'react'
+import { Redirect, Link } from 'react-router-dom'
 
 import AuthContext from '../../contexts/AuthContext'
 import TaskbleService from '../../services/TaskbleService'
@@ -22,10 +22,15 @@ const Home = () => {
       })
   }
 
+  useEffect(() => {
+    TaskbleService.userProfile()
+  }, [auth.currentUser]) 
+
   return(
     <div>
       <p>Taskble Home</p>
       <button onClick={handleRequestNewPassword}>Change Password</button>
+      <Link to='/newtask'>New Task</Link>
       <button onClick={handleLogout}>←</button>
     </div>
   )
