@@ -24,7 +24,7 @@ const Home = () => {
 
   useEffect(() => {
     TaskbleService.userProfile()
-  }, []) 
+  }, [auth.currentUser]) 
 
   return(
     <div>
