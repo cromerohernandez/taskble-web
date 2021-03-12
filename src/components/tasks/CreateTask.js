@@ -10,7 +10,7 @@ import Input from '../UI/Input'
 const validators = {
   keyword: val => val && val.length <= 10,
   title: val => val,
-  userPriority: val => val,
+  userPriority: val => 1 <= val && val <= 5,
   toDoDate: val => val,
   limitDate: val => val
 }
@@ -18,7 +18,7 @@ const validators = {
 const errorMessages = {
   keyword: 'keyword is required and it can contains 10 chars maximun',
   title: 'title is required',
-  userPriority: 'userPriority is required',
+  userPriority: 'priority is required',
   toDoDate: 'toDoDate is required',
   limitDate: 'limitDate is required'
 }
@@ -111,7 +111,14 @@ const CreateTask = () => {
 
         <div>
           <label>priority:</label>
-          <Input type='range' min='1' max='5' name='userPriority' {...userPriorityHandleInput} />
+          <select type='select' name='userPriority' {...userPriorityHandleInput} >
+            <option>-</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
           {userPriorityTouch && userPriorityError.active && (
             <div>
               { userPriorityError.message }
