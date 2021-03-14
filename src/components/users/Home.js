@@ -4,6 +4,8 @@ import { Redirect, Link } from 'react-router-dom'
 import AuthContext from '../../contexts/AuthContext'
 import TaskbleService from '../../services/TaskbleService'
 
+import Calendar from '../tasks/Calendar'
+
 const Home = () => {
   const auth = useContext(AuthContext)
 
@@ -29,6 +31,7 @@ const Home = () => {
   return(
     <div>
       <p>Taskble Home</p>
+      <Calendar/>
       <button onClick={handleRequestNewPassword}>Change Password</button>
       <Link to='/newtask'>New Task</Link>
       <button onClick={handleLogout}>←</button>
