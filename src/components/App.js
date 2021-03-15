@@ -9,6 +9,7 @@ import Login from './auth/Login'
 import SignUp from './users/SignUp'
 import UpdatePassword from './users/UpdatePassword'
 import TaskForm from './tasks/TaskForm'
+import TaskDetail from './tasks/TaskDetail'
 
 import '../stylesheets/App.css'
 
@@ -35,6 +36,10 @@ function App() {
         <AuthenticatedRoute exact path='/newtask'>
           <TaskForm/>
         </AuthenticatedRoute>
+
+        <AuthenticatedRoute exact path='/tasks/:id'>
+          <TaskDetail/>
+        </AuthenticatedRoute>        
 
         <Redirect to='/'/>
       </Switch>
