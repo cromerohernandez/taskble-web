@@ -23,7 +23,7 @@ const errorMessages = {
   limitDate: 'limitDate is required'
 }
 
-const CreateTask = () => {
+const TaskForm = () => {
   const history = useHistory()
 
   const {
@@ -156,4 +156,4 @@ const CreateTask = () => {
   )
 }
 
-export default CreateTask
+export default TaskForm

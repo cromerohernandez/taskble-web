@@ -1,11 +1,10 @@
-import React, { useContext, useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 
-import AuthContext from '../../contexts/AuthContext'
 import TaskbleService from '../../services/TaskbleService'
 
-const Calendar = () => {
-  const auth = useContext(AuthContext)
+import TaskCard from './TaskCard'
 
+const Calendar = () => {
   const [tasks, setTasks] = useState([])
 
   const getTasks = useCallback(() => {
@@ -13,19 +12,18 @@ const Calendar = () => {
       .then(user => {
         setTasks(user.tasks)
       })
+      //.catch
   }, [tasks])
 
   useEffect(() => {
     getTasks()
   }, [])
 
-  console.log(tasks)
-
   return(
     <div>
-      {tasks.map((task, i) => {
-        <h6>{task.title}</h6>
-      })}
+      {tasks.map((task, i) => (
+        <TaskCard task={task} key={i}/>
+      ))}
     </div>
   )
 }

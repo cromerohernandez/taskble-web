@@ -8,7 +8,7 @@ import Home from './users/Home'
 import Login from './auth/Login'
 import SignUp from './users/SignUp'
 import UpdatePassword from './users/UpdatePassword'
-import CreateTask from './tasks/CreateTask'
+import TaskForm from './tasks/TaskForm'
 
 import '../stylesheets/App.css'
 
@@ -33,7 +33,7 @@ function App() {
         </Route>
 
         <AuthenticatedRoute exact path='/newtask'>
-          <CreateTask/>
+          <TaskForm/>
         </AuthenticatedRoute>
 
         <Redirect to='/'/>
