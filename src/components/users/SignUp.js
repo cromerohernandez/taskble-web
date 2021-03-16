@@ -87,7 +87,7 @@ const SignUp = () => {
     return <Validation/>
   }
 
-  return(
+  return (
     <div id='signup'>
 
       <h3>SignUp</h3>

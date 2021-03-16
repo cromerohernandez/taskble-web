@@ -86,7 +86,7 @@ const TaskForm = () => {
       })*/
   }
 
-  return(
+  return (
     <div /*id='createTask'*/>
 
       <h3>New Task</h3>

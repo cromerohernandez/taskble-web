@@ -1,12 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 const TaskCard = ({ task }) => {
-  return(
+  return (
     <div>
-      <Link to={`/tasks/${task.id}`}>
-        <h6>{task.title}</h6>
-      </Link>
+      <h6>{task.title}</h6>
     </div>
   )
 }
