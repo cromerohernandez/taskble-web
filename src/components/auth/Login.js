@@ -39,7 +39,7 @@ const Login = () => {
       })
   }
 
-  return(
+  return (
     <div id='login'>
       
       <LogoSprite/>

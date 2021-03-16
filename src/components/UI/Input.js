@@ -1,9 +1,7 @@
 import React from 'react'
 
-const Input = (props) => {
-  const { type, name, placeholder, value, onChange, onBlur } = props
-
-  return(
+const Input = ({ type, name, placeholder, value, onChange, onBlur }) => {
+  return (
     <input
      /*id='form-error'*/
     type={type}

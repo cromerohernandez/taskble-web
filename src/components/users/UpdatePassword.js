@@ -69,7 +69,7 @@ const UpdatePassword = () => {
       })
   }
 
-  return(
+  return (
     <div /*id='signup'*/>
 
       <h3>Change Password</h3>

@@ -28,7 +28,7 @@ const Home = () => {
     TaskbleService.userProfile()
   }, [auth.currentUser]) 
 
-  return(
+  return (
     <div>
       <p>Taskble Home</p>
       <Calendar/>
