@@ -61,7 +61,13 @@ const Login = () => {
 
       <div>
         <h5>Don´t have an account?
-          <Link to={{pathname:'/signup'}}> Sign up for Taskble</Link>
+          <Link to={{pathname:'/signup'}}>Sign up for Taskble</Link>
+        </h5>
+      </div>
+
+      <div>
+        <h5>
+          <Link to={{pathname:'/passwordrequest'}}>Forgot password?</Link>
         </h5>
       </div>
 
