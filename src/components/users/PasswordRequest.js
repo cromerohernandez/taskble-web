@@ -1,5 +1,5 @@
-import React from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useState } from 'react'
+import { useHistory, Link } from 'react-router-dom'
 
 import TaskbleService from '../../services/TaskbleService'
 
@@ -21,10 +21,13 @@ const errorMessages = {
 const PasswordRequest = () => {
   const history = useHistory()
 
+  const [success, setSuccess] = useState(false)
+
   const {
     value: email,
     touch: emailTouch,
     error: emailError,
+    resetError: emailResetError,
     handleInput: emailHandleInput 
   } = useInput('', validators.email, errorMessages.email)
 
@@ -39,11 +42,12 @@ const PasswordRequest = () => {
 
     TaskbleService.requestNewPassword(data)
       .then(() => {
-        //////////////////////////////////////////////// => ADD ALERT !!!!!
-        history.push('/')
+        setSuccess(true)
+        setTimeout(() => history.push('/'), 4000)
       })
-      .catch(() => {
-        //////////////////////////////////////////////// => ADD ALERT !!!!!
+      .catch(error => {
+        const errorMessage = error.response.data.message
+        emailResetError(errorMessage)
       })
   }
 
@@ -66,6 +70,26 @@ const PasswordRequest = () => {
         </button>
 
       </form>
+
+      {success && (
+        <div>
+          <h5>we have sent an email to </h5>
+          <h4>{email}</h4>
+          <h5> to update the password</h5>
+        </div>
+      )}
+
+      <div>
+        <h5>Don´t have an account?
+          <Link to={{pathname:'/signup'}}>Sign up for Taskble</Link>
+        </h5>
+      </div>
+
+      <div>
+        <h5>Go back to
+          <Link to={{pathname:'/login'}}> log in</Link>
+        </h5>
+      </div>
 
     </div>
   )
