@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
 
+import TranslateContext from '../../contexts/TranslateContext'
 import AuthContext from '../../contexts/AuthContext'
 import TaskbleService from '../../services/TaskbleService'
 
@@ -8,11 +8,14 @@ import useInput from '../../hooks/useInput'
 
 import LogoSprite from '../UI/LogoSprite'
 import Input from '../UI/Input'
+import SignUpLink from '../users/SignUpLink'
+import UpdatePasswordRequestLink from '../users/UpdatePasswordRequestLink'
 
 import '../../stylesheets/auth/login.css'
 
 const Login = () => {
   const auth = useContext(AuthContext)
+  const { texts } = useContext(TranslateContext)
 
   const [loginError, setLoginError] = useState({active: false, message: ''})
 
@@ -45,9 +48,9 @@ const Login = () => {
       <LogoSprite/>
 
       <form onSubmit={handleSubmit} id='loginForm'>
-        <Input type='text' name='email' {...emailHandleInput} />
+        <Input type='text' name={texts.inputs.email} {...emailHandleInput} />
 
-        <Input type='password' name='password' {...passwordHandleInput} />
+        <Input type='password' name={texts.inputs.password} {...passwordHandleInput} />
 
         {loginError.active && (
           <div>
@@ -55,21 +58,13 @@ const Login = () => {
           </div>
         )}
 
-        <button type="submit">Log in</button>
+        <button type="submit">{texts.buttons.logIn}</button>
 
       </form>
 
-      <div>
-        <h5>Don´t have an account?
-          <Link to={{pathname:'/signup'}}>Sign up for Taskble</Link>
-        </h5>
-      </div>
+      <SignUpLink/>
 
-      <div>
-        <h5>
-          <Link to={{pathname:'/passwordrequest'}}>Forgot password?</Link>
-        </h5>
-      </div>
+      <UpdatePasswordRequestLink/>
 
     </div>
   )
