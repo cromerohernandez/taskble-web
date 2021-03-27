@@ -6,9 +6,9 @@ import AuthenticatedRoute from './auth/AuthenticatedRoute'
 import NotAuthenticatedRoute from './auth/NotAuthenticatedRoute'
 import Home from './users/Home'
 import Login from './auth/Login'
-import SignUp from './users/SignUp'
-import PasswordRequest from './users/PasswordRequest'
-import UpdatePassword from './users/UpdatePassword'
+import SignUpForm from './users/SignUpForm'
+import UpdatePasswordRequest from './users/UpdatePasswordRequest'
+import UpdatePasswordForm from './users/UpdatePasswordForm'
 import TaskForm from './tasks/TaskForm'
 import TaskDetail from './tasks/TaskDetail'
 
@@ -27,15 +27,15 @@ function App() {
         </NotAuthenticatedRoute>
 
         <NotAuthenticatedRoute exact path='/signup'>
-          <SignUp/>
+          <SignUpForm/>
         </NotAuthenticatedRoute>
 
         <NotAuthenticatedRoute exact path='/passwordrequest'>
-          <PasswordRequest/>
+          <UpdatePasswordRequest/>
         </NotAuthenticatedRoute>
 
         <Route exact path='/:token/newpassword'>
-          <UpdatePassword/>
+          <UpdatePasswordForm/>
         </Route>
 
         <AuthenticatedRoute exact path='/newtask'>

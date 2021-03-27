@@ -21,7 +21,7 @@ const errorMessages = {
   confirmNewPassword: 'new password and confirm new password must be match'
 }
 
-const UpdatePassword = () => {
+const UpdatePasswordForm = () => {
   const history = useHistory()
   const { token } = useParams()
 
@@ -111,4 +111,4 @@ const UpdatePassword = () => {
   )
 }
 
-export default UpdatePassword
+export default UpdatePasswordForm

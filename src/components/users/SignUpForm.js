@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 
 import TaskbleService from '../../services/TaskbleService'
 
@@ -7,7 +6,8 @@ import useInput from '../../hooks/useInput'
 
 import { checkPasswordFormat } from '../../helpers/authHelper'
 
-import Validation from './Validation'
+import SignUpValidation from './SignUpValidation'
+import LoginLink from '../auth/LoginLink'
 
 import Input from '../UI/Input'
 
@@ -26,7 +26,7 @@ const errorMessages = {
   password: 'password needs at least 8 chars and must contains uppercase, lowercase, numbers and symbols'
 }
 
-const SignUp = () => {
+const SignUpForm = () => {
   const [success, setSuccess] = useState(false)
 
   const {
@@ -84,7 +84,7 @@ const SignUp = () => {
   }
 
   if (success) {
-    return <Validation/>
+    return <SignUpValidation/>
   }
 
   return (
@@ -121,14 +121,10 @@ const SignUp = () => {
 
       </form>    
 
-      <div>
-        <h5>Have an account?
-          <Link to={{pathname:'/login'}}> Log in</Link>
-        </h5>
-      </div>
+      <LoginLink/>
 
     </div>
   )
 }
 
-export default SignUp
+export default SignUpForm

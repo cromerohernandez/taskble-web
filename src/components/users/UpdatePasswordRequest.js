@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
-import { useHistory, Link } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
+import TranslateContext from '../../contexts/TranslateContext'
 import TaskbleService from '../../services/TaskbleService'
 
 import useInput from '../../hooks/useInput'
+import SignUpLink from './SignUpLink'
+import LoginLink from '../auth/LoginLink'
 
 import Input from '../UI/Input'
 
@@ -14,12 +17,9 @@ const validators = {
   email: val => val.match(EMAIL_PATTERN)
 }
 
-const errorMessages = {
-  email: 'invalid email format',
-}
-
-const PasswordRequest = () => {
+const UpdatePasswordRequest = () => {
   const history = useHistory()
+  const { texts } = useContext(TranslateContext)
 
   const [success, setSuccess] = useState(false)
 
@@ -29,7 +29,7 @@ const PasswordRequest = () => {
     error: emailError,
     resetError: emailResetError,
     handleInput: emailHandleInput 
-  } = useInput('', validators.email, errorMessages.email)
+  } = useInput('', validators.email, texts.errors.emailFormat)
 
   const anyError = () => {
     const errors = [emailError.active]
@@ -54,11 +54,11 @@ const PasswordRequest = () => {
   return (
     <div id='passwordRequest'>
 
-      <h3>Enter your email, and we'll send you a link to get back into your account.</h3>
+      <h3>{texts.headers.enterEmailAndSendLinkToGetBackAccount}</h3>
 
       <form onSubmit={handleRequestNewPassword} /*id='form-container'*/>
 
-        <Input type='text' name='email' {...emailHandleInput} />
+        <Input type='text' name={texts.inputs.email} {...emailHandleInput} />
           {emailTouch && emailError.active && (
             <div>
               { emailError.message }
@@ -66,33 +66,25 @@ const PasswordRequest = () => {
           )}
 
         <button disabled={anyError()} type="submit" /*id='form-submitButton'*/>
-          Send login link
+          {texts.buttons.sendLoginLink}
         </button>
 
       </form>
 
       {success && (
         <div>
-          <h5>we have sent an email to </h5>
+          <h5>{texts.headers.haveSentEmailTo} </h5>
           <h4>{email}</h4>
-          <h5> to update the password</h5>
+          <h5> {texts.headers.toUpdatePassword}</h5>
         </div>
       )}
 
-      <div>
-        <h5>Don´t have an account?
-          <Link to={{pathname:'/signup'}}>Sign up for Taskble</Link>
-        </h5>
-      </div>
+      <SignUpLink/>
 
-      <div>
-        <h5>Go back to
-          <Link to={{pathname:'/login'}}> log in</Link>
-        </h5>
-      </div>
+      <LoginLink/>
 
     </div>
   )
 }
 
-export default PasswordRequest
+export default UpdatePasswordRequest
