@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext} from 'react'
 import { useHistory } from 'react-router-dom'
 
+import TranslateContext from '../../contexts/TranslateContext'
 import TaskbleService from '../../services/TaskbleService'
 
 import useInput from '../../hooks/useInput'
@@ -15,30 +16,23 @@ const validators = {
   limitDate: val => val
 }
 
-const errorMessages = {
-  keyword: 'keyword is required and it can contains 10 chars maximun',
-  title: 'title is required',
-  userPriority: 'priority is required',
-  toDoDate: 'toDoDate is required',
-  limitDate: 'limitDate is required'
-}
-
 const TaskForm = () => {
   const history = useHistory()
+  const { texts } = useContext(TranslateContext)
 
   const {
     value: keyword,
     touch: keywordTouch,
     error: keywordError,
     handleInput: keywordHandleInput
-  } = useInput('', validators.keyword, errorMessages.keyword)
+  } = useInput('', validators.keyword, texts.errors.keywordRequired)
 
   const {
     value: title,
     touch: titleTouch,
     error: titleError,
     handleInput: titleHandleInput
-  } = useInput('', validators.title, errorMessages.title)
+  } = useInput('', validators.title, texts.errors.titleRequired)
 
   const {
     value: description,
@@ -50,21 +44,21 @@ const TaskForm = () => {
     touch: userPriorityTouch,
     error: userPriorityError,
     handleInput: userPriorityHandleInput
-  } = useInput('', validators.userPriority, errorMessages.userPriority)
+  } = useInput('', validators.userPriority, texts.errors.priorityRequired)
 
   const {
     value: toDoDate,
     touch: toDoDateTouch,
     error: toDoDateError,
     handleInput: toDoDateHandleInput
-  } = useInput('', validators.toDoDate, errorMessages.toDoDate)
+  } = useInput('', validators.toDoDate, texts.errors.toDoDateRequired)
 
   const {
     value: limitDate,
     touch: limitDateTouch,
     error: limitDateError,
     handleInput: limitDateHandleInput
-  } = useInput('', validators.limitDate, errorMessages.limitDate)
+  } = useInput('', validators.limitDate, texts.errors.limitDateRequired)
 
   const anyError = () => {
     const errors = [keywordError.active, titleError.active, userPriorityError.active, toDoDateError.active, limitDateError.active]
@@ -89,28 +83,28 @@ const TaskForm = () => {
   return (
     <div /*id='createTask'*/>
 
-      <h3>New Task</h3>
+      <h3>{texts.headers.newTask}</h3>
 
       <form onSubmit={handleSubmit} /*id='form-container'*/>
 
-        <Input type='text' name='keyword' {...keywordHandleInput} />
+        <Input type='text' name='keyword' placeholder={texts.inputs.keyword} {...keywordHandleInput} />
         {keywordTouch && keywordError.active && (
           <div>
             { keywordError.message }
           </div>
         )}
 
-        <Input type='text' name='title' {...titleHandleInput} />
+        <Input type='text' name='title' placeholder={texts.inputs.title} {...titleHandleInput} />
         {titleTouch && titleError.active && (
           <div>
             { titleError.message }
           </div>
         )}
 
-        <Input type='text' name='description' {...descriptionHandleInput} />
+        <Input type='text' name='description' placeholder={texts.inputs.description} {...descriptionHandleInput} />
 
         <div>
-          <label>priority:</label>
+          <label>{texts.labels.priority}:</label>
           <select type='select' name='userPriority' {...userPriorityHandleInput} >
             <option>-</option>
             <option>1</option>
@@ -127,7 +121,7 @@ const TaskForm = () => {
         </div>
 
         <div>
-          <label>date to do:</label>
+          <label>{texts.labels.dateToDo}:</label>
           <Input type='date' name='toDoDate' {...toDoDateHandleInput} />
           {toDoDateTouch && toDoDateError.active && (
             <div>
@@ -137,7 +131,7 @@ const TaskForm = () => {
         </div>
 
         <div>
-          <label>limit date:</label>
+          <label>{texts.labels.limitDate}:</label>
           <Input type='date' name='limitDate' {...limitDateHandleInput} />
           {limitDateTouch && limitDateError.active && (
             <div>
@@ -147,7 +141,7 @@ const TaskForm = () => {
         </div>
 
         <button disabled={anyError()} type="submit" /*id='form-submitButton'*/>
-          Create Task
+          {texts.buttons.createTask}
         </button>
 
       </form>

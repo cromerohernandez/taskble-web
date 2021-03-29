@@ -1,10 +1,16 @@
 export const en = {
   'buttons': {
+    'createTask': 'Create Task',
     'logIn': 'Log in',
     'sendLoginLink': 'Send login link'
   },
   'errors': {
-    'emailFormat': 'invalid email format'
+    'emailFormat': 'invalid email format',
+    'keywordRequired': 'keyword is required and it can contains 10 chars maximun',
+    'limitDateRequired': 'limitDate is required',
+    'priorityRequired': 'priority is required',
+    'titleRequired': 'title is required',
+    'toDoDateRequired': 'toDoDate is required'
   },
   'headers': {
     'checkItAnd': 'Check it and',
@@ -16,23 +22,39 @@ export const en = {
     'haveSentEmailToConfirmAccount': 'We have sent you an email to confirm your account',
     'logIn': 'log in',
     'login': 'log in',
+    'newTask': 'New Task',
     'signUpForTaskble': 'Sign up for Taskble',
     'toStart': 'to start!',
     'toUpdatePassword': 'to update the password'
   },
   'inputs': {
+    'description': 'description',
     'email': 'email',
-    'password': 'password'
+    'keyword': 'keyword',
+    'password': 'password',
+    'title': 'title',
+    'userPriority': 'userPriority'
+  },
+  'labels': {
+    'dateToDo': 'date to do',
+    'limitDate': 'limit date',
+    'priority': 'priority'
   }
 }
 
 export const es = {
   'buttons': {
+    'createTask': 'Crear tarea',
     'logIn': 'Iniciar sesión',
     'sendLoginLink': 'Enviar enlace de inicio de sesión'
   },
   'errors': {
-    'emailFormat': 'formato de email no válido'
+    'emailFormat': 'formato de email no válido',
+    'keywordRequired': 'la palabra clave es requerida y puede contener 10 caracteres como máximo',
+    'limitDateRequired': 'la fecha límite es requerida',
+    'priorityRequired': 'la prioridad es requerida',
+    'titleRequired': 'el título es requerido',
+    'toDoDateRequired': 'la fecha de realización es requerida'
   },
   'headers': {
     'checkItAnd': '¡Revísalo e',
@@ -44,12 +66,22 @@ export const es = {
     'haveSentEmailToConfirmAccount': 'Te hemos enviado un email para confirmar tu cuenta',
     'logIn': 'inicia sesión',
     'login': 'inicio de sesión',
+    'newTask': 'Nueva Tarea',
     'signUpForTaskble': 'Regístrate en Taskble',
     'toStart': 'para comenzar!',
     'toUpdatePassword': 'para actualizar la contraseña'
   },
   'inputs': {
+    'description': 'descripción',
     'email': 'email',
-    'password': 'contraseña'
+    'keyword': 'palabra clave',
+    'password': 'contraseña',
+    'title': 'título',
+    'userPriority': 'prioridad del usuario'
+  },
+  'labels': {
+    'dateToDo': 'fecha de realización',
+    'limitDate': 'fecha límite',
+    'priority': 'prioridad'
   }
 }

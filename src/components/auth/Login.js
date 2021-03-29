@@ -50,7 +50,7 @@ const Login = () => {
       <form onSubmit={handleSubmit} id='loginForm'>
         <Input type='text' name={texts.inputs.email} {...emailHandleInput} />
 
-        <Input type='password' name={texts.inputs.password} {...passwordHandleInput} />
+        <Input type='password' name='password' placeholder={texts.inputs.password} {...passwordHandleInput} />
 
         {loginError.active && (
           <div>
