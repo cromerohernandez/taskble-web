@@ -1,12 +1,14 @@
 import React, { useContext, useEffect } from 'react'
 import { Redirect, Link } from 'react-router-dom'
 
+import TranslateContext from '../../contexts/TranslateContext'
 import AuthContext from '../../contexts/AuthContext'
 import TaskbleService from '../../services/TaskbleService'
 
 import Calendar from '../tasks/Calendar'
 
 const Home = () => {
+  const { texts } = useContext(TranslateContext)
   const auth = useContext(AuthContext)
 
   const handleLogout = () => {
@@ -30,10 +32,9 @@ const Home = () => {
 
   return (
     <div>
-      <p>Taskble Home</p>
       <Calendar/>
-      <button onClick={handleRequestNewPassword}>Change Password</button>
-      <Link to='/newtask'>New Task</Link>
+      <button onClick={handleRequestNewPassword}>{texts.buttons.changePassword}</button>
+      <Link to='/newtask'>{texts.headers.newTask}</Link>
       <button onClick={handleLogout}>←</button>
     </div>
   )

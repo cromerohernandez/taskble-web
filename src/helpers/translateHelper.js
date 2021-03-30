@@ -1,6 +1,7 @@
 export const en = {
   'buttons': {
-    'createTask': 'Create Task',
+    'changePassword': 'Change password',
+    'createTask': 'Create task',
     'logIn': 'Log in',
     'sendLoginLink': 'Send login link'
   },
@@ -22,7 +23,7 @@ export const en = {
     'haveSentEmailToConfirmAccount': 'We have sent you an email to confirm your account',
     'logIn': 'log in',
     'login': 'log in',
-    'newTask': 'New Task',
+    'newTask': 'New task',
     'signUpForTaskble': 'Sign up for Taskble',
     'toStart': 'to start!',
     'toUpdatePassword': 'to update the password'
@@ -44,6 +45,7 @@ export const en = {
 
 export const es = {
   'buttons': {
+    'changePassword': 'Cambiar contraseña',
     'createTask': 'Crear tarea',
     'logIn': 'Iniciar sesión',
     'sendLoginLink': 'Enviar enlace de inicio de sesión'
@@ -66,7 +68,7 @@ export const es = {
     'haveSentEmailToConfirmAccount': 'Te hemos enviado un email para confirmar tu cuenta',
     'logIn': 'inicia sesión',
     'login': 'inicio de sesión',
-    'newTask': 'Nueva Tarea',
+    'newTask': 'Nueva tarea',
     'signUpForTaskble': 'Regístrate en Taskble',
     'toStart': 'para comenzar!',
     'toUpdatePassword': 'para actualizar la contraseña'

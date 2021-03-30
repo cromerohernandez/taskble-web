@@ -13,7 +13,7 @@ const TaskDetail = ({ taskId }) => {
         setTask(task)
       })
       //.catch
-  }, [task])
+  }, [taskId])
 
   return (
     <div>
