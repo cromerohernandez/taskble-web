@@ -20,11 +20,11 @@ const Calendar = () => {
         setTasks(user.tasks)
       })
       //.catch
-  }, [tasks])
+  }, [])
 
   useEffect(() => {
     getTasks()
-  }, [])
+  }, [getTasks])
 
   return (
     <div>
