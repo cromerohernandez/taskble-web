@@ -35,16 +35,17 @@ const Calendar = () => {
             //showModal()
             return (
               //<Modal show={show} handleClose={hideModal}>
-                <TaskDetail id={task.id}/>
+                <TaskDetail/>
               //</Modal>
             )
           }}
+          key={i}
         >
-          <TaskCard task={task} key={i} onClick={() => {
+          <TaskCard task={task} onClick={() => {
             showModal()
             return (
               <Modal show={show} handleClose={hideModal}>
-                <TaskDetail id={task.id}/>
+                <TaskDetail/>
               </Modal>
             )
           }}/>

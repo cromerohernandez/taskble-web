@@ -3,17 +3,17 @@ import { useParams } from 'react-router-dom'
 
 import TaskbleService from '../../services/TaskbleService'
 
-const TaskDetail = ({ taskId }) => {
+const TaskDetail = () => {
   const [task, setTask] = useState()
-  //const { id } = useParams()
+  const { id } = useParams()
 
   useEffect(() => {
-    TaskbleService.taskDetail(taskId)
+    TaskbleService.taskDetail(id)
       .then(task => {
         setTask(task)
       })
       //.catch
-  }, [taskId])
+  }, [id])
 
   return (
     <div>
