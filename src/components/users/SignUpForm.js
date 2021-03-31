@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
+import TranslateContext from '../../contexts/TranslateContext'
 import TaskbleService from '../../services/TaskbleService'
 
 import useInput from '../../hooks/useInput'
@@ -20,13 +21,9 @@ const validators = {
   password: val => val.length >= 8 && checkPasswordFormat(val) 
 }
 
-const errorMessages = {
-  username: 'username needs at least 3 chars',
-  email: 'invalid email format',
-  password: 'password needs at least 8 chars and must contains uppercase, lowercase, numbers and symbols'
-}
-
 const SignUpForm = () => {
+  const { texts } = useContext(TranslateContext)
+
   const [success, setSuccess] = useState(false)
 
   const {
@@ -35,7 +32,7 @@ const SignUpForm = () => {
     error: usernameError,
     resetError: usernameResetError,
     handleInput: usernameHandleInput 
-  } = useInput('', validators.username, errorMessages.username)
+  } = useInput('', validators.username, texts.errors.usernameFormat)
 
   const {
     value: email,
@@ -43,7 +40,7 @@ const SignUpForm = () => {
     error: emailError,
     resetError: emailResetError,
     handleInput: emailHandleInput
-  } = useInput('',  validators.email, errorMessages.email)
+  } = useInput('',  validators.email, texts.errors.emailFormat)
 
   const {
     value: password,
@@ -51,7 +48,7 @@ const SignUpForm = () => {
     error: passwordError,
     resetError: passwordResetError,
     handleInput: passwordHandleInput
-  } = useInput('', validators.password, errorMessages.password)
+  } = useInput('', validators.password, texts.errors.passwordFormat)
 
   const anyError = () => {
     const errors = [usernameError.active, emailError.active, passwordError.active]
@@ -90,25 +87,25 @@ const SignUpForm = () => {
   return (
     <div id='signup'>
 
-      <h3>SignUp</h3>
+      <h3>{texts.headers.signup}</h3>
 
       <form onSubmit={handleSubmit} /*id='form-container'*/>
 
-        <Input type='text' name='username' {...usernameHandleInput} />
+        <Input type='text' name='username' placeholder={texts.inputs.username} {...usernameHandleInput} />
         {usernameTouch && usernameError.active && (
           <div /*id='form-error'*/>
             { usernameError.message }
           </div>
         )}
 
-        <Input type='text' name='email' {...emailHandleInput} />
+        <Input type='text' name='email' placeholder={texts.inputs.email} {...emailHandleInput} />
         {emailTouch && emailError.active && (
           <div /*id='form-error'*/>
             { emailError.message }
           </div>
         )}
 
-        <Input type='password' name='password' {...passwordHandleInput} />
+        <Input type='password' name='password' placeholder={texts.inputs.password} {...passwordHandleInput} />
         {passwordTouch && passwordError.active && (
           <div /*id='form-error'*/>
             { passwordError.message }
@@ -116,7 +113,7 @@ const SignUpForm = () => {
         )}
 
         <button disabled={anyError()} type="submit" /*id='form-submitButton'*/>
-          Sign up
+          {texts.buttons.createAccount}
         </button>
 
       </form>    
