@@ -18,7 +18,8 @@ const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\"
 const validators = {
   username: val => val.length >= 3,
   email: val => val.match(EMAIL_PATTERN),
-  password: val => val.length >= 8 && checkPasswordFormat(val) 
+  password: val => val.length >= 8 && checkPasswordFormat(val),
+  language: val => val === 'en' || val === 'es'
 }
 
 const SignUpForm = () => {
@@ -50,14 +51,22 @@ const SignUpForm = () => {
     handleInput: passwordHandleInput
   } = useInput('', validators.password, texts.errors.passwordFormat)
 
+  const {
+    value: language,
+    touch: languageTouch,
+    error: languageError,
+    resetError: languageResetError,
+    handleInput: languageHandleInput
+  } = useInput('', validators.language, texts.errors.languageRequired)
+
   const anyError = () => {
-    const errors = [usernameError.active, emailError.active, passwordError.active]
+    const errors = [usernameError.active, emailError.active, passwordError.active, languageError.active]
     return errors.some(x => x === true)
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    const data = {username, email, password}
+    const data = {username, email, password, language}
 
     TaskbleService.signup(data)
       .then(() => {
@@ -70,6 +79,7 @@ const SignUpForm = () => {
           {keyError: 'username', resetError: usernameResetError},
           {keyError: 'email', resetError: emailResetError},
           {keyError: 'password', resetError: passwordResetError},
+          {keyError: 'language', resetError: languageResetError},
         ]
 
         resetErrors.forEach(resetError => {
@@ -111,6 +121,20 @@ const SignUpForm = () => {
             { passwordError.message }
           </div>
         )}
+
+        <div>
+          <label>{texts.labels.language}:</label>
+          <select type='select' name='language' {...languageHandleInput} >
+            <option>-</option>
+            <option value='en'>{texts.options.english}</option>
+            <option value='es'>{texts.options.spanish}</option>
+          </select>
+          {languageTouch && languageError.active && (
+            <div>
+              { languageError.message }
+            </div>
+          )}
+        </div>
 
         <button disabled={anyError()} type="submit" /*id='form-submitButton'*/>
           {texts.buttons.createAccount}
