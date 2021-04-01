@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom'
-import { TranslateContextProvider } from './contexts/TranslateContext'
 import { AuthContextProvider } from './contexts/AuthContext'
+import { TranslateContextProvider } from './contexts/TranslateContext'
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import './index.css'
@@ -11,11 +11,11 @@ import './index.css'
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <TranslateContextProvider>
-        <AuthContextProvider>
-            <App />
-        </AuthContextProvider>
-      </TranslateContextProvider>
+      <AuthContextProvider>
+        <TranslateContextProvider>
+          <App />
+        </TranslateContextProvider>
+      </AuthContextProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

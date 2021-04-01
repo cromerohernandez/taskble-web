@@ -1,29 +1,40 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
-import { es, en } from '../helpers/translateHelper'
+import AuthContext from './AuthContext'
+
+import { es, en } from '../assets/texts'
+import { translateAPIErrors } from '../helpers/translateHelper'
 
 const TranslateContext = React.createContext()
 
 export const TranslateContextProvider = (props) => {
-  const [currentLanguage, setCurrentLanguage] = useState(window.navigator.language)
+  const auth = useContext(AuthContext)
+
+  const [currentLanguage, setCurrentLanguage] = useState(auth.currentUser ? auth.currentUser.language : window.navigator.language)
 
   const setLanguage = (language) => {
     setCurrentLanguage(language)
   }
 
+  const translateAPIerror = (error) => {
+    translateAPIErrors(error, currentLanguage)
+  }
+
   const valueEs = {
     language: currentLanguage,
     setLanguage: setLanguage,
+    translateAPIerror: translateAPIerror,
     texts: es
   }
 
   const valueEn = {
     language: currentLanguage,
     setLanguage: setLanguage,
+    translateAPIerror: translateAPIerror,
     texts: en
   }
 
-  if (currentLanguage === 'es-ES') {
+  if (currentLanguage.slice(0,2) === 'es') {
     return (
       <TranslateContext.Provider value={valueEs}>
         {props.children}
