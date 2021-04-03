@@ -15,7 +15,7 @@ import '../../stylesheets/auth/login.css'
 
 const Login = () => {
   const auth = useContext(AuthContext)
-  const { setLanguage, texts } = useContext(TranslateContext)
+  const { setLanguage, translateAPIerror, texts } = useContext(TranslateContext)
 
   const [loginError, setLoginError] = useState({active: false, message: ''})
 
@@ -39,7 +39,9 @@ const Login = () => {
         setLanguage(user.language)
       })
       .catch(error => {
-        setLoginError({active: true, message: error.response.data.message})
+        const translatedError = translateAPIerror(error.response.data.message)
+
+        setLoginError({active: true, message: translatedError})
       })
   }
 

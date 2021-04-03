@@ -1,4 +1,7 @@
 export const en = {
+  'APIErrors': {
+    'invalidEmailOrPassword': 'invalid email or password'
+  },
   'buttons': {
     'changePassword': 'Change password',
     'createAccount': 'Create account',
@@ -9,6 +12,7 @@ export const en = {
   'errors': {
     'emailFormat': 'invalid email format',
     'keywordRequired': 'keyword is required and it can contains 10 chars maximun',
+    'languageRequired': 'language is required',
     'limitDateRequired': 'limitDate is required',
     'passwordFormat': 'password needs at least 8 chars and must contains uppercase, lowercase, numbers and symbols',
     'passwordMatch': 'new password and confirm new password must be match',
@@ -48,12 +52,20 @@ export const en = {
   },
   'labels': {
     'dateToDo': 'date to do',
+    'language': 'language',
     'limitDate': 'limit date',
     'priority': 'priority'
+  },
+  'options': {
+    'english': 'English',
+    'spanish': 'Spanish'
   }
 }
 
 export const es = {
+  'APIErrors': {
+    'invalidEmailOrPassword': 'email o contraseña no válidos'
+  },
   'buttons': {
     'changePassword': 'Cambiar contraseña',
     'createAccount': 'Crear cuenta',
@@ -64,6 +76,7 @@ export const es = {
   'errors': {
     'emailFormat': 'formato de email no válido',
     'keywordRequired': 'la palabra clave es requerida y puede contener 10 caracteres como máximo',
+    'languageRequired': 'el idioma es requerido',
     'limitDateRequired': 'la fecha límite es requerida',
     'passwordFormat': 'la contraseña necesita al menos 8 caracteres y debe contener mayúsculas, minúsculas, números y símbolos',
     'passwordMatch': 'la nueva contraseña y la confirmación de nueva contraseña deben coincidir',
@@ -103,7 +116,12 @@ export const es = {
   },
   'labels': {
     'dateToDo': 'fecha de realización',
+    'language': 'language',
     'limitDate': 'fecha límite',
     'priority': 'prioridad'
+  },
+  'options': {
+    'english': 'Inglés',
+    'spanish': 'Español'
   }
 }

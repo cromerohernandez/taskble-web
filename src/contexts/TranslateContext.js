@@ -10,14 +10,14 @@ const TranslateContext = React.createContext()
 export const TranslateContextProvider = (props) => {
   const auth = useContext(AuthContext)
 
-  const [currentLanguage, setCurrentLanguage] = useState(auth.currentUser ? auth.currentUser.language : window.navigator.language)
+  const [currentLanguage, setCurrentLanguage] = useState(auth.currentUser ? auth.currentUser.language : window.navigator.language.slice(0,2))
 
   const setLanguage = (language) => {
     setCurrentLanguage(language)
   }
 
   const translateAPIerror = (error) => {
-    translateAPIErrors(error, currentLanguage)
+    return translateAPIErrors(error, currentLanguage)
   }
 
   const valueEs = {
@@ -34,7 +34,7 @@ export const TranslateContextProvider = (props) => {
     texts: en
   }
 
-  if (currentLanguage.slice(0,2) === 'es') {
+  if (currentLanguage === 'es') {
     return (
       <TranslateContext.Provider value={valueEs}>
         {props.children}
