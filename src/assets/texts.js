@@ -1,4 +1,7 @@
 export const en = {
+  'APIErrors': {
+    'invalidEmailOrPassword': 'invalid email or password'
+  },
   'buttons': {
     'changePassword': 'Change password',
     'createAccount': 'Create account',
@@ -60,6 +63,9 @@ export const en = {
 }
 
 export const es = {
+  'APIErrors': {
+    'invalidEmailOrPassword': 'email o contraseña no válidos'
+  },
   'buttons': {
     'changePassword': 'Cambiar contraseña',
     'createAccount': 'Crear cuenta',
