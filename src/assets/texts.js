@@ -1,6 +1,11 @@
 export const en = {
   'APIErrors': {
-    'invalidEmailOrPassword': 'invalid email or password'
+    'invalidEmailOrPassword': 'invalid email or password',
+    'invalidRequest': 'invalid request',
+    'missingCredentials': 'missing credentials',
+    'taskNotFound': 'task not found',
+    'unauthorizedUser': 'unauthorized user',
+    'userNotFound': 'user not found'
   },
   'buttons': {
     'changePassword': 'Change password',
@@ -64,7 +69,12 @@ export const en = {
 
 export const es = {
   'APIErrors': {
-    'invalidEmailOrPassword': 'email o contraseña no válidos'
+    'invalidEmailOrPassword': 'email o contraseña no válidos',
+    'invalidRequest': 'petición no válida',
+    'missingCredentials': 'credenciales incompletas',
+    'taskNotFound': 'tarea no encontrada',
+    'unauthorizedUser': 'usuario no autorizado',
+    'userNotFound': 'usuario no encontrado'
   },
   'buttons': {
     'changePassword': 'Cambiar contraseña',
