@@ -1,10 +1,12 @@
 export const en = {
   'APIErrors': {
+    'emailAlreadyExists':'email already exists',
     'invalidEmailOrPassword': 'invalid email or password',
     'invalidRequest': 'invalid request',
     'missingCredentials': 'missing credentials',
     'taskNotFound': 'task not found',
     'unauthorizedUser': 'unauthorized user',
+    'usernameAlreadyExists': 'username already exists',
     'userNotFound': 'user not found'
   },
   'buttons': {
@@ -69,11 +71,13 @@ export const en = {
 
 export const es = {
   'APIErrors': {
+    'emailAlreadyExists':'la dirección de email ya existe',
     'invalidEmailOrPassword': 'email o contraseña no válidos',
     'invalidRequest': 'petición no válida',
     'missingCredentials': 'credenciales incompletas',
     'taskNotFound': 'tarea no encontrada',
     'unauthorizedUser': 'usuario no autorizado',
+    'usernameAlreadyExists': 'el nombre de usuario ya existe',
     'userNotFound': 'usuario no encontrado'
   },
   'buttons': {
@@ -126,7 +130,7 @@ export const es = {
   },
   'labels': {
     'dateToDo': 'fecha de realización',
-    'language': 'language',
+    'language': 'idioma',
     'limitDate': 'fecha límite',
     'priority': 'prioridad'
   },
