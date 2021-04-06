@@ -23,7 +23,7 @@ const validators = {
 }
 
 const SignUpForm = () => {
-  const { texts } = useContext(TranslateContext)
+  const { translateAPIerror, texts } = useContext(TranslateContext)
 
   const [success, setSuccess] = useState(false)
 
@@ -75,6 +75,7 @@ const SignUpForm = () => {
       .catch(error => {
         const responseErrors = error.response.data.errors
         const key = Object.keys(responseErrors)[0]
+        const translatedError = translateAPIerror(responseErrors[key])
         const resetErrors = [
           {keyError: 'username', resetError: usernameResetError},
           {keyError: 'email', resetError: emailResetError},
@@ -84,7 +85,7 @@ const SignUpForm = () => {
 
         resetErrors.forEach(resetError => {
           if (resetError.keyError === key) {
-            resetError.resetError(responseErrors[key])
+            resetError.resetError(translatedError)
           }
         })
       })
