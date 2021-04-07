@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.6.3",
     "axios": "^0.21.1",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "jest-cli": "^26.6.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
@@ -17,8 +18,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "testj": "jasmine",
+    "test": "jest --watch",
+    "testr": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -40,6 +41,6 @@
     ]
   },
   "devDependencies": {
-    "jasmine": "^3.7.0"
+    "jest": "^26.6.3"
   }
 }
