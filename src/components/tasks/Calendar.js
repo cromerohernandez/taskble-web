@@ -1,33 +1,42 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 
-import useModal from '../../hooks/useModal'
+//import useModal from '../../hooks/useModal'
 
 import TaskbleService from '../../services/TaskbleService'
 
-import Modal from '../UI/Modal'
-import TaskCard from './TaskCard'
-import TaskDetail from './TaskDetail'
+//import Modal from '../UI/Modal'
+//import TaskCard from './TaskCard'
+//import TaskDetail from './TaskDetail'
+import Day from './Day'
 
 const Calendar = () => {
-  const [tasks, setTasks] = useState([])
+  //const [tasks, setTasks] = useState([])
 
-  const { show, showModal, hideModal } = useModal()
+  //const { show, showModal, hideModal } = useModal()
 
-  const getTasks = useCallback(() => {
+  /*const getTasks = useCallback(() => {
     TaskbleService.userProfile()
       .then(user => {
         setTasks(user.tasks)
       })
       //.catch
-  }, [])
+  }, [])*/
 
-  useEffect(() => {
+  /*useEffect(() => {
     getTasks()
-  }, [getTasks])
+  }, [getTasks])*/
 
   return (
     <div>
+      <Day date={Date.now()}/>
+    </div>
+  )
+}
+
+export default Calendar
+
+/*    <div>
       {tasks.map((task, i) => (
         <Link
           to={`/tasks/${task.id}`}
@@ -51,16 +60,4 @@ const Calendar = () => {
           }}/>
         </Link>
       ))}
-    </div>
-  )
-}
-
-export default Calendar
-
-/*<div>
-  {tasks.map((task, i) => (
-    <Link to={`/tasks/${task.id}`}>
-      <TaskCard task={task} key={i}/>
-    </Link>
-  ))}
-</div>*/
+    </div>*/
