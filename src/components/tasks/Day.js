@@ -9,15 +9,14 @@ const Day = (date) => {
   const [tasks, setTasks] = useState([])
 
   const getTasks = useCallback(() => {
-    TaskbleService.userProfile()
-      .then(user => {
-        setTasks(user.tasks)
+    TaskbleService.dailyTasks(date.date)
+      .then(tasks => {
+        setTasks(tasks)
       })
       //.catch
-  }, [])
+  }, [date])
 
   useEffect(() => {
-    console.log(date)
     getTasks()
   }, [getTasks])
 

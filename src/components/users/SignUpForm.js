@@ -24,7 +24,6 @@ const validators = {
 
 const SignUpForm = () => {
   const { translateAPIerror, texts } = useContext(TranslateContext)
-
   const [success, setSuccess] = useState(false)
 
   const {
