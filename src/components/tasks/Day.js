@@ -5,13 +5,16 @@ import TaskbleService from '../../services/TaskbleService'
 
 import TaskCard from './TaskCard'
 
+import { sortByFinalPriority } from '../../helpers/componentsHelper'
+
 const Day = (date) => {
   const [tasks, setTasks] = useState([])
 
   const getTasks = useCallback(() => {
     TaskbleService.dailyTasks(date.date)
       .then(tasks => {
-        setTasks(tasks)
+        const sortedTasks = sortByFinalPriority(tasks)
+        setTasks(sortedTasks)
       })
       //.catch
   }, [date])
