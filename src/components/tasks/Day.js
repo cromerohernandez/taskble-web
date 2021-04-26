@@ -26,8 +26,8 @@ const Day = (date) => {
   return (
     <div>
       {tasks.map((task, i) => (
-        <Link to={`/tasks/${task.id}`}>
-          <TaskCard task={task} key={i}/>
+        <Link to={`/tasks/${task.id}`} key={i}>
+          <TaskCard task={task}/>
         </Link>
       ))}
     </div>
