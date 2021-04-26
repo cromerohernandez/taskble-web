@@ -5,7 +5,7 @@ import TaskbleService from '../../services/TaskbleService'
 
 import TaskCard from './TaskCard'
 
-import { sortByFinalPriority } from '../../helpers/componentsHelper'
+import { sortByFinalPriority } from '../../helpers/tasksHelper'
 
 const Day = (date) => {
   const [tasks, setTasks] = useState([])
