@@ -5,7 +5,7 @@ import TaskbleService from '../../services/TaskbleService'
 
 import TaskCard from './TaskCard'
 
-import { sortByFinalPriority } from '../../helpers/componentsHelper'
+import { sortByFinalPriority } from '../../helpers/tasksHelper'
 
 const Day = (date) => {
   const [tasks, setTasks] = useState([])
@@ -26,8 +26,8 @@ const Day = (date) => {
   return (
     <div>
       {tasks.map((task, i) => (
-        <Link to={`/tasks/${task.id}`}>
-          <TaskCard task={task} key={i}/>
+        <Link to={`/tasks/${task.id}`} key={i}>
+          <TaskCard task={task}/>
         </Link>
       ))}
     </div>

@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useContext, useState, useEffect } from 'react'
+import { useHistory, useParams, Link } from 'react-router-dom'
 
+import TranslateContext from '../../contexts/TranslateContext'
 import TaskbleService from '../../services/TaskbleService'
 
 const TaskDetail = () => {
-  const [task, setTask] = useState()
+  const history = useHistory()
+  const { texts } = useContext(TranslateContext)
   const { id } = useParams()
+
+  const [task, setTask] = useState()
 
   useEffect(() => {
     TaskbleService.taskDetail(id)
@@ -15,16 +19,27 @@ const TaskDetail = () => {
       //.catch
   }, [id])
 
+  const handleBack = () => {
+    history.push('/')
+  }
+
   return (
     <div>
       {task && (
         <div>
           <h5>{task.title}</h5>
+          <h6>{task.finalPriority}</h6>
+          <h6>{task.userPriority}</h6>
           <h6>{task.description}</h6>
           <h6>{task.date.toDo}</h6>
           <h6>{task.date.limit}</h6>
+          <Link to={`/edittask/${task.id}`}>{texts.headers.edit}</Link>
         </div>
       )}
+
+      <div>
+        <button onClick={handleBack}>←</button>
+      </div>
     </div>
   )
 }
