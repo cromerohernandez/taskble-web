@@ -19,6 +19,17 @@ const TaskDetail = () => {
       //.catch
   }, [id])
 
+  const handleDelete = () => {
+    TaskbleService.deleteTask(task.id)
+      .then(() => {
+        //////////////////////////////////////////////// => ADD ALERT !!!!!
+        setTimeout(() => history.push('/'), 4000)
+      })
+      .catch(() => {
+        //////////////////////////////////////////////// => ADD ALERT !!!!!
+      })
+  }
+
   const handleBack = () => {
     history.push('/')
   }
@@ -38,6 +49,7 @@ const TaskDetail = () => {
       )}
 
       <div>
+        <button onClick={handleDelete}>{texts.buttons.deleteTask}</button>
         <button onClick={handleBack}>←</button>
       </div>
     </div>

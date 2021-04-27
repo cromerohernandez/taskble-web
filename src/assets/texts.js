@@ -13,6 +13,7 @@ export const en = {
     'changePassword': 'Change password',
     'createAccount': 'Create account',
     'createTask': 'Create task',
+    'deleteTask': 'Delete task',
     'logIn': 'Log in',
     'sendLoginLink': 'Send login link'
   },
@@ -85,6 +86,7 @@ export const es = {
     'changePassword': 'Cambiar contraseña',
     'createAccount': 'Crear cuenta',
     'createTask': 'Crear tarea',
+    'deleteTask': 'Eliminar tarea',
     'logIn': 'Iniciar sesión',
     'sendLoginLink': 'Enviar enlace de inicio de sesión'
   },

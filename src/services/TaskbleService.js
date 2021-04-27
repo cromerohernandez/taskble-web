@@ -29,7 +29,7 @@ const createTask = (taskData) => http.post('/tasks/new', taskData)
 const dailyTasks = (date) => http.get(`/tasks/daily/${date}`)
 const taskDetail = (taskId) => http.get(`/tasks/${taskId}`)
 //const updateTask = (taskId, taskData) => http.patch(`/tasks/${taskId}`, taskData)
-//const deleteTask = (taskId) => http.delete(`/tasks/${taskId}`)
+const deleteTask = (taskId) => http.delete(`/tasks/${taskId}`)
 
 //sessions
 const login = ({ email, password }) => http.post('/login', { email, password })
@@ -43,6 +43,7 @@ const TaskbleService = {
   createTask,
   dailyTasks,
   taskDetail,
+  deleteTask,
   login,
   logout
 }
