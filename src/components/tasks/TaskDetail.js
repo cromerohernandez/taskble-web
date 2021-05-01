@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useCallback, useEffect } from 'react'
 import { useHistory, useParams, Link } from 'react-router-dom'
 
 import TranslateContext from '../../contexts/TranslateContext'
@@ -11,13 +11,29 @@ const TaskDetail = () => {
 
   const [task, setTask] = useState()
 
-  useEffect(() => {
+  const getTask = useCallback(() => {
     TaskbleService.taskDetail(id)
       .then(task => {
         setTask(task)
       })
       //.catch
   }, [id])
+
+  useEffect(() => {
+    getTask()
+  }, [getTask])
+
+
+  const handleDone = () => {
+    TaskbleService.doneTask(task.id)
+      .then(() => {
+        getTask()
+        //////////////////////////////////////////////// => ADD ALERT !!!!!
+      })
+      .catch(() => {
+        //////////////////////////////////////////////// => ADD ALERT !!!!!
+      })
+  }
 
   const handleDelete = () => {
     TaskbleService.deleteTask(task.id)
@@ -44,6 +60,8 @@ const TaskDetail = () => {
           <h6>{task.description}</h6>
           <h6>{task.date.toDo}</h6>
           <h6>{task.date.limit}</h6>
+          <h6>done: {task.done ? '*yes*' : '*no*'}</h6>
+          <button onClick={handleDone}>{task.done ? '*undone*' : '*done*'}</button>
           <Link to={`/edittask/${task.id}`}>{texts.headers.edit}</Link>
         </div>
       )}
