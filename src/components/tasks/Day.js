@@ -7,11 +7,11 @@ import TaskCard from './TaskCard'
 
 import { sortByFinalPriority } from '../../helpers/tasksHelper'
 
-const Day = (date) => {
+const Day = ({ date }) => {
   const [tasks, setTasks] = useState([])
 
   const getTasks = useCallback(() => {
-    TaskbleService.dailyTasks(date.date)
+    TaskbleService.dailyTasks(date.getTime())
       .then(tasks => {
         const sortedTasks = sortByFinalPriority(tasks)
         setTasks(sortedTasks)
@@ -25,6 +25,7 @@ const Day = (date) => {
 
   return (
     <div>
+      <h4>{`${date.getDate()} · ${date.getMonth() + 1} · ${date.getFullYear()}`}</h4>
       {tasks.map((task, i) => (
         <Link to={`/tasks/${task.id}`} key={i}>
           <TaskCard task={task}/>
@@ -35,3 +36,4 @@ const Day = (date) => {
 }
 
 export default Day
+
