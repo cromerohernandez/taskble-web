@@ -11,49 +11,26 @@ import TaskbleService from '../../services/TaskbleService'
 import Day from './Day'
 
 const Calendar = () => {
-  //const [tasks, setTasks] = useState([])
+  const [days, setDays] = useState([])
 
   //const { show, showModal, hideModal } = useModal()
 
-  /*const getTasks = useCallback(() => {
-    TaskbleService.userProfile()
-      .then(user => {
-        setTasks(user.tasks)
-      })
-      //.catch
-  }, [])*/
+  const getDays = useCallback(() => {
+    const today = new Date(Date.now())
+    const tomorrow = new Date(Date.now() + (86400000 * 1))
+    
+    setDays([today, tomorrow])
+  }, [])
 
-  /*useEffect(() => {
-    getTasks()
-  }, [getTasks])*/
+  useEffect(() => {
+    getDays()
+  }, [getDays])
 
   return (
     <div>
-      <div>
-        <h4>{ `${(new Date(Date.now())).getDate()} · ${(new Date(Date.now())).getMonth() + 1} · ${(new Date(Date.now())).getFullYear()}`}</h4>
-        <Day date={Date.now()}/>
-      </div>
-
-      <div>
-        <h4>{ `${(new Date(Date.now() + (86400000 * 1))).getDate()} · ${(new Date(Date.now() + (86400000 * 1))).getMonth() + 1} · ${(new Date(Date.now() + (86400000 * 1))).getFullYear()}`}</h4>
-        <Day date={Date.now() + (86400000 * 1)}/>
-      </div>
-
-      <div>
-        <h4>{ `${(new Date(Date.now() + (86400000 * 2))).getDate()} · ${(new Date(Date.now() + (86400000 * 2))).getMonth() + 1} · ${(new Date(Date.now() + (86400000 * 2))).getFullYear()}`}</h4>
-        <Day date={Date.now() + (86400000 * 2)}/>
-      </div>
-
-      <div>
-        <h4>{ `${(new Date(Date.now() + (86400000 * 3))).getDate()} · ${(new Date(Date.now() + (86400000 * 3))).getMonth() + 1} · ${(new Date(Date.now() + (86400000 * 3))).getFullYear()}`}</h4>
-        <Day date={Date.now() + (86400000 * 3)}/>
-      </div>
-
-      <div>
-        <h4>{ `${(new Date(Date.now() + (86400000 * 4))).getDate()} · ${(new Date(Date.now() + (86400000 * 4))).getMonth() + 1} · ${(new Date(Date.now() + (86400000 * 4))).getFullYear()}`}</h4>
-        <Day date={Date.now() + (86400000 * 4)}/>
-      </div>
-
+      {days.map((day, i) => (      
+        <Day date={day} key={i}/>
+      ))}
     </div>
   )
 }
