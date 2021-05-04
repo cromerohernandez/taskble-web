@@ -11,26 +11,42 @@ import TaskbleService from '../../services/TaskbleService'
 import Day from './Day'
 
 const Calendar = () => {
-  const [days, setDays] = useState([])
+  const [currentSunday, setCurrentSunday] = useState(Date.now())
+  const [currentDays, setCurrentDays] = useState([])
+
 
   //const { show, showModal, hideModal } = useModal()
 
-  const getDays = useCallback(() => {
-    const today = new Date(Date.now())
-    const tomorrow = new Date(Date.now() + (86400000 * 1))
+  const getCurrentDays = useCallback(() => {
+    let days = []
     
-    setDays([today, tomorrow])
-  }, [])
+    for (let i = 0; i < 7; i++) {
+      days.push(new Date(currentSunday + (24 * 60 * 60 * 1000 * i)))
+    }
+
+    setCurrentDays(days)
+  }, [currentSunday])
 
   useEffect(() => {
-    getDays()
-  }, [getDays])
+    getCurrentDays()
+  }, [getCurrentDays])
+
+  const handlePreviousDays = (() => {
+    setCurrentSunday(currentSunday - (24 * 60 * 60 * 1000 * 7))
+  })
+
+  const handleNextDays = (() => {
+    setCurrentSunday(currentSunday + (24 * 60 * 60 * 1000 * 7))
+  })
 
   return (
     <div>
-      {days.map((day, i) => (      
+      {currentDays.map((day, i) => (      
         <Day date={day} key={i}/>
       ))}
+
+      <button onClick={handlePreviousDays}>←</button>
+      <button onClick={handleNextDays}>→</button>
     </div>
   )
 }
