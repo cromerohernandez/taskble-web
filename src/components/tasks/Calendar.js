@@ -10,10 +10,13 @@ import TaskbleService from '../../services/TaskbleService'
 //import TaskDetail from './TaskDetail'
 import Day from './Day'
 
-const Calendar = () => {
-  const [currentSunday, setCurrentSunday] = useState(Date.now())
-  const [currentDays, setCurrentDays] = useState([])
+import { getFirstDayOfTheWeek } from '../../helpers/tasksHelper'
 
+const oneDayInMiliseconds = 24 * 60 * 60 * 1000
+
+const Calendar = () => {
+  const [currentFirstDayOfTheWeek, setCurrentFirstDayOfTheWeek] = useState(getFirstDayOfTheWeek(Date.now()))
+  const [currentDays, setCurrentDays] = useState([])
 
   //const { show, showModal, hideModal } = useModal()
 
@@ -21,22 +24,22 @@ const Calendar = () => {
     let days = []
     
     for (let i = 0; i < 7; i++) {
-      days.push(new Date(currentSunday + (24 * 60 * 60 * 1000 * i)))
+      days.push(new Date(currentFirstDayOfTheWeek + (oneDayInMiliseconds * i)))
     }
 
     setCurrentDays(days)
-  }, [currentSunday])
+  }, [currentFirstDayOfTheWeek])
 
   useEffect(() => {
     getCurrentDays()
   }, [getCurrentDays])
 
   const handlePreviousDays = (() => {
-    setCurrentSunday(currentSunday - (24 * 60 * 60 * 1000 * 7))
+    setCurrentFirstDayOfTheWeek(currentFirstDayOfTheWeek - (oneDayInMiliseconds * 7))
   })
 
   const handleNextDays = (() => {
-    setCurrentSunday(currentSunday + (24 * 60 * 60 * 1000 * 7))
+    setCurrentFirstDayOfTheWeek(currentFirstDayOfTheWeek + (oneDayInMiliseconds * 7))
   })
 
   return (
