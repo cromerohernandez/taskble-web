@@ -1,8 +1,9 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useContext, useState, useCallback, useEffect } from 'react'
 //import { Link } from 'react-router-dom'
 
 //import useModal from '../../hooks/useModal'
 
+import AuthContext from '../../contexts/AuthContext'
 import TaskbleService from '../../services/TaskbleService'
 
 //import Modal from '../UI/Modal'
@@ -15,7 +16,9 @@ import { getFirstDayOfTheWeek } from '../../helpers/tasksHelper'
 const oneDayInMiliseconds = 24 * 60 * 60 * 1000
 
 const Calendar = () => {
-  const [currentFirstDayOfTheWeek, setCurrentFirstDayOfTheWeek] = useState(getFirstDayOfTheWeek(Date.now()))
+  const auth = useContext(AuthContext)
+
+  const [currentFirstDayOfTheWeek, setCurrentFirstDayOfTheWeek] = useState(getFirstDayOfTheWeek(Date.now(), auth.currentUser.language))
   const [currentDays, setCurrentDays] = useState([])
 
   //const { show, showModal, hideModal } = useModal()
