@@ -1,6 +1,7 @@
 export const getFirstDayOfTheWeek = (dateInMilliseconds, language) => {
   const weekday = (new Date(dateInMilliseconds)).getDay()
   const oneDayInMiliseconds = 24 * 60 * 60 * 1000
+  let prevWeek = (weekday === 0) && (language === 'es') ? 7 : 0
   let firstWeekDay = null
 
   switch (language) {
@@ -14,7 +15,7 @@ export const getFirstDayOfTheWeek = (dateInMilliseconds, language) => {
       firstWeekDay = 0
   }
 
-  return dateInMilliseconds - ((weekday - firstWeekDay) * oneDayInMiliseconds)
+  return dateInMilliseconds - ((weekday + prevWeek - firstWeekDay) * oneDayInMiliseconds)
 }
 
 export const sortByFinalPriority = (tasks) => {
