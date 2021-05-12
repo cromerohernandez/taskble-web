@@ -12,6 +12,7 @@ import UpdatePasswordForm from './users/UpdatePasswordForm'
 import TaskForm from './tasks/TaskForm'
 import TaskDetail from './tasks/TaskDetail'
 
+import 'bootstrap/dist/css/bootstrap.min.css'
 import '../stylesheets/App.css'
 
 function App() {
