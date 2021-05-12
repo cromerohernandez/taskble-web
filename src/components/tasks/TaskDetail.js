@@ -4,12 +4,16 @@ import { useHistory, useParams, Link } from 'react-router-dom'
 import TranslateContext from '../../contexts/TranslateContext'
 import TaskbleService from '../../services/TaskbleService'
 
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
+
 const TaskDetail = () => {
   const history = useHistory()
   const { texts } = useContext(TranslateContext)
   const { id } = useParams()
 
   const [task, setTask] = useState()
+  const [show, setShow] = useState(false);
 
   const getTask = useCallback(() => {
     TaskbleService.taskDetail(id)
@@ -50,7 +54,33 @@ const TaskDetail = () => {
     history.push('/')
   }
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
+  <div>
+    <Button variant="primary" onClick={handleShow}>
+      Launch demo modal
+    </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>TaskTitle</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+   </div> 
+  )
+
+  /*return (
     <div>
       {task && (
         <div>
@@ -71,7 +101,7 @@ const TaskDetail = () => {
         <button onClick={handleBack}>←</button>
       </div>
     </div>
-  )
+  )*/
 }
 
 export default TaskDetail
