@@ -25,6 +25,7 @@ const TaskDetail = () => {
 
   useEffect(() => {
     getTask()
+    handleShow()
   }, [getTask])
 
 
@@ -50,58 +51,29 @@ const TaskDetail = () => {
       })
   }
 
-  const handleBack = () => {
-    history.push('/')
-  }
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   return (
   <div>
-    <Button variant="primary" onClick={handleShow}>
-      Launch demo modal
-    </Button>
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>TaskTitle</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      {task && (
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>{task.title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{task.description}</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
    </div> 
   )
-
-  /*return (
-    <div>
-      {task && (
-        <div>
-          <h5>{task.title}</h5>
-          <h6>{task.finalPriority}</h6>
-          <h6>{task.userPriority}</h6>
-          <h6>{task.description}</h6>
-          <h6>{task.date.toDo}</h6>
-          <h6>{task.date.limit}</h6>
-          <h6>done: {task.done ? '*yes*' : '*no*'}</h6>
-          <button onClick={handleDone}>{task.done ? '*undone*' : '*done*'}</button>
-          <Link to={`/edittask/${task.id}`}>{texts.headers.edit}</Link>
-        </div>
-      )}
-
-      <div>
-        <button onClick={handleDelete}>{texts.buttons.deleteTask}</button>
-        <button onClick={handleBack}>←</button>
-      </div>
-    </div>
-  )*/
 }
 
 export default TaskDetail
