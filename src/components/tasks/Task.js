@@ -7,7 +7,7 @@ import TaskbleService from '../../services/TaskbleService'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
-const TaskDetail = () => {
+const Task = ({ taskId }) => {
   const history = useHistory()
   const { texts } = useContext(TranslateContext)
   const { id } = useParams()
@@ -16,7 +16,7 @@ const TaskDetail = () => {
   const [show, setShow] = useState(false);
 
   const getTask = useCallback(() => {
-    TaskbleService.taskDetail(id)
+    TaskbleService.taskDetail(taskId)
       .then(task => {
         setTask(task)
       })
@@ -25,7 +25,6 @@ const TaskDetail = () => {
 
   useEffect(() => {
     getTask()
-    handleShow()
   }, [getTask])
 
 
@@ -57,6 +56,13 @@ const TaskDetail = () => {
   return (
   <div>
       {task && (
+        <div onClick={handleShow}>
+          <h6>{task.title}</h6>
+          <h6>{task.finalPriority}</h6>
+        </div>
+      )}
+
+      {task && (
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>{task.title}</Modal.Title>
@@ -76,4 +82,4 @@ const TaskDetail = () => {
   )
 }
 
-export default TaskDetail
+export default Task

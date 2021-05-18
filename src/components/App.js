@@ -10,7 +10,6 @@ import SignUpForm from './users/SignUpForm'
 import UpdatePasswordRequest from './users/UpdatePasswordRequest'
 import UpdatePasswordForm from './users/UpdatePasswordForm'
 import TaskForm from './tasks/TaskForm'
-import TaskDetail from './tasks/TaskDetail'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../stylesheets/App.css'
@@ -45,11 +44,7 @@ function App() {
 
         <AuthenticatedRoute exact path='/edittask/:id'>
           <TaskForm/>
-        </AuthenticatedRoute>
-
-        <AuthenticatedRoute exact path='/tasks/:id'>
-          <TaskDetail/>
-        </AuthenticatedRoute>        
+        </AuthenticatedRoute>    
 
         <Redirect to='/'/>
       </Switch>
