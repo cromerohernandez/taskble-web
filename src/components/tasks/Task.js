@@ -27,6 +27,8 @@ const Task = ({ taskId }) => {
     getTask()
   }, [getTask])
 
+  const handleShow = () => setShow(true)
+  const handleClose = () => setShow(false)
 
   const handleDone = () => {
     TaskbleService.doneTask(task.id)
@@ -43,15 +45,12 @@ const Task = ({ taskId }) => {
     TaskbleService.deleteTask(task.id)
       .then(() => {
         //////////////////////////////////////////////// => ADD ALERT !!!!!
-        setTimeout(() => history.push('/'), 4000)
+        handleClose()
       })
       .catch(() => {
         //////////////////////////////////////////////// => ADD ALERT !!!!!
       })
   }
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   return (
   <div>
@@ -67,13 +66,19 @@ const Task = ({ taskId }) => {
           <Modal.Header closeButton>
             <Modal.Title>{task.title}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>{task.description}</Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
+          <Modal.Body>
+            <h4>{task.keyword}</h4>
+            <p>{task.description}</p>
+            <h4>{task.date.toDo}</h4>
+            <h4>{task.date.limit}</h4>
+            <h4>{task.finalPriority}</h4>
+            <Button variant={task.done ? 'success' : 'warning'} onClick={handleDone}>
+              {task.done ? 'done' : 'pending'}
             </Button>
-            <Button variant="primary" onClick={handleClose}>
-              Save Changes
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="danger" onClick={handleDelete}>
+              Delete
             </Button>
           </Modal.Footer>
         </Modal>
