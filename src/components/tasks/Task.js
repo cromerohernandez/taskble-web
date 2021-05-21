@@ -4,6 +4,8 @@ import { useHistory, useParams, Link } from 'react-router-dom'
 import TranslateContext from '../../contexts/TranslateContext'
 import TaskbleService from '../../services/TaskbleService'
 
+import TaskForm from './TaskForm'
+
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
@@ -13,7 +15,8 @@ const Task = ({ taskId }) => {
   const { id } = useParams()
 
   const [task, setTask] = useState()
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false)
+  const [edit, setEdit] = useState(false)
 
   const getTask = useCallback(() => {
     TaskbleService.taskDetail(taskId)
@@ -41,6 +44,8 @@ const Task = ({ taskId }) => {
       })
   }
 
+  const handleEdit = () => setEdit(true)
+
   const handleDelete = () => {
     TaskbleService.deleteTask(task.id)
       .then(() => {
@@ -66,17 +71,27 @@ const Task = ({ taskId }) => {
           <Modal.Header closeButton>
             <Modal.Title>{task.title}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <h4>{task.keyword}</h4>
-            <p>{task.description}</p>
-            <h4>{task.date.toDo}</h4>
-            <h4>{task.date.limit}</h4>
-            <h4>{task.finalPriority}</h4>
-            <Button variant={task.done ? 'success' : 'warning'} onClick={handleDone}>
-              {task.done ? 'done' : 'pending'}
-            </Button>
-          </Modal.Body>
+            {!edit && (
+              <Modal.Body>
+                <h4>{task.keyword}</h4>
+                <p>{task.description}</p>
+                <h4>{task.date.toDo}</h4>
+                <h4>{task.date.limit}</h4>
+                <h4>{task.finalPriority}</h4>
+                <Button variant={task.done ? 'success' : 'warning'} onClick={handleDone}>
+                  {task.done ? 'done' : 'pending'}
+                </Button>
+              </Modal.Body>
+            )}
+            {edit && (
+              <Modal.Body>
+                <TaskForm/>
+              </Modal.Body>
+            )}
           <Modal.Footer>
+            <Button variant="primary" onClick={handleEdit}>
+              Edit
+            </Button>
             <Button variant="danger" onClick={handleDelete}>
               Delete
             </Button>
