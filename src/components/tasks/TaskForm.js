@@ -1,4 +1,4 @@
-import React, { useContext} from 'react'
+import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import TranslateContext from '../../contexts/TranslateContext'
@@ -16,49 +16,51 @@ const validators = {
   limitDate: val => val
 }
 
-const TaskForm = () => {
+const TaskForm = ({ task, edit }) => {
   const history = useHistory()
   const { texts } = useContext(TranslateContext)
+
+  console.log(task.date.toDo)
 
   const {
     value: keyword,
     touch: keywordTouch,
     error: keywordError,
     handleInput: keywordHandleInput
-  } = useInput('', validators.keyword, texts.errors.keywordRequired)
+  } = useInput(task ? task.keyword : '', validators.keyword, texts.errors.keywordRequired)
 
   const {
     value: title,
     touch: titleTouch,
     error: titleError,
     handleInput: titleHandleInput
-  } = useInput('', validators.title, texts.errors.titleRequired)
+  } = useInput(task ? task.title : '', validators.title, texts.errors.titleRequired)
 
   const {
     value: description,
     handleInput: descriptionHandleInput
-  } = useInput('')
+  } = useInput(task ? task.description : '')
 
   const {
     value: userPriority,
     touch: userPriorityTouch,
     error: userPriorityError,
     handleInput: userPriorityHandleInput
-  } = useInput('', validators.userPriority, texts.errors.priorityRequired)
+  } = useInput(task ? task.userPriority : '', validators.userPriority, texts.errors.priorityRequired)
 
   const {
     value: toDoDate,
     touch: toDoDateTouch,
     error: toDoDateError,
     handleInput: toDoDateHandleInput
-  } = useInput('', validators.toDoDate, texts.errors.toDoDateRequired)
+  } = useInput(task ? task.date.toDo : '', validators.toDoDate, texts.errors.toDoDateRequired)
 
   const {
     value: limitDate,
     touch: limitDateTouch,
     error: limitDateError,
     handleInput: limitDateHandleInput
-  } = useInput('', validators.limitDate, texts.errors.limitDateRequired)
+  } = useInput(task ? task.date.limit : '', validators.limitDate, texts.errors.limitDateRequired)
 
   const anyError = () => {
     const errors = [keywordError.active, titleError.active, userPriorityError.active, toDoDateError.active, limitDateError.active]
@@ -87,25 +89,25 @@ const TaskForm = () => {
 
       <form onSubmit={handleSubmit} /*id='form-container'*/>
 
-        <Input type='text' name='keyword' placeholder={texts.inputs.keyword} {...keywordHandleInput} />
+        <Input type='text' name='keyword' placeholder={texts.inputs.keyword} disabled={!edit} {...keywordHandleInput} />
         {keywordTouch && keywordError.active && (
           <div>
             { keywordError.message }
           </div>
         )}
 
-        <Input type='text' name='title' placeholder={texts.inputs.title} {...titleHandleInput} />
+        <Input type='text' name='title' placeholder={texts.inputs.title} disabled={!edit} {...titleHandleInput} />
         {titleTouch && titleError.active && (
           <div>
             { titleError.message }
           </div>
         )}
 
-        <Input type='text' name='description' placeholder={texts.inputs.description} {...descriptionHandleInput} />
+        <Input type='text' name='description' placeholder={texts.inputs.description} disabled={!edit} {...descriptionHandleInput} />
 
         <div>
           <label>{texts.labels.priority}:</label>
-          <select type='select' name='userPriority' {...userPriorityHandleInput} >
+          <select type='select' name='userPriority' disabled={!edit} {...userPriorityHandleInput} >
             <option>-</option>
             <option>1</option>
             <option>2</option>
@@ -122,7 +124,7 @@ const TaskForm = () => {
 
         <div>
           <label>{texts.labels.dateToDo}:</label>
-          <Input type='date' name='toDoDate' {...toDoDateHandleInput} />
+          <Input type='date' name='toDoDate' disabled={!edit} {...toDoDateHandleInput} />
           {toDoDateTouch && toDoDateError.active && (
             <div>
               { toDoDateError.message }
@@ -132,7 +134,7 @@ const TaskForm = () => {
 
         <div>
           <label>{texts.labels.limitDate}:</label>
-          <Input type='date' name='limitDate' {...limitDateHandleInput} />
+          <Input type='date' name='limitDate' disabled={!edit} {...limitDateHandleInput} />
           {limitDateTouch && limitDateError.active && (
             <div>
               { limitDateError.message }
