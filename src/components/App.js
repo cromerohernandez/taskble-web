@@ -39,7 +39,7 @@ function App() {
         </Route>
 
         <AuthenticatedRoute exact path='/newtask'>
-          <TaskForm/>
+          <TaskForm create={true}/>
         </AuthenticatedRoute>
 
         <AuthenticatedRoute exact path='/edittask/:id'>
