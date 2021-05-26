@@ -1,5 +1,5 @@
 import React, { useContext, useState, useCallback, useEffect } from 'react'
-import { useHistory, useParams, Link } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 
 import TranslateContext from '../../contexts/TranslateContext'
 import TaskbleService from '../../services/TaskbleService'
@@ -9,10 +9,9 @@ import TaskForm from './TaskForm'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
-const Task = ({ taskId }) => {
+const Task = ({ taskId, getTasks }) => {
   const history = useHistory()
   const { texts } = useContext(TranslateContext)
-  const { id } = useParams()
 
   const [task, setTask] = useState()
   const [show, setShow] = useState(false)
@@ -33,9 +32,9 @@ const Task = ({ taskId }) => {
   const handleShow = () => setShow(true)
 
   const handleClose = () => {
-    getTask()
     setEdit(false)
     setShow(false)
+    getTasks()
   } 
 
   const handleDone = () => {
