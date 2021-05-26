@@ -17,7 +17,7 @@ const Day = ({ date }) => {
         setTasks(sortedTasks)
       })
       //.catch
-  }, [date])
+  }, [date, tasks])
 
   useEffect(() => {
     getTasks()
@@ -27,7 +27,7 @@ const Day = ({ date }) => {
     <div>
       <h4>{`${date.getDate()} · ${date.getMonth() + 1} · ${date.getFullYear()}`}</h4>
       {tasks.map((task, i) => (
-        <Task taskId={task.id}/>
+        <Task taskId={task.id} key={i}/>
       ))}
     </div>
   )

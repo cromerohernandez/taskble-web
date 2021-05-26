@@ -33,6 +33,7 @@ const Task = ({ taskId }) => {
   const handleShow = () => setShow(true)
 
   const handleClose = () => {
+    getTask()
     setEdit(false)
     setShow(false)
   } 
@@ -50,7 +51,6 @@ const Task = ({ taskId }) => {
 
   const handleEdit = () =>  {
     setEdit(true)
-    getTask()
   }
 
   const handleDelete = () => {
