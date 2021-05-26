@@ -82,16 +82,16 @@ const Task = ({ taskId }) => {
               <TaskForm task={task} edit={edit}/>
             </Modal.Body>
             <Button variant={task.done ? 'success' : 'warning'} onClick={handleDone}>
-              {task.done ? 'done' : 'pending'}
+              {task.done ? texts.buttons.doneTask : texts.buttons.pendingTask}
             </Button>
           <Modal.Footer>
             {!edit && (
               <Button variant="primary" onClick={handleEdit}>
-                Edit
+                {texts.buttons.editTask}
               </Button>
             )}
             <Button variant="danger" onClick={handleDelete}>
-              Delete
+              {texts.buttons.deleteTask}
             </Button>
           </Modal.Footer>
         </Modal>
