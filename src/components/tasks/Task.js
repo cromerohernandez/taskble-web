@@ -1,5 +1,5 @@
 import React, { useContext, useState, useCallback, useEffect } from 'react'
-import { useHistory, useParams, Link } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 
 import TranslateContext from '../../contexts/TranslateContext'
 import TaskbleService from '../../services/TaskbleService'
@@ -9,10 +9,9 @@ import TaskForm from './TaskForm'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
-const Task = ({ taskId }) => {
+const Task = ({ taskId, getTasks }) => {
   const history = useHistory()
   const { texts } = useContext(TranslateContext)
-  const { id } = useParams()
 
   const [task, setTask] = useState()
   const [show, setShow] = useState(false)
@@ -35,6 +34,7 @@ const Task = ({ taskId }) => {
   const handleClose = () => {
     setEdit(false)
     setShow(false)
+    getTasks()
   } 
 
   const handleDone = () => {
@@ -50,7 +50,6 @@ const Task = ({ taskId }) => {
 
   const handleEdit = () =>  {
     setEdit(true)
-    getTask()
   }
 
   const handleDelete = () => {
@@ -82,16 +81,16 @@ const Task = ({ taskId }) => {
               <TaskForm task={task} edit={edit}/>
             </Modal.Body>
             <Button variant={task.done ? 'success' : 'warning'} onClick={handleDone}>
-              {task.done ? 'done' : 'pending'}
+              {task.done ? texts.buttons.doneTask : texts.buttons.pendingTask}
             </Button>
           <Modal.Footer>
             {!edit && (
               <Button variant="primary" onClick={handleEdit}>
-                Edit
+                {texts.buttons.editTask}
               </Button>
             )}
             <Button variant="danger" onClick={handleDelete}>
-              Delete
+              {texts.buttons.deleteTask}
             </Button>
           </Modal.Footer>
         </Modal>

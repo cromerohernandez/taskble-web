@@ -13,8 +13,12 @@ export const en = {
     'changePassword': 'Change password',
     'createAccount': 'Create account',
     'createTask': 'Create task',
-    'deleteTask': 'Delete task',
+    'deleteTask': 'Delete',
+    'doneTask': 'Done',
+    'editTask': 'Edit',
     'logIn': 'Log in',
+    'pendingTask': 'Pending',
+    'saveTask': 'Save',
     'sendLoginLink': 'Send login link'
   },
   'errors': {
@@ -86,8 +90,12 @@ export const es = {
     'changePassword': 'Cambiar contraseña',
     'createAccount': 'Crear cuenta',
     'createTask': 'Crear tarea',
-    'deleteTask': 'Eliminar tarea',
+    'deleteTask': 'Eliminar',
+    'doneTask': 'Hecha',
+    'editTask': 'Editar',
     'logIn': 'Iniciar sesión',
+    'pendingTask': 'Pendiente',
+    'saveTask': 'Guardar',
     'sendLoginLink': 'Enviar enlace de inicio de sesión'
   },
   'errors': {

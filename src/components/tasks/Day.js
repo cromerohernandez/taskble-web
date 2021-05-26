@@ -27,11 +27,10 @@ const Day = ({ date }) => {
     <div>
       <h4>{`${date.getDate()} · ${date.getMonth() + 1} · ${date.getFullYear()}`}</h4>
       {tasks.map((task, i) => (
-        <Task taskId={task.id}/>
+        <Task taskId={task.id} getTasks={getTasks} key={i}/>
       ))}
     </div>
   )
 }
 
 export default Day
-

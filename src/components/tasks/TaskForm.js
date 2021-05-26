@@ -159,7 +159,7 @@ const TaskForm = ({ task, edit, create }) => {
 
         {edit && (
           <Button disabled={anyError()} type="submit" variant="primary">
-            Save
+            {texts.buttons.saveTask}
           </Button>
         )}
 
