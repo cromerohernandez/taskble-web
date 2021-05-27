@@ -9,6 +9,8 @@ import useInput from '../../hooks/useInput'
 import Button from 'react-bootstrap/Button'
 import Input from '../UI/Input'
 
+import { dateToDateInputFormat } from '../../helpers/tasksHelper'
+
 const validators = {
   keyword: val => val && val.length <= 10,
   title: val => val,
@@ -17,7 +19,7 @@ const validators = {
   limitDate: val => val
 }
 
-const TaskForm = ({ task, edit, create }) => {
+const TaskForm = ({ task, edit, create, cancel }) => {
   const history = useHistory()
   const { texts } = useContext(TranslateContext)
 
@@ -26,14 +28,14 @@ const TaskForm = ({ task, edit, create }) => {
     touch: keywordTouch,
     error: keywordError,
     handleInput: keywordHandleInput
-  } = useInput(task ? task.keyword : '', validators.keyword, texts.errors.keywordRequired)
+  } = useInput(task ? task.keyword : '', validators.keyword, texts.errors.keywordRequired, edit)
 
   const {
     value: title,
     touch: titleTouch,
     error: titleError,
     handleInput: titleHandleInput
-  } = useInput(task ? task.title : '', validators.title, texts.errors.titleRequired)
+  } = useInput(task ? task.title : '', validators.title, texts.errors.titleRequired, edit)
 
   const {
     value: description,
@@ -45,21 +47,21 @@ const TaskForm = ({ task, edit, create }) => {
     touch: userPriorityTouch,
     error: userPriorityError,
     handleInput: userPriorityHandleInput
-  } = useInput(task ? task.userPriority : '', validators.userPriority, texts.errors.priorityRequired)
+  } = useInput(task ? task.userPriority : '', validators.userPriority, texts.errors.priorityRequired, edit)
 
   const {
     value: toDoDate,
     touch: toDoDateTouch,
     error: toDoDateError,
     handleInput: toDoDateHandleInput
-  } = useInput(task ? task.date.toDo : '', validators.toDoDate, texts.errors.toDoDateRequired)
+  } = useInput(task ? dateToDateInputFormat(task.date.toDo) : '', validators.toDoDate, texts.errors.toDoDateRequired, edit)
 
   const {
     value: limitDate,
     touch: limitDateTouch,
     error: limitDateError,
     handleInput: limitDateHandleInput
-  } = useInput(task ? task.date.limit : '', validators.limitDate, texts.errors.limitDateRequired)
+  } = useInput(task ? dateToDateInputFormat(task.date.limit) : '', validators.limitDate, texts.errors.limitDateRequired, edit)
 
   const anyError = () => {
     const errors = [keywordError.active, titleError.active, userPriorityError.active, toDoDateError.active, limitDateError.active]
@@ -132,7 +134,7 @@ const TaskForm = ({ task, edit, create }) => {
         </div>
 
         <div>
-          <label>{texts.labels.dateToDo}:</label>
+          <label>{ texts.labels.dateToDo }:</label>
           <Input type='date' name='toDoDate' disabled={edit || create ? false : true} {...toDoDateHandleInput} />
           {toDoDateTouch && toDoDateError.active && (
             <div>
@@ -142,7 +144,7 @@ const TaskForm = ({ task, edit, create }) => {
         </div>
 
         <div>
-          <label>{texts.labels.limitDate}:</label>
+          <label>{ texts.labels.limitDate }:</label>
           <Input type='date' name='limitDate' disabled={edit || create ? false : true} {...limitDateHandleInput} />
           {limitDateTouch && limitDateError.active && (
             <div>
@@ -153,13 +155,19 @@ const TaskForm = ({ task, edit, create }) => {
 
         {create && (
           <Button disabled={anyError()} type="submit" variant="primary">
-            {texts.buttons.createTask}
+            { texts.buttons.createTask }
           </Button>
         )}
 
         {edit && (
           <Button disabled={anyError()} type="submit" variant="primary">
-            {texts.buttons.saveTask}
+            { texts.buttons.saveTask }
+          </Button>
+        )}
+
+        {(create || edit) && (
+          <Button onClick={cancel} variant="primary">
+            { texts.buttons.cancel }
           </Button>
         )}
 

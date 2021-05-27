@@ -52,6 +52,10 @@ const Task = ({ taskId, getTasks }) => {
     setEdit(true)
   }
 
+  const handleCancel = () =>  {
+    setEdit(false)
+  }
+
   const handleDelete = () => {
     TaskbleService.deleteTask(task.id)
       .then(() => {
@@ -78,7 +82,7 @@ const Task = ({ taskId, getTasks }) => {
             <Modal.Title>{task.title}</Modal.Title>
           </Modal.Header>
             <Modal.Body>
-              <TaskForm task={task} edit={edit}/>
+              <TaskForm task={task} edit={edit} cancel={handleCancel}/>
             </Modal.Body>
             <Button variant={task.done ? 'success' : 'warning'} onClick={handleDone}>
               {task.done ? texts.buttons.doneTask : texts.buttons.pendingTask}
