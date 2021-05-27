@@ -9,6 +9,8 @@ import useInput from '../../hooks/useInput'
 import Button from 'react-bootstrap/Button'
 import Input from '../UI/Input'
 
+import { dateToDateInputFormat } from '../../helpers/tasksHelper'
+
 const validators = {
   keyword: val => val && val.length <= 10,
   title: val => val,
@@ -52,14 +54,14 @@ const TaskForm = ({ task, edit, create, cancel }) => {
     touch: toDoDateTouch,
     error: toDoDateError,
     handleInput: toDoDateHandleInput
-  } = useInput(task ? task.date.toDo : '', validators.toDoDate, texts.errors.toDoDateRequired, edit)
+  } = useInput(task ? dateToDateInputFormat(task.date.toDo) : '', validators.toDoDate, texts.errors.toDoDateRequired, edit)
 
   const {
     value: limitDate,
     touch: limitDateTouch,
     error: limitDateError,
     handleInput: limitDateHandleInput
-  } = useInput(task ? task.date.limit : '', validators.limitDate, texts.errors.limitDateRequired, edit)
+  } = useInput(task ? dateToDateInputFormat(task.date.limit) : '', validators.limitDate, texts.errors.limitDateRequired, edit)
 
   const anyError = () => {
     const errors = [keywordError.active, titleError.active, userPriorityError.active, toDoDateError.active, limitDateError.active]
@@ -99,7 +101,6 @@ const TaskForm = ({ task, edit, create, cancel }) => {
       <form onSubmit={handleSubmit} /*id='form-container'*/>
 
         <Input type='text' name='keyword' placeholder={texts.inputs.keyword} disabled={edit || create ? false : true} {...keywordHandleInput} />
-        <h6>{keywordError.active ? 'true' : 'false'}</h6>
         {keywordTouch && keywordError.active && (
           <div>
             { keywordError.message }
