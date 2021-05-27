@@ -10,6 +10,7 @@ export const en = {
     'userNotFound': 'user not found'
   },
   'buttons': {
+    'cancel': 'Cancel',
     'changePassword': 'Change password',
     'createAccount': 'Create account',
     'createTask': 'Create task',
@@ -87,6 +88,7 @@ export const es = {
     'userNotFound': 'usuario no encontrado'
   },
   'buttons': {
+    'cancel': 'Cancelar',
     'changePassword': 'Cambiar contraseña',
     'createAccount': 'Crear cuenta',
     'createTask': 'Crear tarea',
