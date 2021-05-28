@@ -16,6 +16,7 @@ const Task = ({ taskId, getTasks }) => {
   const [task, setTask] = useState()
   const [show, setShow] = useState(false)
   const [edit, setEdit] = useState(false)
+  const [deleteRequest, setDeleteRequest] = useState(false)
 
   const getTask = useCallback(() => {
     TaskbleService.taskDetail(taskId)
@@ -56,15 +57,24 @@ const Task = ({ taskId, getTasks }) => {
     setEdit(false)
   }
 
+  const handleDeleteRequest = () => {
+    setDeleteRequest(true)
+  }
+
   const handleDelete = () => {
     TaskbleService.deleteTask(task.id)
       .then(() => {
         //////////////////////////////////////////////// => ADD ALERT !!!!!
+        setDeleteRequest(false)
         handleClose()
       })
       .catch(() => {
         //////////////////////////////////////////////// => ADD ALERT !!!!!
       })
+  }
+
+  const handleCancelDelete = () => {
+    setDeleteRequest(false)
   }
 
   return (
@@ -81,21 +91,41 @@ const Task = ({ taskId, getTasks }) => {
           <Modal.Header closeButton>
             <Modal.Title>{task.title}</Modal.Title>
           </Modal.Header>
-            <Modal.Body>
-              <TaskForm task={task} edit={edit} cancel={handleCancel}/>
-            </Modal.Body>
+
+          <Modal.Body>
+            <TaskForm task={task} edit={edit} cancel={handleCancel}/>
+
             <Button variant={task.done ? 'success' : 'warning'} onClick={handleDone}>
               {task.done ? texts.buttons.doneTask : texts.buttons.pendingTask}
             </Button>
+          </Modal.Body>
+
           <Modal.Footer>
-            {!edit && (
+            {(!edit && !deleteRequest) && (
               <Button variant="primary" onClick={handleEdit}>
                 {texts.buttons.editTask}
               </Button>
             )}
-            <Button variant="danger" onClick={handleDelete}>
-              {texts.buttons.deleteTask}
-            </Button>
+
+            {!deleteRequest && (
+              <Button variant="danger" onClick={handleDeleteRequest}>
+                {texts.buttons.deleteTask}
+              </Button>
+            )}
+
+            {deleteRequest && (
+              <div>
+                <h4>{texts.headers.confirmDeleteTask}</h4>
+
+                <Button variant="danger" onClick={handleDelete}>
+                  {texts.buttons.deleteTask}
+                </Button>
+
+                <Button variant="primary" onClick={handleCancelDelete}>
+                  {texts.buttons.cancel}
+                </Button>
+              </div>
+            )}
           </Modal.Footer>
         </Modal>
       )}
