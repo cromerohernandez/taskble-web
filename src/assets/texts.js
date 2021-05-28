@@ -37,6 +37,7 @@ export const en = {
   'headers': {
     'changePassword': 'Change password',
     'checkItAnd': 'Check it and',
+    'confirmDeleteTask': 'Do you want to delete this task?',
     'dontHaveAccount': 'Don´t have an account?',
     'edit': 'Edit task',
     'enterEmailAndSendLinkToGetBackAccount': `Enter your email, and we'll send you a link to get back into your account.`,
@@ -115,6 +116,7 @@ export const es = {
   'headers': {
     'changePassword': 'Cambiar contraseña',
     'checkItAnd': '¡Revísalo e',
+    'confirmDeleteTask': '¿Deseas eliminar esta tarea?',
     'dontHaveAccount': '¿No tienes una cuenta?',
     'edit': 'Editar tarea',
     'enterEmailAndSendLinkToGetBackAccount': 'Introduce tu email, y te enviaremos un link para recuperar tu cuenta.',
