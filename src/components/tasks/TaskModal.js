@@ -1,5 +1,4 @@
 import React, { useContext, useState, useCallback, useEffect } from 'react'
-import { useHistory, Link } from 'react-router-dom'
 
 import TranslateContext from '../../contexts/TranslateContext'
 import TaskbleService from '../../services/TaskbleService'
@@ -9,12 +8,10 @@ import TaskForm from './TaskForm'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
-const Task = ({ taskId, getTasks }) => {
-  const history = useHistory()
+const TaskModal = ({ taskId, show, setShow }) => {
   const { texts } = useContext(TranslateContext)
 
   const [task, setTask] = useState()
-  const [show, setShow] = useState(false)
   const [edit, setEdit] = useState(false)
   const [deleteRequest, setDeleteRequest] = useState(false)
 
@@ -30,12 +27,10 @@ const Task = ({ taskId, getTasks }) => {
     getTask()
   }, [getTask])
 
-  const handleShow = () => setShow(true)
-
   const handleClose = () => {
     setEdit(false)
     setShow(false)
-    getTasks()
+    //getTasks()
   } 
 
   const handleDone = () => {
@@ -78,15 +73,8 @@ const Task = ({ taskId, getTasks }) => {
   }
 
   return (
-  <div>
-      {task && (
-        <div onClick={handleShow}>
-          <h6>{task.title}</h6>
-          <h6>{task.finalPriority}</h6>
-        </div>
-      )}
-
-      {task && (
+    <div>
+      {task && show && (
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>{task.title}</Modal.Title>
@@ -133,4 +121,4 @@ const Task = ({ taskId, getTasks }) => {
   )
 }
 
-export default Task
+export default TaskModal
