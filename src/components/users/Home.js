@@ -31,10 +31,10 @@ const Home = () => {
 
   return (
     <div>
-      <Calendar/>
       <button onClick={handleRequestNewPassword}>{texts.buttons.changePassword}</button>
       <Link to='/newtask'>{texts.headers.newTask}</Link>
       <button onClick={handleLogout}>←</button>
+      <Calendar/>
     </div>
   )
 }

@@ -25,14 +25,14 @@ const Calendar = () => {
 
   return (
     <div>
+      <button onClick={handlePreviousDays}>←</button>
+      <button onClick={handleNextDays}>→</button>
+
       <div id='weeksContainer'>
         <Week firstDay={currentFirstDayOfTheWeek - (oneDayInMiliseconds * 7)}/>
         <Week firstDay={currentFirstDayOfTheWeek}/>
         <Week firstDay={currentFirstDayOfTheWeek + (oneDayInMiliseconds * 7)}/>
       </div>
-
-      <button onClick={handlePreviousDays}>←</button>
-      <button onClick={handleNextDays}>→</button>
     </div>
   )
 }

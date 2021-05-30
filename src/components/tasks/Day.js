@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import TaskbleService from '../../services/TaskbleService'
 
-import Task from './Task'
+import TaskDisc from './TaskDisc'
 
 import { sortByFinalPriority } from '../../helpers/tasksHelper'
 
@@ -26,8 +26,9 @@ const Day = ({ date }) => {
   return (
     <div>
       <h4>{`${date.getDate()} · ${date.getMonth() + 1} · ${date.getFullYear()}`}</h4>
+
       {tasks.map((task, i) => (
-        <Task taskId={task.id} getTasks={getTasks} key={i}/>
+        <TaskDisc task={task} key={i}/>
       ))}
     </div>
   )
