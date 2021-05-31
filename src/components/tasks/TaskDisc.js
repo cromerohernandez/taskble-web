@@ -17,7 +17,7 @@ const TaskDisc = ({ task }) => {
       )}
       
       {show && (
-        <TaskModal taskId={task.id} show={show} setShow={setShow}/>
+        <TaskModal taskId={task.id} type='view' show={show} setShow={setShow}/>
       )}
     </div> 
   )

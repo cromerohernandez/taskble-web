@@ -19,7 +19,7 @@ const validators = {
   limitDate: val => val
 }
 
-const TaskForm = ({ task, edit, create, cancel }) => {
+const TaskForm = ({ task, type, cancel }) => {
   const history = useHistory()
   const { texts } = useContext(TranslateContext)
 
@@ -28,14 +28,14 @@ const TaskForm = ({ task, edit, create, cancel }) => {
     touch: keywordTouch,
     error: keywordError,
     handleInput: keywordHandleInput
-  } = useInput(task ? task.keyword : '', validators.keyword, texts.errors.keywordRequired, edit)
+  } = useInput(task ? task.keyword : '', validators.keyword, texts.errors.keywordRequired, type)
 
   const {
     value: title,
     touch: titleTouch,
     error: titleError,
     handleInput: titleHandleInput
-  } = useInput(task ? task.title : '', validators.title, texts.errors.titleRequired, edit)
+  } = useInput(task ? task.title : '', validators.title, texts.errors.titleRequired, type)
 
   const {
     value: description,
@@ -47,21 +47,21 @@ const TaskForm = ({ task, edit, create, cancel }) => {
     touch: userPriorityTouch,
     error: userPriorityError,
     handleInput: userPriorityHandleInput
-  } = useInput(task ? task.userPriority : '', validators.userPriority, texts.errors.priorityRequired, edit)
+  } = useInput(task ? task.userPriority : '', validators.userPriority, texts.errors.priorityRequired, type)
 
   const {
     value: toDoDate,
     touch: toDoDateTouch,
     error: toDoDateError,
     handleInput: toDoDateHandleInput
-  } = useInput(task ? dateToDateInputFormat(task.date.toDo) : '', validators.toDoDate, texts.errors.toDoDateRequired, edit)
+  } = useInput(task ? dateToDateInputFormat(task.date.toDo) : '', validators.toDoDate, texts.errors.toDoDateRequired, type)
 
   const {
     value: limitDate,
     touch: limitDateTouch,
     error: limitDateError,
     handleInput: limitDateHandleInput
-  } = useInput(task ? dateToDateInputFormat(task.date.limit) : '', validators.limitDate, texts.errors.limitDateRequired, edit)
+  } = useInput(task ? dateToDateInputFormat(task.date.limit) : '', validators.limitDate, texts.errors.limitDateRequired, type)
 
   const anyError = () => {
     const errors = [keywordError.active, titleError.active, userPriorityError.active, toDoDateError.active, limitDateError.active]
@@ -74,7 +74,7 @@ const TaskForm = ({ task, edit, create, cancel }) => {
     const date = {toDo: toDoDate, limit: limitDate}
     const taskData = { keyword, title, description, userPriority, date}
 
-    if (create) {
+    if (type === 'create') {
       TaskbleService.createTask(taskData)
       .then(() => {
         history.push('/')
@@ -82,7 +82,7 @@ const TaskForm = ({ task, edit, create, cancel }) => {
       /*.catch(error => {
         console.log(error.response.data.errors)
       })*/
-    } else if (edit) {
+    } else if (type === 'edit') {
       TaskbleService.updateTask(task.id, taskData)
       .then(() => {
         //setEdit(false)
@@ -100,25 +100,25 @@ const TaskForm = ({ task, edit, create, cancel }) => {
 
       <form onSubmit={handleSubmit} /*id='form-container'*/>
 
-        <Input type='text' name='keyword' placeholder={texts.inputs.keyword} disabled={edit || create ? false : true} {...keywordHandleInput} />
+        <Input type='text' name='keyword' placeholder={texts.inputs.keyword} disabled={type === 'view' ? false : true} {...keywordHandleInput} />
         {keywordTouch && keywordError.active && (
           <div>
             { keywordError.message }
           </div>
         )}
 
-        <Input type='text' name='title' placeholder={texts.inputs.title} disabled={edit || create ? false : true} {...titleHandleInput} />
+        <Input type='text' name='title' placeholder={texts.inputs.title} disabled={type === 'view' ? false : true} {...titleHandleInput} />
         {titleTouch && titleError.active && (
           <div>
             { titleError.message }
           </div>
         )}
 
-        <Input type='text' name='description' placeholder={texts.inputs.description} disabled={edit || create ? false : true} {...descriptionHandleInput} />
+        <Input type='text' name='description' placeholder={texts.inputs.description} disabled={type === 'view' ? false : true} {...descriptionHandleInput} />
 
         <div>
           <label>{texts.labels.priority}:</label>
-          <select type='select' name='userPriority' disabled={edit || create ? false : true} {...userPriorityHandleInput} >
+          <select type='select' name='userPriority' disabled={type === 'view' ? false : true} {...userPriorityHandleInput} >
             <option>-</option>
             <option>1</option>
             <option>2</option>
@@ -135,7 +135,7 @@ const TaskForm = ({ task, edit, create, cancel }) => {
 
         <div>
           <label>{ texts.labels.dateToDo }:</label>
-          <Input type='date' name='toDoDate' disabled={edit || create ? false : true} {...toDoDateHandleInput} />
+          <Input type='date' name='toDoDate' disabled={type === 'view' ? false : true} {...toDoDateHandleInput} />
           {toDoDateTouch && toDoDateError.active && (
             <div>
               { toDoDateError.message }
@@ -145,7 +145,7 @@ const TaskForm = ({ task, edit, create, cancel }) => {
 
         <div>
           <label>{ texts.labels.limitDate }:</label>
-          <Input type='date' name='limitDate' disabled={edit || create ? false : true} {...limitDateHandleInput} />
+          <Input type='date' name='limitDate' disabled={type === 'view' ? false : true} {...limitDateHandleInput} />
           {limitDateTouch && limitDateError.active && (
             <div>
               { limitDateError.message }
@@ -153,19 +153,19 @@ const TaskForm = ({ task, edit, create, cancel }) => {
           )}
         </div>
 
-        {create && (
+        {type === 'create' && (
           <Button disabled={anyError()} type="submit" variant="primary">
             { texts.buttons.createTask }
           </Button>
         )}
 
-        {edit && (
+        {type === 'edit' && (
           <Button disabled={anyError()} type="submit" variant="primary">
             { texts.buttons.saveTask }
           </Button>
         )}
 
-        {(create || edit) && (
+        {(type === 'create' || 'edit') && (
           <Button onClick={cancel} variant="primary">
             { texts.buttons.cancel }
           </Button>
