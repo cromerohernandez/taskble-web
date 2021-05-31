@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react'
 
-const useInput = (initialValue, validator, initialErrorMessage, edit) => {
+const useInput = (initialValue, validator, initialErrorMessage, type) => {
   const [value, setValue] = useState(initialValue)
   const [touch, setTouch] = useState(false)
   const [error, setError] = useState({active: true, message: ''})
 
   useEffect(() => {
-    if (edit) {
+    if (type === 'edit') {
       setError({active: false, message: ''})
     }
-  }, [edit])
+  }, [type])
 
   const onChange = (event) => setValue(event.target.value)
 

@@ -8,11 +8,13 @@ import TaskForm from './TaskForm'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
-const TaskModal = ({ taskId, show, setShow }) => {
+const TaskModal = ({ taskId, type, show, setShow }) => {
   const { texts } = useContext(TranslateContext)
 
   const [task, setTask] = useState()
-  const [edit, setEdit] = useState(false)
+  const [edit, setEdit] = useState(type = 'edit' ? false : null)
+  const [create, setCreate] = useState(type = 'create' ? true : null)
+  const [typez, setTypez] = useState(type)
   const [deleteRequest, setDeleteRequest] = useState(false)
 
   const getTask = useCallback(() => {
@@ -45,7 +47,7 @@ const TaskModal = ({ taskId, show, setShow }) => {
   }
 
   const handleEdit = () =>  {
-    setEdit(true)
+    setTypez('edit')
   }
 
   const handleCancel = () =>  {
@@ -81,7 +83,7 @@ const TaskModal = ({ taskId, show, setShow }) => {
           </Modal.Header>
 
           <Modal.Body>
-            <TaskForm task={task} edit={edit} cancel={handleCancel}/>
+            <TaskForm task={task} type={typez} cancel={handleCancel}/>
 
             <Button variant={task.done ? 'success' : 'warning'} onClick={handleDone}>
               {task.done ? texts.buttons.doneTask : texts.buttons.pendingTask}
