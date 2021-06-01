@@ -1,15 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
-const useInput = (initialValue, validator, initialErrorMessage, type) => {
+const useInput = (initialValue, validator, initialErrorMessage, typeForm) => {
   const [value, setValue] = useState(initialValue)
   const [touch, setTouch] = useState(false)
-  const [error, setError] = useState({active: true, message: ''})
-
-  useEffect(() => {
-    if (type === 'edit') {
-      setError({active: false, message: ''})
-    }
-  }, [type])
+  const [error, setError] = useState({active: typeForm === 'create' ? true : false, message: ''})
 
   const onChange = (event) => setValue(event.target.value)
 
