@@ -8,13 +8,11 @@ import TaskForm from './TaskForm'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
-const TaskModal = ({ taskId, type, show, setShow }) => {
+const TaskModal = ({ taskId, typeModal, show, setShow }) => {
   const { texts } = useContext(TranslateContext)
 
   const [task, setTask] = useState()
-  const [edit, setEdit] = useState(type = 'edit' ? false : null)
-  const [create, setCreate] = useState(type = 'create' ? true : null)
-  const [typez, setTypez] = useState(type)
+  const [typeForm, setTypeForm] = useState(typeModal)
   const [deleteRequest, setDeleteRequest] = useState(false)
 
   const getTask = useCallback(() => {
@@ -30,7 +28,6 @@ const TaskModal = ({ taskId, type, show, setShow }) => {
   }, [getTask])
 
   const handleClose = () => {
-    setEdit(false)
     setShow(false)
     //getTasks()
   } 
@@ -47,11 +44,11 @@ const TaskModal = ({ taskId, type, show, setShow }) => {
   }
 
   const handleEdit = () =>  {
-    setTypez('edit')
+    setTypeForm('edit')
   }
 
   const handleCancel = () =>  {
-    setEdit(false)
+    setTypeForm('view')
   }
 
   const handleDeleteRequest = () => {
@@ -76,22 +73,25 @@ const TaskModal = ({ taskId, type, show, setShow }) => {
 
   return (
     <div>
-      {task && show && (
+      {show && (
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>{task.title}</Modal.Title>
+            {typeForm === 'create' && (<Modal.Title>{texts.headers.newTask}</Modal.Title>)}
+            {task && (typeForm === 'view' || 'edit') && (<Modal.Title>{task.title}</Modal.Title>)}
           </Modal.Header>
 
           <Modal.Body>
-            <TaskForm task={task} type={typez} cancel={handleCancel}/>
+            <TaskForm task={task ? task : null} typeForm={typeForm} cancel={handleCancel}/>
 
-            <Button variant={task.done ? 'success' : 'warning'} onClick={handleDone}>
-              {task.done ? texts.buttons.doneTask : texts.buttons.pendingTask}
-            </Button>
+            {task && (
+              <Button variant={task.done ? 'success' : 'warning'} onClick={handleDone}>
+                {task.done ? texts.buttons.doneTask : texts.buttons.pendingTask}
+              </Button>
+            )}
           </Modal.Body>
 
           <Modal.Footer>
-            {(!edit && !deleteRequest) && (
+            {(typeForm !== 'edit' && !deleteRequest) && (
               <Button variant="primary" onClick={handleEdit}>
                 {texts.buttons.editTask}
               </Button>
