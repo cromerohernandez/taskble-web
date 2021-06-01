@@ -9,7 +9,6 @@ import Login from './auth/Login'
 import SignUpForm from './users/SignUpForm'
 import UpdatePasswordRequest from './users/UpdatePasswordRequest'
 import UpdatePasswordForm from './users/UpdatePasswordForm'
-import TaskForm from './tasks/TaskForm'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../stylesheets/App.css'
@@ -37,14 +36,6 @@ function App() {
         <Route exact path='/:token/newpassword'>
           <UpdatePasswordForm/>
         </Route>
-
-        <AuthenticatedRoute exact path='/newtask'>
-          <TaskForm create={true}/>
-        </AuthenticatedRoute>
-
-        <AuthenticatedRoute exact path='/edittask/:id'>
-          <TaskForm/>
-        </AuthenticatedRoute>    
 
         <Redirect to='/'/>
       </Switch>
