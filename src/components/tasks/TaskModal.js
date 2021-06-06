@@ -73,7 +73,7 @@ const TaskModal = ({ taskId, typeModal, show, setShow }) => {
 
   return (
     <div>
-      {show && (
+      {((typeForm === 'create' && show) || (typeForm !== 'create' && task && show)) && (
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             {typeForm === 'create' && (<Modal.Title>{texts.headers.newTask}</Modal.Title>)}
@@ -91,7 +91,7 @@ const TaskModal = ({ taskId, typeModal, show, setShow }) => {
           </Modal.Body>
 
           <Modal.Footer>
-            {(typeForm !== 'edit' && !deleteRequest) && (
+            {(typeForm === 'view' && !deleteRequest) && (
               <Button variant="primary" onClick={handleEdit}>
                 {texts.buttons.editTask}
               </Button>
