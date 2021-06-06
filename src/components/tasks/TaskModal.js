@@ -1,4 +1,5 @@
 import React, { useContext, useState, useCallback, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import TranslateContext from '../../contexts/TranslateContext'
 import TaskbleService from '../../services/TaskbleService'
@@ -9,6 +10,7 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
 const TaskModal = ({ taskId, typeModal, show, setShow }) => {
+  const history = useHistory()
   const { texts } = useContext(TranslateContext)
 
   const [task, setTask] = useState()
@@ -29,7 +31,7 @@ const TaskModal = ({ taskId, typeModal, show, setShow }) => {
 
   const handleClose = () => {
     setShow(false)
-    //getTasks()
+    history.go()
   } 
 
   const handleDone = () => {
@@ -73,7 +75,7 @@ const TaskModal = ({ taskId, typeModal, show, setShow }) => {
 
   return (
     <div>
-      {show && (
+      {((typeForm === 'create') || (typeForm !== 'create' && task)) && show && (
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             {typeForm === 'create' && (<Modal.Title>{texts.headers.newTask}</Modal.Title>)}
@@ -91,7 +93,7 @@ const TaskModal = ({ taskId, typeModal, show, setShow }) => {
           </Modal.Body>
 
           <Modal.Footer>
-            {(typeForm !== 'edit' && !deleteRequest) && (
+            {(typeForm === 'view' && !deleteRequest) && (
               <Button variant="primary" onClick={handleEdit}>
                 {texts.buttons.editTask}
               </Button>
