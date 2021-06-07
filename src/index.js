@@ -4,6 +4,7 @@ import './index.css';
 import { BrowserRouter } from 'react-router-dom'
 import { AuthContextProvider } from './contexts/AuthContext'
 import { TranslateContextProvider } from './contexts/TranslateContext'
+import { CalendarContextProvider } from './contexts/CalendarContext'
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import './index.css'
@@ -13,7 +14,9 @@ ReactDOM.render(
     <BrowserRouter>
       <AuthContextProvider>
         <TranslateContextProvider>
-          <App />
+          <CalendarContextProvider>
+            <App />
+          </CalendarContextProvider>
         </TranslateContextProvider>
       </AuthContextProvider>
     </BrowserRouter>

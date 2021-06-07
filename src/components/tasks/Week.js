@@ -2,9 +2,9 @@ import React, { useState, useCallback, useEffect } from 'react'
 
 import Day from './Day'
 
-import '../../stylesheets/tasks/Week.css'
+import { oneDayInMiliseconds } from '../../helpers/tasksHelper'
 
-const oneDayInMiliseconds = 24 * 60 * 60 * 1000
+import '../../stylesheets/tasks/Week.css'
 
 const Week = ({ firstDay }) => {
   const [days, setDays] = useState([])
