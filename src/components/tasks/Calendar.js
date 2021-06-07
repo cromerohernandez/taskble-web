@@ -1,38 +1,34 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 
-import AuthContext from '../../contexts/AuthContext'
+import CalendarContext from '../../contexts/CalendarContext'
 
 import Week from './Week'
 
-import { getFirstDayOfTheWeek } from '../../helpers/tasksHelper'
+import { oneDayInMiliseconds } from '../../helpers/tasksHelper'
 
 import '../../stylesheets/tasks/Calendar.css'
 
-const oneDayInMiliseconds = 24 * 60 * 60 * 1000
-
 const Calendar = () => {
-  const auth = useContext(AuthContext)
+  const { currentFirstDayOfTheWeek, previousWeek, nextWeek} = useContext(CalendarContext)
 
-  const [currentFirstDayOfTheWeek, setCurrentFirstDayOfTheWeek] = useState(getFirstDayOfTheWeek(Date.now(), auth.currentUser.language))
+  const handlePreviousWeek = () => previousWeek()
 
-  const handlePreviousDays = (() => {
-    setCurrentFirstDayOfTheWeek(currentFirstDayOfTheWeek - (oneDayInMiliseconds * 7))
-  })
-
-  const handleNextDays = (() => {
-    setCurrentFirstDayOfTheWeek(currentFirstDayOfTheWeek + (oneDayInMiliseconds * 7))
-  })
+  const handleNextWeek = () => nextWeek()
 
   return (
     <div>
-      <button onClick={handlePreviousDays}>←</button>
-      <button onClick={handleNextDays}>→</button>
+      {currentFirstDayOfTheWeek && (
+       <div>
+          <button onClick={handlePreviousWeek}>←</button>
+          <button onClick={handleNextWeek}>→</button>
 
-      <div id='weeksContainer'>
-        <Week firstDay={currentFirstDayOfTheWeek - (oneDayInMiliseconds * 7)}/>
-        <Week firstDay={currentFirstDayOfTheWeek}/>
-        <Week firstDay={currentFirstDayOfTheWeek + (oneDayInMiliseconds * 7)}/>
-      </div>
+          <div id='weeksContainer'>
+            <Week firstDay={currentFirstDayOfTheWeek - (oneDayInMiliseconds * 7)}/>
+            <Week firstDay={currentFirstDayOfTheWeek}/>
+            <Week firstDay={currentFirstDayOfTheWeek + (oneDayInMiliseconds * 7)}/>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

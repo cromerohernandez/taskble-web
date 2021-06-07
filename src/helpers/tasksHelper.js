@@ -2,9 +2,10 @@ export const dateToDateInputFormat = (date) => {
   return date.substr(0, 10)
 }
 
+export const oneDayInMiliseconds = 24 * 60 * 60 * 1000
+
 export const getFirstDayOfTheWeek = (dateInMilliseconds, language) => {
   const weekday = (new Date(dateInMilliseconds)).getDay()
-  const oneDayInMiliseconds = 24 * 60 * 60 * 1000
   let prevWeek = (weekday === 0) && (language === 'es') ? 7 : 0
   let firstWeekDay = null
 
