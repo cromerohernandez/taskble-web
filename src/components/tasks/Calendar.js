@@ -9,7 +9,7 @@ import { oneDayInMiliseconds } from '../../helpers/tasksHelper'
 import '../../stylesheets/tasks/Calendar.css'
 
 const Calendar = () => {
-  const { currentFirstDayOfTheWeek, previousWeek, nextWeek} = useContext(CalendarContext)
+  const { currentFirstDayOfTheWeek, previousWeek, nextWeek } = useContext(CalendarContext)
 
   const handlePreviousWeek = () => previousWeek()
 

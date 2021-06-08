@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 
 import TranslateContext from '../../contexts/TranslateContext'
 import AuthContext from '../../contexts/AuthContext'
+import CalendarContext from '../../contexts/CalendarContext'
 import TaskbleService from '../../services/TaskbleService'
 
 import Calendar from '../tasks/Calendar'
@@ -10,8 +11,9 @@ import TaskModal from '../tasks/TaskModal'
 import Button from 'react-bootstrap/Button'
 
 const Home = () => {
-  const { texts } = useContext(TranslateContext)
   const auth = useContext(AuthContext)
+  const { texts } = useContext(TranslateContext)
+  const { removeCurrentFirstDayOfTheWeek } = useContext(CalendarContext)
 
   const [show, setShow] = useState(false)
 
@@ -35,6 +37,7 @@ const Home = () => {
 
   const handleLogout = () => {
     auth.logout()
+    removeCurrentFirstDayOfTheWeek()
   }
 
   return (

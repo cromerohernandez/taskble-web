@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 
 import AuthContext from '../../contexts/AuthContext'
 import TranslateContext from '../../contexts/TranslateContext'
+import CalendarContext from '../../contexts/CalendarContext'
 import TaskbleService from '../../services/TaskbleService'
 
 import useInput from '../../hooks/useInput'
@@ -16,6 +17,7 @@ import '../../stylesheets/auth/login.css'
 const Login = () => {
   const auth = useContext(AuthContext)
   const { setLanguage, translateAPIerror, texts } = useContext(TranslateContext)
+  const { setToday } = useContext(CalendarContext)
 
   const [loginError, setLoginError] = useState({active: false, message: ''})
 
@@ -37,6 +39,7 @@ const Login = () => {
       .then(user => {
         auth.setUser(user)
         setLanguage(user.language)
+        setToday(user.language)
       })
       .catch(error => {
         const translatedError = translateAPIerror(error.response.data.message)
