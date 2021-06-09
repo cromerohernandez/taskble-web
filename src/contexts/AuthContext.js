@@ -16,6 +16,7 @@ export const AuthContextProvider = (props) => {
     TaskbleService.logout()
       .then(() => {
         setUser()
+        localStorage.removeItem('user')
       })
   }
 

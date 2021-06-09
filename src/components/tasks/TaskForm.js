@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import { useHistory } from 'react-router-dom'
 
 import TranslateContext from '../../contexts/TranslateContext'
 import TaskbleService from '../../services/TaskbleService'
@@ -19,8 +18,7 @@ const validators = {
   limitDate: val => val
 }
 
-const TaskForm = ({ task, typeForm, cancel }) => {
-  const history = useHistory()
+const TaskForm = ({ task, typeForm, cancel, close }) => {
   const { texts } = useContext(TranslateContext)
 
   const {
@@ -77,7 +75,7 @@ const TaskForm = ({ task, typeForm, cancel }) => {
     if (typeForm === 'create') {
       TaskbleService.createTask(taskData)
       .then(() => {
-        history.push('/')
+        close()
       })
       /*.catch(error => {
         console.log(error.response.data.errors)
