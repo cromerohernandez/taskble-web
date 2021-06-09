@@ -83,7 +83,7 @@ const TaskModal = ({ taskId, typeModal, show, setShow }) => {
           </Modal.Header>
 
           <Modal.Body>
-            <TaskForm task={task ? task : null} typeForm={typeForm} cancel={handleCancel}/>
+            <TaskForm task={task ? task : null} typeForm={typeForm} cancel={handleCancel} close={handleClose}/>
 
             {task && (
               <Button variant={task.done ? 'success' : 'warning'} onClick={handleDone}>
