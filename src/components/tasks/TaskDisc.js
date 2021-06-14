@@ -10,42 +10,43 @@ import Button from 'react-bootstrap/Button'
 const TaskDisc = ({ task }) => {
   const { texts } = useContext(TranslateContext)
 
+  const [done, setDone] = useState(task.done)
   const [overDisc, setOverDisc] = useState(false)
   const [show, setShow] = useState(false)
 
   const handleOverDisc = () => setOverDisc(true)
 
-  const handleOutDisc = () => setOverDisc(false)
+  const handleLeaveDisc = () => setOverDisc(false)
 
-  /*const handleDone = () => {
+  const handleDone = () => {
     TaskbleService.doneTask(task.id)
-      .then(() => {
-        //getTask()
+      .then(updatedTask => {
+        setDone(updatedTask.done)
         //////////////////////////////////////////////// => ADD ALERT !!!!!
       })
       .catch(() => {
         //////////////////////////////////////////////// => ADD ALERT !!!!!
       })
-  }*/
+  }
 
   const handleShow = () => setShow(true)
 
   return (
-    <div onMouseOver={handleOverDisc} onMouseOut={handleOutDisc}>
-      <div>
-        {task && (
+    <div>
+      {task && (
+        <div onMouseOver={handleOverDisc} onMouseLeave={handleLeaveDisc}>
           <div onClick={handleShow}>
             <h6>{task.title}</h6>
             <h6>{task.finalPriority}</h6>
           </div>
-        )}
 
-        {overDisc && (
-          <Button variant={task.done ? 'success' : 'warning'} /*onClick={handleDone}*/>
-            {task.done ? texts.buttons.doneTask : texts.buttons.pendingTask}
-          </Button>
-        )}
-      </div>
+          {overDisc && (
+            <Button variant={done ? 'success' : 'warning'} onClick={handleDone}>
+              {done ? texts.buttons.doneTask : texts.buttons.pendingTask}
+            </Button>        
+          )}
+        </div>
+      )}
       
       {show && (
         <TaskModal taskId={task.id} typeModal={'view'} show={show} setShow={setShow} />

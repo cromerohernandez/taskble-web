@@ -36,8 +36,8 @@ const TaskModal = ({ taskId, typeModal, show, setShow }) => {
 
   const handleDone = () => {
     TaskbleService.doneTask(task.id)
-      .then(() => {
-        getTask()
+      .then(task => {
+        setTask(task)
         //////////////////////////////////////////////// => ADD ALERT !!!!!
       })
       .catch(() => {
