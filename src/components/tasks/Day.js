@@ -6,6 +6,8 @@ import TaskDisc from './TaskDisc'
 
 import { sortByFinalPriority } from '../../helpers/tasksHelper'
 
+import '../../stylesheets/tasks/Day.css'
+
 const Day = ({ date }) => {
   const [tasks, setTasks] = useState([])
 
@@ -23,7 +25,7 @@ const Day = ({ date }) => {
   }, [getTasks])
 
   return (
-    <div>
+    <div id='dayContainer'>
       <h4>{`${date.getDate()} · ${date.getMonth() + 1} · ${date.getFullYear()}`}</h4>
 
       {tasks.map((task, i) => (
