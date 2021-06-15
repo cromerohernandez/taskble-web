@@ -1,0 +1,6 @@
+#taskDisc {
+  margin: 0.5rem;
+  padding: 1rem;
+  background-color: var(--COLOR_MAIN_ONE);
+  border-radius: 50%;
+}

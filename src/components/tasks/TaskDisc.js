@@ -4,8 +4,9 @@ import TranslateContext from '../../contexts/TranslateContext'
 import TaskbleService from '../../services/TaskbleService'
 
 import TaskModal from './TaskModal'
-
 import Button from 'react-bootstrap/Button'
+
+import '../../stylesheets/tasks/TaskDisc.css'
 
 const TaskDisc = ({ task }) => {
   const { texts } = useContext(TranslateContext)
@@ -34,7 +35,7 @@ const TaskDisc = ({ task }) => {
   return (
     <div>
       {task && (
-        <div onMouseOver={handleOverDisc} onMouseLeave={handleLeaveDisc}>
+        <div onMouseOver={handleOverDisc} onMouseLeave={handleLeaveDisc} id='taskDisc'>
           <div onClick={handleShow}>
             <h6>{task.title}</h6>
             <h6>{task.finalPriority}</h6>
