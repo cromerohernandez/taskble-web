@@ -7,7 +7,6 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;  
-  background-color: var(--COLOR_MAIN_ONE);
   border-radius: 50%;
   cursor: pointer; cursor: hand;
 }
@@ -15,4 +14,16 @@
 #taskDiscContainer:hover {
   height: 8rem;
   width: 8rem;
+}
+
+.taskDiscContainer-done {
+  background-color: var(--COLOR_MAIN_ONE);
+}
+
+.taskDiscContainer-pending {
+  background-color: var(--COLOR_MAIN_TWO);
+}
+
+.taskDiscContainer-delayed {
+  border: 0.2rem solid var(--COLOR_MAIN_THREE);
 }

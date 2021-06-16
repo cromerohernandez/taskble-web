@@ -44,17 +44,23 @@ const TaskDisc = ({ task }) => {
   return (
     <div>
       {task && (
-        <div onMouseOver={handleOverDisc} onMouseLeave={handleLeaveDisc} onClick={handleShow} id='taskDiscContainer'>
-          <div>
-            <h6>{task.title}</h6>
-            <h6>{task.finalPriority}</h6>
-          </div>
+        <div
+          onMouseOver={handleOverDisc}
+          onMouseLeave={handleLeaveDisc}
+          onClick={handleShow}
+          id='taskDiscContainer'
+          className={(task.done ? 'taskDiscContainer-done' : 'taskDiscContainer-pending')}
+        >
+            <div>
+              <h6>{task.title}</h6>
+              <h6>{task.finalPriority}</h6>
+            </div>
 
-          {overDisc && (
-            <Button variant={done ? 'success' : 'warning'} onMouseOver={handleOverButton} onMouseLeave={handleLeaveButton} onClick={handleDone}>
-              {done ? texts.buttons.doneTask : texts.buttons.pendingTask}
-            </Button>        
-          )}
+            {overDisc && (
+              <Button variant={done ? 'success' : 'warning'} onMouseOver={handleOverButton} onMouseLeave={handleLeaveButton} onClick={handleDone}>
+                {done ? texts.buttons.doneTask : texts.buttons.pendingTask}
+              </Button>        
+            )}
         </div>
       )}
       
