@@ -66,7 +66,7 @@ const TaskDisc = ({ taskData }) => {
       )}
       
       {show && (
-        <TaskModal taskId={task.id} typeModal={'view'} show={show} setShow={setShow} />
+        <TaskModal taskData={task} typeModal={'view'} show={show} setShow={setShow} />
       )}
     </div> 
   )
