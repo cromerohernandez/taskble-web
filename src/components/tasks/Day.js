@@ -29,7 +29,7 @@ const Day = ({ date }) => {
       <h4>{`${date.getDate()} · ${date.getMonth() + 1} · ${date.getFullYear()}`}</h4>
 
       {tasks.map((task, i) => (
-        <TaskDisc task={task} key={i}/>
+        <TaskDisc taskData={task} key={i}/>
       ))}
     </div>
   )
