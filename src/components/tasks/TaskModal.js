@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import TranslateContext from '../../contexts/TranslateContext'
@@ -9,25 +9,13 @@ import TaskForm from './TaskForm'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
-const TaskModal = ({ taskId, typeModal, show, setShow }) => {
+const TaskModal = ({ taskData, typeModal, show, setShow }) => {
   const history = useHistory()
   const { texts } = useContext(TranslateContext)
 
-  const [task, setTask] = useState()
+  const [task, setTask] = useState(taskData)
   const [typeForm, setTypeForm] = useState(typeModal)
   const [deleteRequest, setDeleteRequest] = useState(false)
-
-  const getTask = useCallback(() => {
-    TaskbleService.taskDetail(taskId)
-      .then(task => {
-        setTask(task)
-      })
-      //.catch
-  }, [taskId])
-
-  useEffect(() => {
-    getTask()
-  }, [getTask])
 
   const handleClose = () => {
     setShow(false)
@@ -36,10 +24,7 @@ const TaskModal = ({ taskId, typeModal, show, setShow }) => {
 
   const handleDone = () => {
     TaskbleService.doneTask(task.id)
-      .then(task => {
-        setTask(task)
-        //////////////////////////////////////////////// => ADD ALERT !!!!!
-      })
+      .then(updatedTask => setTask(updatedTask))//////////////////////////////////////////////// => ADD ALERT !!!!!
       .catch(() => {
         //////////////////////////////////////////////// => ADD ALERT !!!!!
       })
