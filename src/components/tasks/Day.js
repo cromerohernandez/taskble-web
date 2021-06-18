@@ -4,8 +4,6 @@ import TaskbleService from '../../services/TaskbleService'
 
 import TaskDisc from './TaskDisc'
 
-import { sortByFinalPriority } from '../../helpers/tasksHelper'
-
 import '../../stylesheets/tasks/Day.css'
 
 const Day = ({ date }) => {
@@ -13,10 +11,7 @@ const Day = ({ date }) => {
 
   const getTasks = useCallback(() => {
     TaskbleService.dailyTasks(date.getTime())
-      .then(tasks => {
-        const sortedTasks = sortByFinalPriority(tasks)
-        setTasks(sortedTasks)
-      })
+      .then(tasks => setTasks(tasks))
       //.catch
   }, [date])
 

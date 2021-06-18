@@ -22,17 +22,3 @@ export const getFirstDayOfTheWeek = (dateInMilliseconds, language) => {
 
   return dateInMilliseconds - ((weekday + prevWeek - firstWeekDay) * oneDayInMiliseconds)
 }
-
-export const sortByFinalPriority = (tasks) => {
-  let doneTasks = []
-  let pendingTasks = []
-
-  for (let i = 0; i < tasks.length; i++) {
-    tasks[i].done ? doneTasks.push(tasks[i]) : pendingTasks.push(tasks[i])
-  }
-
-  doneTasks.sort((a, b) => b.finalPriority - a.finalPriority)
-  pendingTasks.sort((a, b) => b.finalPriority - a.finalPriority)
-  
-  return [...pendingTasks, ...doneTasks]
-}
