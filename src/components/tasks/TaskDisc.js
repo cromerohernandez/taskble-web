@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import TranslateContext from '../../contexts/TranslateContext'
 import TaskbleService from '../../services/TaskbleService'
@@ -9,6 +10,7 @@ import Button from 'react-bootstrap/Button'
 import '../../stylesheets/tasks/TaskDisc.css'
 
 const TaskDisc = ({ taskData }) => {
+  const history = useHistory()
   const { texts } = useContext(TranslateContext)
 
   const [task, setTask] = useState(taskData)
@@ -32,7 +34,10 @@ const TaskDisc = ({ taskData }) => {
 
   const handleDone = () => {
     TaskbleService.doneTask(task.id)
-      .then(updatedTask => setTask(updatedTask))        //////////////////////////////////////////////// => ADD ALERT !!!!!
+      .then(updatedTask => {
+        setTask(updatedTask)
+        history.go()
+      })        //////////////////////////////////////////////// => ADD ALERT !!!!!
       .catch(() => {
         //////////////////////////////////////////////// => ADD ALERT !!!!!
       })
