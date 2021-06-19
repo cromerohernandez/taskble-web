@@ -9,11 +9,10 @@ import TaskForm from './TaskForm'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
-const TaskModal = ({ taskData, typeModal, show, setShow }) => {
+const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
   const history = useHistory()
   const { texts } = useContext(TranslateContext)
 
-  const [task, setTask] = useState(taskData)
   const [typeForm, setTypeForm] = useState(typeModal)
   const [deleteRequest, setDeleteRequest] = useState(false)
 
@@ -22,20 +21,20 @@ const TaskModal = ({ taskData, typeModal, show, setShow }) => {
     history.go()
   } 
 
+  const handleEdit = () =>  {
+    setTypeForm('edit')
+  }
+
+  const handleCancelEdit = () =>  {
+    setTypeForm('view')
+  }
+
   const handleDone = () => {
     TaskbleService.doneTask(task.id)
       .then(updatedTask => setTask(updatedTask))//////////////////////////////////////////////// => ADD ALERT !!!!!
       .catch(() => {
         //////////////////////////////////////////////// => ADD ALERT !!!!!
       })
-  }
-
-  const handleEdit = () =>  {
-    setTypeForm('edit')
-  }
-
-  const handleCancel = () =>  {
-    setTypeForm('view')
   }
 
   const handleDeleteRequest = () => {
@@ -60,15 +59,24 @@ const TaskModal = ({ taskData, typeModal, show, setShow }) => {
 
   return (
     <div>
-      {((typeForm === 'create') || (typeForm !== 'create' && task)) && show && (
+      {((typeForm === 'create') || (typeForm !== 'create')) && show && (
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            {typeForm === 'create' && (<Modal.Title>{texts.headers.newTask}</Modal.Title>)}
-            {task && (typeForm === 'view' || 'edit') && (<Modal.Title>{task.title}</Modal.Title>)}
+            {typeForm === 'view' && (
+              <Button variant="primary" onClick={handleEdit}>
+                {texts.buttons.editTask}
+              </Button>
+            )}
+
+            {typeForm === 'view' && !deleteRequest && (
+              <Button variant="danger" onClick={handleDeleteRequest}>
+                {texts.buttons.deleteTask}
+              </Button>
+            )}
           </Modal.Header>
 
           <Modal.Body>
-            <TaskForm task={task ? task : null} typeForm={typeForm} cancel={handleCancel} close={handleClose}/>
+            <TaskForm task={task ? task : null} typeForm={typeForm} setTypeForm={setTypeForm} cancel={handleCancelEdit} close={handleClose}/>
 
             {task && (
               <Button variant={task.done ? 'success' : 'warning'} onClick={handleDone}>
@@ -78,16 +86,22 @@ const TaskModal = ({ taskData, typeModal, show, setShow }) => {
           </Modal.Body>
 
           <Modal.Footer>
-            {(typeForm === 'view' && !deleteRequest) && (
-              <Button variant="primary" onClick={handleEdit}>
-                {texts.buttons.editTask}
+            {typeForm === 'create' && (
+              <Button /*disabled={anyError()}*/ type='submit' form='taskForm' variant="primary">
+                { texts.buttons.createTask }
               </Button>
             )}
 
-            {!deleteRequest && (
-              <Button variant="danger" onClick={handleDeleteRequest}>
-                {texts.buttons.deleteTask}
-              </Button>
+            {typeForm === 'edit' && (
+              <div>
+                <Button /*disabled={anyError()}*/ type='submit' form='taskForm' variant="primary">
+                  { texts.buttons.saveTask }
+                </Button>
+
+                <Button variant="primary" onClick={handleCancelEdit}>
+                  {texts.buttons.cancel}
+                </Button>
+              </div>
             )}
 
             {deleteRequest && (

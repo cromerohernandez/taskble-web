@@ -36,7 +36,6 @@ const TaskDisc = ({ taskData }) => {
     TaskbleService.doneTask(task.id)
       .then(updatedTask => {
         setTask(updatedTask)
-        history.go()
       })        //////////////////////////////////////////////// => ADD ALERT !!!!!
       .catch(() => {
         //////////////////////////////////////////////// => ADD ALERT !!!!!
@@ -71,7 +70,7 @@ const TaskDisc = ({ taskData }) => {
       )}
       
       {show && (
-        <TaskModal taskData={task} typeModal={'view'} show={show} setShow={setShow} />
+        <TaskModal task={task} setTask={setTask} typeModal={'view'} show={show} setShow={setShow} />
       )}
     </div> 
   )
