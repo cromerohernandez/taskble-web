@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 
 import TranslateContext from '../../contexts/TranslateContext'
 import TaskbleService from '../../services/TaskbleService'
@@ -92,10 +92,8 @@ const TaskForm = ({ task, typeForm, cancel, close }) => {
   }
 
   return (
-    <div /*id='createTask'*/>
-
-      <form onSubmit={handleSubmit} /*id='form-container'*/>
-
+    <div>
+      <form id='taskForm' onSubmit={handleSubmit} >
         <Input type='text' name='keyword' placeholder={texts.inputs.keyword} disabled={typeForm === 'view' ? true : false} {...keywordHandleInput} />
         {keywordTouch && keywordError.active && (
           <div>
@@ -148,27 +146,7 @@ const TaskForm = ({ task, typeForm, cancel, close }) => {
             </div>
           )}
         </div>
-
-        {typeForm === 'create' && (
-          <Button disabled={anyError()} type="submit" variant="primary">
-            { texts.buttons.createTask }
-          </Button>
-        )}
-
-        {typeForm === 'edit' && (
-          <Button disabled={anyError()} type="submit" variant="primary">
-            { texts.buttons.saveTask }
-          </Button>
-        )}
-
-        {typeForm !== 'view' && (
-          <Button onClick={cancel} variant="primary">
-            { texts.buttons.cancel }
-          </Button>
-        )}
-
       </form>
-
     </div>
   )
 }
