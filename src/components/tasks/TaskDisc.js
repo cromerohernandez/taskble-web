@@ -1,16 +1,14 @@
 import React, { useContext, useState } from 'react'
-import { useHistory } from 'react-router-dom'
 
 import TranslateContext from '../../contexts/TranslateContext'
 import TaskbleService from '../../services/TaskbleService'
 
 import TaskModal from './TaskModal'
-import Button from 'react-bootstrap/Button'
+import { Button } from 'react-bootstrap'
 
 import '../../stylesheets/tasks/TaskDisc.css'
 
 const TaskDisc = ({ taskData }) => {
-  const history = useHistory()
   const { texts } = useContext(TranslateContext)
 
   const [task, setTask] = useState(taskData)
