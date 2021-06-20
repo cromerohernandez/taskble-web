@@ -1,11 +1,10 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 
 import TranslateContext from '../../contexts/TranslateContext'
 import TaskbleService from '../../services/TaskbleService'
 
 import useInput from '../../hooks/useInput'
 
-import Button from 'react-bootstrap/Button'
 import Input from '../UI/Input'
 
 import { dateToDateInputFormat } from '../../helpers/tasksHelper'

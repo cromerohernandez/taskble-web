@@ -6,8 +6,7 @@ import TaskbleService from '../../services/TaskbleService'
 
 import TaskForm from './TaskForm'
 
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
+import { Modal, Button } from 'react-bootstrap'
 
 const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
   const history = useHistory()

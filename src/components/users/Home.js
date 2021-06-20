@@ -8,7 +8,7 @@ import TaskbleService from '../../services/TaskbleService'
 import Calendar from '../tasks/Calendar'
 import TaskModal from '../tasks/TaskModal'
 
-import Button from 'react-bootstrap/Button'
+import { Button } from 'react-bootstrap'
 
 const Home = () => {
   const auth = useContext(AuthContext)
