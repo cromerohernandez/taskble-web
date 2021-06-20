@@ -60,10 +60,10 @@ const TaskForm = ({ task, typeForm, cancel, close }) => {
     handleInput: limitDateHandleInput
   } = useInput(task ? dateToDateInputFormat(task.date.limit) : '', validators.limitDate, texts.errors.limitDateRequired, typeForm)
 
-  const anyError = () => {
+  /*const anyError = () => {
     const errors = [keywordError.active, titleError.active, userPriorityError.active, toDoDateError.active, limitDateError.active]
     return errors.some(x => x === true)
-  }
+  }*/
 
   const handleSubmit = (event) => {
     event.preventDefault()
