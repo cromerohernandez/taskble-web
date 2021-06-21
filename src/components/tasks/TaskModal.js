@@ -5,8 +5,11 @@ import TranslateContext from '../../contexts/TranslateContext'
 import TaskbleService from '../../services/TaskbleService'
 
 import TaskForm from './TaskForm'
+import OptionButton from '../UI/OptionButton'
 
 import { Modal, Button } from 'react-bootstrap'
+
+import '../../stylesheets/tasks/TaskModal.css'
 
 const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
   const history = useHistory()
@@ -60,6 +63,13 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
     <div>
       {((typeForm === 'create') || (typeForm !== 'create')) && show && (
         <Modal show={show} onHide={handleClose}>
+
+          <div id='option-button-container'>
+            <OptionButton option={'editTask'} onClick={handleEdit}/>
+            <OptionButton option={'deleteTask'} onClick={handleDeleteRequest}/>
+            <OptionButton option={'cancel'} onClick={handleClose}/>
+          </div>
+
           <Modal.Header closeButton>
             {typeForm === 'view' && (
               <Button variant="primary" onClick={handleEdit}>

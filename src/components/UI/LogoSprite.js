@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 
 import logoSprite from '../../assets/images/taskbleLogoSprite.png'
 
-import '../../stylesheets/UI/logoSprite.css'
+import '../../stylesheets/UI/LogoSprite.css'
 
 const LogoSprite = () => {
   const [img, setImg] = useState(null)

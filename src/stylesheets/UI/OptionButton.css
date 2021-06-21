@@ -1,0 +1,22 @@
+.optionButton {
+  width: 2rem;
+  height: 2rem;
+  margin: 0.2rem;
+  border: none;
+  background-color: white;
+  text-align: right;
+  transition: width 0.4s 0.3s, background-color 0.8s, transform 0.4s, margin 0.4s;
+  transition-timing-function: ease-out;
+}
+
+.optionButton:hover {
+  width: 7rem;
+  background-color: aqua;
+  transform: scale(1.1);
+  margin: 0.2rem 0.4rem
+}
+
+.optionButton-img {
+  height: 1.4rem;
+  width: 1.4rem;
+}

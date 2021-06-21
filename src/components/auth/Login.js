@@ -12,7 +12,7 @@ import Input from '../UI/Input'
 import SignUpLink from '../users/SignUpLink'
 import UpdatePasswordRequestLink from '../users/UpdatePasswordRequestLink'
 
-import '../../stylesheets/auth/login.css'
+import '../../stylesheets/auth/Login.css'
 
 const Login = () => {
   const auth = useContext(AuthContext)
