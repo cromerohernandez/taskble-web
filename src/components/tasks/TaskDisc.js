@@ -12,20 +12,20 @@ const TaskDisc = ({ taskData }) => {
   const { texts } = useContext(TranslateContext)
 
   const [task, setTask] = useState(taskData)
-  const [overDisc, setOverDisc] = useState(false)
-  const [overButton, setOverButton] = useState(false)
+  const [enterDisc, setEnterDisc] = useState(false)
+  const [enterButton, setEnterButton] = useState(false)
   const [show, setShow] = useState(false)
 
-  const handleOverDisc = () => setOverDisc(true)
+  const handleEnterDisc = () => setEnterDisc(true)
 
-  const handleLeaveDisc = () => setOverDisc(false)
+  const handleLeaveDisc = () => setEnterDisc(false)
 
-  const handleOverButton = () => setOverButton(true)
+  const handleEnterButton = () => setEnterButton(true)
 
-  const handleLeaveButton = () => setOverButton(false)
+  const handleLeaveButton = () => setEnterButton(false)
 
   const handleShow = () => {
-    if (!overButton) {
+    if (!enterButton) {
       setShow(true)
     }
   }
@@ -53,14 +53,14 @@ const TaskDisc = ({ taskData }) => {
   return (
     <div>
       {task && (
-        <div onMouseOver={handleOverDisc} onMouseLeave={handleLeaveDisc} onClick={handleShow} id='taskDiscContainer' className={setDiscStyle()}>
+        <div onMouseEnter={handleEnterDisc} onMouseLeave={handleLeaveDisc} onClick={handleShow} id='taskDiscContainer' className={setDiscStyle()}>
           <div>
             <h6>{task.title}</h6>
             <h6>{task.finalPriority}</h6>
           </div>
 
-          {overDisc && (
-            <Button variant={task.done ? 'success' : 'warning'} onMouseOver={handleOverButton} onMouseLeave={handleLeaveButton} onClick={handleDone}>
+          {enterDisc && (
+            <Button variant={task.done ? 'success' : 'warning'} onMouseEnter={handleEnterButton} onMouseLeave={handleLeaveButton} onClick={handleDone}>
               {task.done ? texts.buttons.doneTask : texts.buttons.pendingTask}
             </Button>        
           )}
