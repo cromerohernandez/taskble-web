@@ -12,22 +12,9 @@ const OptionButton = ({ option, onClick }) => {
   const [enter, setEnter] = useState(false)
   const [detail, setDetail] = useState(false)
 
-  const detailOn = () => {
-    setTimeout(() => {
-      const updatedEnter = enter
-      if (updatedEnter) {
-        setDetail(true)
-      }
-    }, 650)
-  }
-
-  const enterOn = async () => {
-    setEnter(true)
-  }
-
   const handleOnMouseEnter = () => {
-    enterOn()
-      .then((value) => console.log(enter))
+    setEnter(true)
+    setTimeout(() => setDetail(true), 650)
   }
 
   const handleOnMouseLeave = () => {
