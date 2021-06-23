@@ -17,6 +17,7 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
 
   const [stateForm, setStateForm] = useState(typeModal)
   const [request, setRequest] = useState(null)
+  const [formErrors, setFormErrors] = useState(false)
 
   const handleClose = () => {
     setShow(false)
@@ -27,14 +28,14 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
     setStateForm('edit')
   }
 
-  const handleSaveRequest = () => {
-    setStateForm('edit')
-    setRequest('save')
-  }
-
   const handleCancelEdit = () =>  {
     setStateForm('view')
     setRequest(null)
+  }
+
+  const handleSaveRequest = () => {
+    setStateForm('edit')
+    setRequest('save')
   }
 
   const handleDone = () => {
@@ -46,6 +47,7 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
   }
 
   const handleDeleteRequest = () => {
+    setStateForm('delete')
     setRequest('delete')
   }
 
@@ -61,12 +63,8 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
       })
   }
   
-  const handleCancelSave = () => {
-    setStateForm('view')
-    setRequest(null)
-  }
-
   const handleCancelDelete = () => {
+    setStateForm('view')
     setRequest(null)
   }
 
@@ -85,7 +83,7 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
           </Modal.Header>
 
           <Modal.Body>
-            <TaskForm task={task ? task : null} stateForm={stateForm} cancel={handleCancelEdit} close={handleClose}/>
+            <TaskForm task={task ? task : null} stateForm={stateForm} setFormErrors={setFormErrors} cancel={handleCancelEdit} close={handleClose}/>
 
             {task && (
               <Button variant={task.done ? 'success' : 'warning'} onClick={handleDone}>
@@ -96,14 +94,14 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
 
           <Modal.Footer>
             {stateForm === 'create' && (
-              <Button /*disabled={anyError()}*/ type='submit' form='taskForm' variant="primary">
+              <Button disabled={formErrors} type='submit' form='taskForm' variant="primary">
                 { texts.buttons.createTask }
               </Button>
             )}
 
             {stateForm === 'edit' && request === null && (
               <div>
-                <Button /*disabled={anyError()}*/ variant="primary" onClick={handleSaveRequest}>
+                <Button disabled={formErrors} variant="primary" onClick={handleSaveRequest}>
                   { texts.buttons.saveTask }
                 </Button>
 
@@ -121,7 +119,7 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
                   {texts.buttons.saveTask}
                 </Button>
 
-                <Button variant="secondary" onClick={handleCancelSave}>
+                <Button variant="secondary" onClick={handleCancelEdit}>
                   {texts.buttons.cancel}
                 </Button>
               </div>

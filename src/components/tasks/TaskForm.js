@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 import TranslateContext from '../../contexts/TranslateContext'
 import TaskbleService from '../../services/TaskbleService'
@@ -17,7 +17,7 @@ const validators = {
   limitDate: val => val
 }
 
-const TaskForm = ({ task, stateForm, cancel, close }) => {
+const TaskForm = ({ task, stateForm, setFormErrors, cancel, close }) => {
   const { texts } = useContext(TranslateContext)
 
   const {
@@ -60,10 +60,14 @@ const TaskForm = ({ task, stateForm, cancel, close }) => {
     handleInput: limitDateHandleInput
   } = useInput(task ? dateToDateInputFormat(task.date.limit) : '', validators.limitDate, texts.errors.limitDateRequired, stateForm)
 
-  /*const anyError = () => {
+  const anyError = () => {
     const errors = [keywordError.active, titleError.active, userPriorityError.active, toDoDateError.active, limitDateError.active]
     return errors.some(x => x === true)
-  }*/
+  }
+
+  useEffect(() => {
+    setFormErrors(anyError)
+  }, [anyError])
 
   const handleSubmit = (event) => {
     event.preventDefault()
