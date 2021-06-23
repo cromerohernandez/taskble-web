@@ -17,7 +17,7 @@ const validators = {
   limitDate: val => val
 }
 
-const TaskForm = ({ task, typeForm, cancel, close }) => {
+const TaskForm = ({ task, stateForm, cancel, close }) => {
   const { texts } = useContext(TranslateContext)
 
   const {
@@ -25,14 +25,14 @@ const TaskForm = ({ task, typeForm, cancel, close }) => {
     touch: keywordTouch,
     error: keywordError,
     handleInput: keywordHandleInput
-  } = useInput(task ? task.keyword : '', validators.keyword, texts.errors.keywordRequired, typeForm)
+  } = useInput(task ? task.keyword : '', validators.keyword, texts.errors.keywordRequired, stateForm)
 
   const {
     value: title,
     touch: titleTouch,
     error: titleError,
     handleInput: titleHandleInput
-  } = useInput(task ? task.title : '', validators.title, texts.errors.titleRequired, typeForm)
+  } = useInput(task ? task.title : '', validators.title, texts.errors.titleRequired, stateForm)
 
   const {
     value: description,
@@ -44,21 +44,21 @@ const TaskForm = ({ task, typeForm, cancel, close }) => {
     touch: userPriorityTouch,
     error: userPriorityError,
     handleInput: userPriorityHandleInput
-  } = useInput(task ? task.userPriority : '', validators.userPriority, texts.errors.priorityRequired, typeForm)
+  } = useInput(task ? task.userPriority : '', validators.userPriority, texts.errors.priorityRequired, stateForm)
 
   const {
     value: toDoDate,
     touch: toDoDateTouch,
     error: toDoDateError,
     handleInput: toDoDateHandleInput
-  } = useInput(task ? dateToDateInputFormat(task.date.toDo) : '', validators.toDoDate, texts.errors.toDoDateRequired, typeForm)
+  } = useInput(task ? dateToDateInputFormat(task.date.toDo) : '', validators.toDoDate, texts.errors.toDoDateRequired, stateForm)
 
   const {
     value: limitDate,
     touch: limitDateTouch,
     error: limitDateError,
     handleInput: limitDateHandleInput
-  } = useInput(task ? dateToDateInputFormat(task.date.limit) : '', validators.limitDate, texts.errors.limitDateRequired, typeForm)
+  } = useInput(task ? dateToDateInputFormat(task.date.limit) : '', validators.limitDate, texts.errors.limitDateRequired, stateForm)
 
   /*const anyError = () => {
     const errors = [keywordError.active, titleError.active, userPriorityError.active, toDoDateError.active, limitDateError.active]
@@ -71,7 +71,7 @@ const TaskForm = ({ task, typeForm, cancel, close }) => {
     const date = {toDo: toDoDate, limit: limitDate}
     const taskData = { keyword, title, description, userPriority, date}
 
-    if (typeForm === 'create') {
+    if (stateForm === 'create') {
       TaskbleService.createTask(taskData)
       .then(() => {
         close()
@@ -79,7 +79,7 @@ const TaskForm = ({ task, typeForm, cancel, close }) => {
       /*.catch(error => {
         console.log(error.response.data.errors)
       })*/
-    } else if (typeForm === 'edit') {
+    } else if (stateForm === 'edit') {
       TaskbleService.updateTask(task.id, taskData)
       .then(() => {
         cancel()
@@ -93,25 +93,25 @@ const TaskForm = ({ task, typeForm, cancel, close }) => {
   return (
     <div>
       <form id='taskForm' onSubmit={handleSubmit} >
-        <Input type='text' name='keyword' placeholder={texts.inputs.keyword} disabled={typeForm === 'view' ? true : false} {...keywordHandleInput} />
+        <Input type='text' name='keyword' placeholder={texts.inputs.keyword} disabled={stateForm === 'view' ? true : false} {...keywordHandleInput} />
         {keywordTouch && keywordError.active && (
           <div>
             { keywordError.message }
           </div>
         )}
 
-        <Input type='text' name='title' placeholder={texts.inputs.title} disabled={typeForm === 'view' ? true : false} {...titleHandleInput} />
+        <Input type='text' name='title' placeholder={texts.inputs.title} disabled={stateForm === 'view' ? true : false} {...titleHandleInput} />
         {titleTouch && titleError.active && (
           <div>
             { titleError.message }
           </div>
         )}
 
-        <Input type='text' name='description' placeholder={texts.inputs.description} disabled={typeForm === 'view' ? true : false} {...descriptionHandleInput} />
+        <Input type='text' name='description' placeholder={texts.inputs.description} disabled={stateForm === 'view' ? true : false} {...descriptionHandleInput} />
 
         <div>
           <label>{texts.labels.priority}:</label>
-          <select type='select' name='userPriority' disabled={typeForm === 'view' ? true : false} {...userPriorityHandleInput} >
+          <select type='select' name='userPriority' disabled={stateForm === 'view' ? true : false} {...userPriorityHandleInput} >
             <option>-</option>
             <option>1</option>
             <option>2</option>
@@ -128,7 +128,7 @@ const TaskForm = ({ task, typeForm, cancel, close }) => {
 
         <div>
           <label>{ texts.labels.dateToDo }:</label>
-          <Input type='date' name='toDoDate' disabled={typeForm === 'view' ? true : false} {...toDoDateHandleInput} />
+          <Input type='date' name='toDoDate' disabled={stateForm === 'view' ? true : false} {...toDoDateHandleInput} />
           {toDoDateTouch && toDoDateError.active && (
             <div>
               { toDoDateError.message }
@@ -138,7 +138,7 @@ const TaskForm = ({ task, typeForm, cancel, close }) => {
 
         <div>
           <label>{ texts.labels.limitDate }:</label>
-          <Input type='date' name='limitDate' disabled={typeForm === 'view' ? true : false} {...limitDateHandleInput} />
+          <Input type='date' name='limitDate' disabled={stateForm === 'view' ? true : false} {...limitDateHandleInput} />
           {limitDateTouch && limitDateError.active && (
             <div>
               { limitDateError.message }
