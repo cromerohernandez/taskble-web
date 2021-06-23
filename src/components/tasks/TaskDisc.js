@@ -61,7 +61,7 @@ const TaskDisc = ({ taskData }) => {
 
           {enterDisc && (
             <Button variant={task.done ? 'success' : 'warning'} onMouseEnter={handleEnterButton} onMouseLeave={handleLeaveButton} onClick={handleDone}>
-              {task.done ? texts.buttons.doneTask : texts.buttons.pendingTask}
+              {task.done ? texts.buttons.done : texts.buttons.pending}
             </Button>        
           )}
         </div>

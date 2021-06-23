@@ -75,8 +75,8 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
           <Modal.Header closeButton>
             {stateForm === 'view' && (
               <div id='option-button-container'>
-                <OptionButton option={'editTask'} onClick={handleEdit} stateForm={stateForm}/>
-                <OptionButton option={'deleteTask'} onClick={handleDeleteRequest} stateForm={stateForm}/>
+                <OptionButton option={'edit'} onClick={handleEdit} stateForm={stateForm}/>
+                <OptionButton option={'delete'} onClick={handleDeleteRequest} stateForm={stateForm}/>
                 <OptionButton option={'close'} onClick={handleClose} stateForm={stateForm}/>
               </div>
             )}
@@ -87,7 +87,7 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
 
             {task && (
               <Button variant={task.done ? 'success' : 'warning'} onClick={handleDone}>
-                {task.done ? texts.buttons.doneTask : texts.buttons.pendingTask}
+                {task.done ? texts.buttons.done : texts.buttons.pending}
               </Button>
             )}
           </Modal.Body>
@@ -102,7 +102,7 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
             {stateForm === 'edit' && request === null && (
               <div>
                 <Button disabled={formErrors} variant="primary" onClick={handleSaveRequest}>
-                  { texts.buttons.saveTask }
+                  { texts.buttons.save }
                 </Button>
 
                 <Button variant="secondary" onClick={handleCancelEdit}>
@@ -116,7 +116,7 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
                 <h4>{texts.headers.confirmSaveTask}</h4>
 
                 <Button variant="primary" type='submit' form='taskForm'>
-                  {texts.buttons.saveTask}
+                  {texts.buttons.save}
                 </Button>
 
                 <Button variant="secondary" onClick={handleCancelEdit}>
@@ -130,7 +130,7 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
                 <h4>{texts.headers.confirmDeleteTask}</h4>
 
                 <Button variant="danger" onClick={handleDelete}>
-                  {texts.buttons.deleteTask}
+                  {texts.buttons.delete}
                 </Button>
 
                 <Button variant="primary" onClick={handleCancelDelete}>
