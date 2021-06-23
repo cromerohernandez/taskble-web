@@ -22,7 +22,21 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
   const handleClose = () => {
     setShow(false)
     history.go()
-  } 
+  }
+
+  const handleOnHide = () => {
+    switch (stateForm) {
+      /*case 'create':
+        setRequest('create')
+        break*/
+      case 'view':
+        handleClose()
+        break
+      case 'edit':
+        setRequest('save')
+        break
+    }
+  }
 
   const handleEdit = () =>  {
     setStateForm('edit')
@@ -71,7 +85,7 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
   return (
     <div>
       {((stateForm === 'create') || (stateForm !== 'create')) && show && (
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleOnHide}>
           <Modal.Header closeButton>
             {stateForm === 'view' && (
               <div id='option-button-container'>
