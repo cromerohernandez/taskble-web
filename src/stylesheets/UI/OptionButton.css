@@ -19,6 +19,13 @@
   margin: 0.2rem 0.4rem;
 }
 
+.optionButton-on {
+  width: 6rem;
+  background-color: aqua;
+  transform: scale(1.1);
+  margin: 0.2rem 0.4rem;
+}
+
 .optionButton-text {
   vertical-align: center;
   margin: 0;

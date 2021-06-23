@@ -15,8 +15,8 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
   const history = useHistory()
   const { texts } = useContext(TranslateContext)
 
-  const [typeForm, setTypeForm] = useState(typeModal)
-  const [deleteRequest, setDeleteRequest] = useState(false)
+  const [stateForm, setStateForm] = useState(typeModal)
+  const [request, setRequest] = useState(null)
 
   const handleClose = () => {
     setShow(false)
@@ -24,11 +24,17 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
   } 
 
   const handleEdit = () =>  {
-    setTypeForm('edit')
+    setStateForm('edit')
+  }
+
+  const handleSaveRequest = () => {
+    setStateForm('edit')
+    setRequest('save')
   }
 
   const handleCancelEdit = () =>  {
-    setTypeForm('view')
+    setStateForm('view')
+    setRequest(null)
   }
 
   const handleDone = () => {
@@ -40,52 +46,46 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
   }
 
   const handleDeleteRequest = () => {
-    setDeleteRequest(true)
+    setRequest('delete')
   }
 
   const handleDelete = () => {
     TaskbleService.deleteTask(task.id)
       .then(() => {
         //////////////////////////////////////////////// => ADD ALERT !!!!!
-        setDeleteRequest(false)
+        setRequest(null)
         handleClose()
       })
       .catch(() => {
         //////////////////////////////////////////////// => ADD ALERT !!!!!
       })
   }
+  
+  const handleCancelSave = () => {
+    setStateForm('view')
+    setRequest(null)
+  }
 
   const handleCancelDelete = () => {
-    setDeleteRequest(false)
+    setRequest(null)
   }
 
   return (
     <div>
-      {((typeForm === 'create') || (typeForm !== 'create')) && show && (
+      {((stateForm === 'create') || (stateForm !== 'create')) && show && (
         <Modal show={show} onHide={handleClose}>
-
-          <div id='option-button-container'>
-            <OptionButton option={'editTask'} onClick={handleEdit}/>
-            <OptionButton option={'deleteTask'} onClick={handleDeleteRequest}/>
-            <OptionButton option={'cancel'} onClick={handleClose}/>
-          </div>
-
           <Modal.Header closeButton>
-            {typeForm === 'view' && (
-              <Button variant="primary" onClick={handleEdit}>
-                {texts.buttons.editTask}
-              </Button>
-            )}
-
-            {typeForm === 'view' && !deleteRequest && (
-              <Button variant="danger" onClick={handleDeleteRequest}>
-                {texts.buttons.deleteTask}
-              </Button>
+            {stateForm === 'view' && (
+              <div id='option-button-container'>
+                <OptionButton option={'editTask'} onClick={handleEdit} stateForm={stateForm}/>
+                <OptionButton option={'deleteTask'} onClick={handleDeleteRequest} stateForm={stateForm}/>
+                <OptionButton option={'close'} onClick={handleClose} stateForm={stateForm}/>
+              </div>
             )}
           </Modal.Header>
 
           <Modal.Body>
-            <TaskForm task={task ? task : null} typeForm={typeForm} setTypeForm={setTypeForm} cancel={handleCancelEdit} close={handleClose}/>
+            <TaskForm task={task ? task : null} stateForm={stateForm} cancel={handleCancelEdit} close={handleClose}/>
 
             {task && (
               <Button variant={task.done ? 'success' : 'warning'} onClick={handleDone}>
@@ -95,25 +95,39 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
           </Modal.Body>
 
           <Modal.Footer>
-            {typeForm === 'create' && (
+            {stateForm === 'create' && (
               <Button /*disabled={anyError()}*/ type='submit' form='taskForm' variant="primary">
                 { texts.buttons.createTask }
               </Button>
             )}
 
-            {typeForm === 'edit' && (
+            {stateForm === 'edit' && request === null && (
               <div>
-                <Button /*disabled={anyError()}*/ type='submit' form='taskForm' variant="primary">
+                <Button /*disabled={anyError()}*/ variant="primary" onClick={handleSaveRequest}>
                   { texts.buttons.saveTask }
                 </Button>
 
-                <Button variant="primary" onClick={handleCancelEdit}>
+                <Button variant="secondary" onClick={handleCancelEdit}>
                   {texts.buttons.cancel}
                 </Button>
               </div>
             )}
 
-            {deleteRequest && (
+            {request === 'save' && (
+              <div>
+                <h4>{texts.headers.confirmSaveTask}</h4>
+
+                <Button variant="primary" type='submit' form='taskForm'>
+                  {texts.buttons.saveTask}
+                </Button>
+
+                <Button variant="secondary" onClick={handleCancelSave}>
+                  {texts.buttons.cancel}
+                </Button>
+              </div>
+            )}
+
+            {request === 'delete' && (
               <div>
                 <h4>{texts.headers.confirmDeleteTask}</h4>
 

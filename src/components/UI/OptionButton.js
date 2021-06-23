@@ -6,16 +6,17 @@ import deleteTaskIcon from '../../assets/images/deleteTaskIcon.png'
 
 import '../../stylesheets/UI/OptionButton.css'
 
-const OptionButton = ({ option, onClick }) => {
+const OptionButton = ({ option, onClick, stateForm }) => {
   const { texts } = useContext(TranslateContext)
 
   const [enter, setEnter] = useState(false)
   const [open, setOpen] = useState(false)
+  const [on, setOn] = useState(false)
+  const [disabled, setDisabled] = useState(false)
 
   useEffect(() => {
     if (!enter & open) {
       setOpen(false)
-      console.log('reparado')
     }
   }, [enter, open])
 
@@ -29,9 +30,24 @@ const OptionButton = ({ option, onClick }) => {
     setOpen(false)
   }
 
+  const handleClick = () => {
+    onClick()
+    if (option === stateForm) {
+      setOn(true)
+     } else {
+      setDisabled(true)
+     }
+  }
+
   return (
-    <button className='optionButton' onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave} onClick={onClick}>
-      {(enter && open) && (
+    <button
+      className={'optionButton'}
+      onMouseEnter={handleOnMouseEnter}
+      onMouseLeave={handleOnMouseLeave}
+      onClick={handleClick}
+      disabled={disabled}
+    >
+      {((enter && open) || on) && (
         <h6 className='optionButton-text'>{texts.buttons[option]}</h6>
       )}
       
