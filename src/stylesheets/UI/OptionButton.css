@@ -8,18 +8,26 @@
   border: none;
   border-radius: 1rem;
   background-color: white;
-  transition: width 0.4s 0.3s, background-color 0.8s, transform 0.4s, margin 0.4s;
-  transition-timing-function: ease-out;
+  transition: width 0.3s 0.2s, background-color 0.5s, transform 0.3s, margin 0.3s;
+  transition-timing-function: ease-in-out;
 }
 
 .optionButton:hover {
-  width: 7rem;
+  width: 6rem;
   background-color: aqua;
   transform: scale(1.1);
-  margin: 0.2rem 0.4rem
+  margin: 0.2rem 0.4rem;
+}
+
+.optionButton-text {
+  vertical-align: center;
+  margin: 0;
+  padding: 0;
+  width: 4.5rem;
+  font-size: 0.9rem;
 }
 
 .optionButton-img {
-  height: 1.4rem;
-  width: 1.4rem;
+  height: 1.3rem;
+  width: 1.3rem;
 }

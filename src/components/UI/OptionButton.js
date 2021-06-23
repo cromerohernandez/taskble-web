@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import TranslateContext from '../../contexts/TranslateContext'
 
@@ -10,23 +10,29 @@ const OptionButton = ({ option, onClick }) => {
   const { texts } = useContext(TranslateContext)
 
   const [enter, setEnter] = useState(false)
-  const [detail, setDetail] = useState(false)
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    if (!enter & open) {
+      setOpen(false)
+      console.log('reparado')
+    }
+  }, [enter, open])
 
   const handleOnMouseEnter = () => {
     setEnter(true)
-    setTimeout(() => setDetail(true), 650)
+    setTimeout(() => setOpen(true), 500)
   }
 
   const handleOnMouseLeave = () => {
     setEnter(false)
-    setDetail(false)
-    setTimeout(() => setDetail(false), 650)
+    setOpen(false)
   }
 
   return (
     <button className='optionButton' onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave} onClick={onClick}>
-      {(enter && detail) && (
-        <h6>{texts.buttons[option] + ' | '}</h6>
+      {(enter && open) && (
+        <h6 className='optionButton-text'>{texts.buttons[option]}</h6>
       )}
       
       <img 
