@@ -23,8 +23,8 @@ const Day = ({ date }) => {
     <div id='dayContainer'>
       <h4>{`${date.getDate()} · ${date.getMonth() + 1} · ${date.getFullYear()}`}</h4>
 
-      {tasks.map((task, i) => (
-        <TaskDisc taskData={task} key={i}/>
+      {tasks.map((task) => (
+        <TaskDisc taskData={task} key={task.id}/>
       ))}
     </div>
   )
