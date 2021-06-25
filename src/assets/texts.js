@@ -35,6 +35,7 @@ export const en = {
     'usernameFormat': 'username needs at least 3 chars'
   },
   'headers': {
+    'cancelCreateTask': 'Do you want to cancel task creation?',
     'changePassword': 'Change password',
     'checkItAnd': 'Check it and',
     'confirmDeleteTask': 'Do you want to delete this task?',
@@ -115,6 +116,7 @@ export const es = {
     'usernameFormat': 'el nombre de usuario necesita al menos 3 caracteres'
   },
   'headers': {
+    'cancelCreateTask': '¿Deseas cancelar la creación de la tarea?',
     'changePassword': 'Cambiar contraseña',
     'checkItAnd': '¡Revísalo e',
     'confirmDeleteTask': '¿Deseas eliminar esta tarea?',

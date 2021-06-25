@@ -26,9 +26,9 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
 
   const handleOnHide = () => {
     switch (stateForm) {
-      /*case 'create':
-        setRequest('create')
-        break*/
+      case 'create':
+        setRequest('cancelCreate')
+        break
       case 'view':
         handleClose()
         break
@@ -106,53 +106,63 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
             )}
           </Modal.Body>
 
-          <Modal.Footer>
-            {stateForm === 'create' && (
-              <Button disabled={formErrors} type='submit' form='taskForm' variant="primary">
-                { texts.buttons.createTask }
-              </Button>
-            )}
-
-            {stateForm === 'edit' && request === null && (
-              <div>
-                <Button disabled={formErrors} variant="primary" onClick={handleSaveRequest}>
-                  { texts.buttons.save }
+          {(stateForm === 'create' || stateForm === 'edit' || request) && (
+            <Modal.Footer>
+              {stateForm === 'create' && (
+                <Button disabled={formErrors} type='submit' form='taskForm' variant="primary">
+                  { texts.buttons.createTask }
                 </Button>
+              )}
 
-                <Button variant="secondary" onClick={handleCancelEdit}>
-                  {texts.buttons.cancel}
-                </Button>
-              </div>
-            )}
+              {stateForm === 'edit' && request === null && (
+                <div>
+                  <Button disabled={formErrors} variant="primary" onClick={handleSaveRequest}>
+                    { texts.buttons.save }
+                  </Button>
 
-            {request === 'save' && (
-              <div>
-                <h4>{texts.headers.confirmSaveTask}</h4>
+                  <Button variant="secondary" onClick={handleCancelEdit}>
+                    {texts.buttons.cancel}
+                  </Button>
+                </div>
+              )}
 
-                <Button variant="primary" type='submit' form='taskForm'>
-                  {texts.buttons.save}
-                </Button>
+              
+              {request === 'cancelCreate' && (
+                <div>
+                  <h4>{texts.headers.cancelCreateTask}</h4>
+                  {/*TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
+                </div>
+              )}
 
-                <Button variant="secondary" onClick={handleCancelEdit}>
-                  {texts.buttons.cancel}
-                </Button>
-              </div>
-            )}
+              {request === 'save' && (
+                <div>
+                  <h4>{texts.headers.confirmSaveTask}</h4>
 
-            {request === 'delete' && (
-              <div>
-                <h4>{texts.headers.confirmDeleteTask}</h4>
+                  <Button variant="primary" type='submit' form='taskForm'>
+                    {texts.buttons.save}
+                  </Button>
 
-                <Button variant="danger" onClick={handleDelete}>
-                  {texts.buttons.delete}
-                </Button>
+                  <Button variant="secondary" onClick={handleCancelEdit}>
+                    {texts.buttons.cancel}
+                  </Button>
+                </div>
+              )}
 
-                <Button variant="primary" onClick={handleCancelDelete}>
-                  {texts.buttons.cancel}
-                </Button>
-              </div>
-            )}
-          </Modal.Footer>
+              {request === 'delete' && (
+                <div>
+                  <h4>{texts.headers.confirmDeleteTask}</h4>
+
+                  <Button variant="danger" onClick={handleDelete}>
+                    {texts.buttons.delete}
+                  </Button>
+
+                  <Button variant="primary" onClick={handleCancelDelete}>
+                    {texts.buttons.cancel}
+                  </Button>
+                </div>
+              )}
+            </Modal.Footer>
+          )}
         </Modal>
       )}
    </div> 
