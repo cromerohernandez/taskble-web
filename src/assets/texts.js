@@ -12,6 +12,7 @@ export const en = {
   'buttons': {
     'cancel': 'Cancel',
     'changePassword': 'Change password',
+    'continue': 'Continue',
     'createAccount': 'Create account',
     'createTask': 'Create task',
     'delete': 'Delete',
@@ -93,6 +94,7 @@ export const es = {
   'buttons': {
     'cancel': 'Cancelar',
     'changePassword': 'Cambiar contraseña',
+    'continue': 'Continuar',
     'createAccount': 'Crear cuenta',
     'createTask': 'Crear tarea',
     'delete': 'Eliminar',

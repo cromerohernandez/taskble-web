@@ -38,6 +38,14 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
     }
   }
 
+  const handleContinueCreate = () => {
+    setRequest(null)
+  }
+
+  const handleCancelCreate = () => {
+    handleClose()
+  }
+
   const handleEdit = () =>  {
     setStateForm('edit')
   }
@@ -108,7 +116,7 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
 
           {(stateForm === 'create' || stateForm === 'edit' || request) && (
             <Modal.Footer>
-              {stateForm === 'create' && (
+              {stateForm === 'create' && request === null && (
                 <Button disabled={formErrors} type='submit' form='taskForm' variant="primary">
                   { texts.buttons.createTask }
                 </Button>
@@ -130,7 +138,14 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
               {request === 'cancelCreate' && (
                 <div>
                   <h4>{texts.headers.cancelCreateTask}</h4>
-                  {/*TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
+
+                  <Button variant="primary" onClick={handleContinueCreate}>
+                    {texts.buttons.continue}
+                  </Button>
+
+                  <Button variant="secondary" onClick={handleCancelCreate}>
+                    {texts.buttons.cancel}
+                  </Button>
                 </div>
               )}
 
