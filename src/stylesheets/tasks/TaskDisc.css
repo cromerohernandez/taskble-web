@@ -9,7 +9,9 @@
   text-align: center;  
   border-radius: 50%;
   cursor: pointer; cursor: hand;
-}
+  transition: height 0.3s, width 0.3s;
+  transition-timing-function: ease-in-out
+ }
 
 #taskDiscContainer:hover {
   height: 8rem;

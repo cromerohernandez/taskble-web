@@ -1,5 +1,8 @@
-#option-button-container {
+#modalHeader {
   display: flex;
   justify-content: flex-end;
-  align-items: center;
+}
+
+#option-button-container {
+  display: flex
 }
