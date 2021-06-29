@@ -94,7 +94,7 @@ const TaskModal = ({ task, setTask, typeModal, show, setShow }) => {
     <div>
       {((stateForm === 'create') || (stateForm !== 'create')) && show && (
         <Modal show={show} onHide={handleOnHide}>
-          <Modal.Header closeButton>
+          <Modal.Header id='modalHeader'>
             {stateForm === 'view' && (
               <div id='option-button-container'>
                 <OptionButton option={'edit'} onClick={handleEdit} stateForm={stateForm}/>
