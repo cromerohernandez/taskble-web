@@ -108,7 +108,7 @@ const SignUpForm = () => {
           </div>
         )}
 
-        <Input type='email' name='email' placeholder={texts.inputs.email} {...emailHandleInput} />
+        <Input type='text' name='email' placeholder={texts.inputs.email} {...emailHandleInput} />
         {emailTouch && emailError.active && (
           <div /*id='form-error'*/>
             { emailError.message }
