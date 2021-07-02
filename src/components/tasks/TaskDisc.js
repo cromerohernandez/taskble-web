@@ -55,7 +55,7 @@ const TaskDisc = ({ taskData }) => {
       {task && (
         <div onMouseEnter={handleEnterDisc} onMouseLeave={handleLeaveDisc} onClick={handleShow} id='taskDiscContainer' className={setDiscStyle()}>
           <div>
-            <h6>{task.title}</h6>
+            <h6>{task.keyword}</h6>
             <h6>{task.finalPriority}</h6>
           </div>
 
