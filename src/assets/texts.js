@@ -21,7 +21,8 @@ export const en = {
     'logIn': 'Log in',
     'pending': 'Pending',
     'save': 'Save',
-    'sendLoginLink': 'Send login link'
+    'sendLoginLink': 'Send login link',
+    'today': 'Today'
   },
   'errors': {
     'emailFormat': 'invalid email format',
@@ -103,7 +104,8 @@ export const es = {
     'logIn': 'Iniciar sesión',
     'pending': 'Pendiente',
     'save': 'Guardar',
-    'sendLoginLink': 'Enviar enlace de inicio de sesión'
+    'sendLoginLink': 'Enviar enlace de inicio de sesión',
+    'today': 'Hoy'
   },
   'errors': {
     'emailFormat': 'formato de email no válido',
